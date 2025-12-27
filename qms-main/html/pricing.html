@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QuizPro Management System - Pricing</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/pricing.css">
+</head>
+<body>
+    <!-- Header with Navigation -->
+    <header>
+        <nav class="navbar">
+            <a href="../html/index.html" class="logo">
+                <i class="fas fa-brain logo-icon"></i>
+                <span class="logo-text">QuizPro</span>
+            </a>
+            <div class="nav-links">
+                <a href="../html/index.html">Home</a>
+                <a href="../html/features.html">Features</a>
+                <a href="#" class="active">Pricing</a>
+                <a href="../html/about.html">About</a>
+                <a href="../html/contact.html">Contact</a>
+            </div>
+            <div class="auth-buttons">
+                <a href="#" class="btn btn-outline" id="loginBtn">Log In</a>
+                <a href="#" class="btn btn-primary" id="signupBtn">Sign Up</a>
+            </div>
+            
+        </nav>
+    </header>
+ <!-- Login Modal -->
+    <div class="modal" id="loginModal">
+        <div class="modal-content">
+            <button class="close-modal" id="closeLoginModal">&times;</button>
+            <h2>Login to QuizPro</h2>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="loginEmail">Email Address</label>
+                    <input type="email" id="loginEmail" placeholder="Enter your email" required>
+                </div>
+                <div class="form-group">
+                    <label for="loginPassword">Password</label>
+                    <input type="password" id="loginPassword" placeholder="Enter your password" required>
+                </div>
+                <div class="form-group">
+                    <label for="loginRole">Your Role</label>
+                    <select id="loginRole" required>
+                        <option value="">Select your role</option>
+                        <option value="admin">Administrator</option>
+                        <option value="teacher">Teacher</option>
+                        <option value="student">Student</option>
+                        <option value="analyst">Quiz Analyst</option>
+                    </select>
+                </div>
+                <button type="submit" class="modal-btn">Log In</button>
+            </form>
+            <div class="switch-form">
+                Don't have an account? <a href="#" id="switchToSignup">Sign up here</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Signup Modal -->
+    <div class="modal" id="signupModal">
+        <div class="modal-content">
+            <button class="close-modal" id="closeSignupModal">&times;</button>
+            <h2>Create QuizPro Account</h2>
+            <form id="signupForm">
+                <div class="form-group">
+                    <label for="signupName">Full Name</label>
+                    <input type="text" id="signupName" placeholder="Enter your full name" required>
+                </div>
+                <div class="form-group">
+                    <label for="signupEmail">Email Address</label>
+                    <input type="email" id="signupEmail" placeholder="Enter your email" required>
+                </div>
+                <div class="form-group">
+                    <label for="signupPassword">Password</label>
+                    <input type="password" id="signupPassword" placeholder="Create a password" required>
+                </div>
+                <div class="form-group">
+                    <label for="signupRole">Select Your Role</label>
+                    <select id="signupRole" required>
+                        <option value="">Choose your role</option>
+                        <option value="admin">Administrator</option>
+                        <option value="teacher">Teacher</option>
+                        <option value="student">Student</option>
+                        <option value="analyst">Quiz Analyst</option>
+                    </select>
+                </div>
+                <button type="submit" class="modal-btn">Create Account</button>
+            </form>
+            <div class="switch-form">
+                Already have an account? <a href="#" id="switchToLogin">Log in here</a>
+            </div>
+        </div>
+    </div>
+    <!-- Pricing Hero Section -->
+    <section class="pricing-hero">
+        <div class="pricing-hero-content">
+            <h1>Simple, Transparent Pricing</h1>
+            <p>Choose the perfect plan for your educational institution or organization</p>
+            <div class="billing-toggle">
+                <span>Monthly</span>
+                <label class="toggle">
+                    <input type="checkbox" id="billingToggle">
+                    <span class="slider"></span>
+                </label>
+                <span>Annual <span class="discount-badge">Save 20%</span></span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Pricing Plans Section -->
+        <section class="pricing-plans">
+            <div class="plans-container">
+                <div class="plan-card" data-plan="basic">
+                    <div class="plan-header">
+                        <h3>Basic</h3>
+                        <div class="price">
+                            <span class="currency">$</span>
+                            <span class="amount" data-monthly="19" data-annual="15">19</span>
+                            <span class="period">/month</span>
+                        </div>
+                        <p>Perfect for individual educators and small classrooms</p>
+                    </div>
+                    <div class="plan-features">
+                        <ul>
+                            <li><i class="fas fa-check"></i> Up to 50 students</li>
+                            <li><i class="fas fa-check"></i> 5 quiz templates</li>
+                            <li><i class="fas fa-check"></i> Basic analytics</li>
+                            <li><i class="fas fa-check"></i> Email support</li>
+                            <li><i class="fas fa-times"></i> Advanced reporting</li>
+                            <li><i class="fas fa-times"></i> Custom branding</li>
+                            <li><i class="fas fa-times"></i> API access</li>
+                        </ul>
+                    </div>
+                    <div class="plan-footer">
+                        <button class="btn btn-outline plan-select">Select Plan</button>
+                    </div>
+                </div>
+
+                <div class="plan-card featured" data-plan="professional">
+                    <div class="plan-badge">Most Popular</div>
+                    <div class="plan-header">
+                        <h3>Professional</h3>
+                        <div class="price">
+                            <span class="currency">$</span>
+                            <span class="amount" data-monthly="49" data-annual="39">49</span>
+                            <span class="period">/month</span>
+                        </div>
+                        <p>Ideal for schools and training departments</p>
+                    </div>
+                    <div class="plan-features">
+                        <ul>
+                            <li><i class="fas fa-check"></i> Up to 500 students</li>
+                            <li><i class="fas fa-check"></i> 20 quiz templates</li>
+                            <li><i class="fas fa-check"></i> Advanced analytics</li>
+                            <li><i class="fas fa-check"></i> Priority support</li>
+                            <li><i class="fas fa-check"></i> Custom branding</li>
+                            <li><i class="fas fa-check"></i> Bulk user management</li>
+                            <li><i class="fas fa-times"></i> API access</li>
+                        </ul>
+                    </div>
+                    <div class="plan-footer">
+                        <button class="btn btn-primary plan-select">Select Plan</button>
+                    </div>
+                </div>
+
+                <div class="plan-card" data-plan="enterprise">
+                    <div class="plan-header">
+                        <h3>Enterprise</h3>
+                        <div class="price">
+                            <span class="currency">$</span>
+                            <span class="amount" data-monthly="99" data-annual="79">99</span>
+                            <span class="period">/month</span>
+                        </div>
+                        <p>For large institutions and corporations</p>
+                    </div>
+                    <div class="plan-features">
+                        <ul>
+                            <li><i class="fas fa-check"></i> Unlimited students</li>
+                            <li><i class="fas fa-check"></i> Unlimited templates</li>
+                            <li><i class="fas fa-check"></i> Premium analytics</li>
+                            <li><i class="fas fa-check"></i> 24/7 dedicated support</li>
+                            <li><i class="fas fa-check"></i> White-label solution</li>
+                            <li><i class="fas fa-check"></i> Advanced security</li>
+                            <li><i class="fas fa-check"></i> Full API access</li>
+                        </ul>
+                    </div>
+                    <div class="plan-footer">
+                        <button class="btn btn-outline plan-select">Select Plan</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ Section -->
+        <section class="faq-section">
+            <div class="section-title">
+                <h2>Frequently Asked Questions</h2>
+                <p>Find answers to common questions about QuizPro pricing and plans</p>
+            </div>
+            
+            <div class="faq-container">
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>Can I change my plan later?</h3>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Yes, you can upgrade or downgrade your plan at any time. When upgrading, you'll be charged the prorated difference for the remainder of your billing cycle. When downgrading, the changes will take effect at the start of your next billing cycle.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>Is there a free trial available?</h3>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Yes, we offer a 14-day free trial for all our paid plans. No credit card is required to start your trial. You'll have full access to all features of the plan you choose during the trial period.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>What payment methods do you accept?</h3>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>We accept all major credit cards (Visa, MasterCard, American Express), PayPal, and for Enterprise plans we also support bank transfers and purchase orders.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>Do you offer discounts for educational institutions?</h3>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Yes, we offer special pricing for accredited educational institutions. Please contact our sales team with your institution details to learn more about our education discounts.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section class="pricing-cta">
+            <div class="cta-content">
+                <h2>Ready to get started with QuizPro?</h2>
+                <p>Join thousands of educators and organizations using QuizPro for their assessment needs</p>
+                <div class="cta-buttons">
+                    <a href="#" class="btn btn-primary">Start Free Trial</a>
+                    <a href="../html/contact.html" class="btn btn-outline">Contact Sales</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-column">
+                <h3>QuizPro</h3>
+                <p>Professional assessment management platform for educational institutions and corporate training.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Quick Links</h3>
+                <ul class="footer-links">
+                    <li><a href="../html/index.html">Home</a></li>
+                    <li><a href="../html/features.html">Features</a></li>
+                    <li><a href="../html/pricing.html">Pricing</a></li>
+                    <li><a href="../html/about.html">About Us</a></li>
+                    <li><a href="../html/contact.html">Contact</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Resources</h3>
+                <ul class="footer-links">
+                    <li><a href="../html/docs.html">Documentation</a></li>
+                    <li><a href="../html/support.html">Support Center</a></li>
+                    <li><a href="../html/community.html">Community</a></li>
+                    <li><a href="../html/blog.html">Blog</a></li>
+                    <li><a href="../html/webinars.html">Webinars</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Contact Us</h3>
+                <ul class="footer-links">
+                    <li><i class="fas fa-map-marker-alt"></i> 123 Business Ave, Suite 100</li>
+                    <li><i class="fas fa-phone"></i> +1 (555) 123-4567</li>
+                    <li><i class="fas fa-envelope"></i> info@quizpro.com</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; 2023 QuizPro Management System. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="../js/pricing.js"></script>
+</body>
+</html>

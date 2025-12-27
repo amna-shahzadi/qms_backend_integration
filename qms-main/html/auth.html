@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Access Portal</title>
+    <style>
+        /* CSS Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        /* Background with gradient and subtle animation */
+        body {
+            background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+            background-size: 400% 400%;
+            animation: gradient 15s ease infinite;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        @keyframes gradient {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        /* Floating particles for background effect */
+        .particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+        .particle {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            animation: float 15s infinite linear;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-1000px) rotate(720deg);
+                opacity: 0;
+            }
+        }
+
+        /* Main container styling */
+        .auth-container {
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 16px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            width: 90%;
+            max-width: 450px;
+            padding: 30px 25px;
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+            transition: transform 0.3s ease;
+        }
+
+        .auth-container:hover {
+            transform: translateY(-5px);
+        }
+
+        /* Header styling */
+        .auth-container h1 {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 25px;
+            font-weight: 600;
+            font-size: 28px;
+            position: relative;
+        }
+
+        .auth-container h1::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(to right, #3498db, #2ecc71);
+            border-radius: 3px;
+        }
+
+        /* Form styling */
+        .auth-form {
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+
+        .auth-form h2 {
+            color: #34495e;
+            margin-bottom: 20px;
+            text-align: center;
+            font-weight: 500;
+        }
+
+        /* Input group styling */
+        .input-group {
+            margin-bottom: 18px;
+            position: relative;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 6px;
+            color: #2c3e50;
+            font-weight: 500;
+            font-size: 14px;
+        }
+
+        .input-group input,
+        .input-group select {
+            width: 100%;
+            padding: 12px 14px;
+            border: 2px solid #e1e8ed;
+            border-radius: 8px;
+            font-size: 15px;
+            transition: all 0.3s ease;
+            background-color: #f9fafb;
+        }
+
+        .input-group input:focus,
+        .input-group select:focus {
+            outline: none;
+            border-color: #3498db;
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+            background-color: white;
+        }
+
+        /* Button styling - REDUCED HEIGHT */
+        .auth-btn {
+            width: 100%;
+            padding: 10px 12px;
+            border: none;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 8px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .login-btn {
+            background: linear-gradient(to right, #3498db, #2980b9);
+            color: white;
+        }
+
+        .signup-btn {
+            background: linear-gradient(to right, #2ecc71, #27ae60);
+            color: white;
+        }
+
+        .forgot-btn {
+            background: transparent;
+            color: #3498db;
+            border: 2px solid #3498db;
+            margin-top: 5px;
+            padding: 8px 12px;
+        }
+
+        .reset-btn {
+            background: linear-gradient(to right, #e74c3c, #c0392b);
+            color: white;
+        }
+
+        .cancel-btn {
+            background: #95a5a6;
+            color: white;
+        }
+
+        .auth-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .auth-btn:active {
+            transform: translateY(0);
+        }
+
+        .forgot-btn:hover {
+            background: rgba(52, 152, 219, 0.1);
+        }
+
+        /* Form switch styling */
+        .auth-switch {
+            text-align: center;
+            margin-top: 20px;
+            color: #7f8c8d;
+            font-size: 14px;
+        }
+
+        .switch-link {
+            color: #3498db;
+            cursor: pointer;
+            font-weight: 600;
+            transition: color 0.2s ease;
+        }
+
+        .switch-link:hover {
+            color: #2980b9;
+            text-decoration: underline;
+        }
+
+        /* Hidden form */
+        .hidden {
+            display: none;
+        }
+
+        /* Role indicator */
+        .role-indicator {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: linear-gradient(to right, #3498db, #2ecc71);
+            color: white;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        /* Modal styles */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal {
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+            width: 90%;
+            max-width: 450px;
+            padding: 25px;
+            transform: translateY(-20px);
+            transition: transform 0.3s ease;
+        }
+
+        .modal-overlay.active .modal {
+            transform: translateY(0);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 18px;
+        }
+
+        .modal-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 1.4rem;
+            cursor: pointer;
+            color: #7f8c8d;
+            transition: color 0.2s ease;
+        }
+
+        .modal-close:hover {
+            color: #2c3e50;
+        }
+
+        .modal-body {
+            margin-bottom: 20px;
+        }
+
+        .modal-footer {
+            display: flex;
+            gap: 12px;
+        }
+
+        .modal-message {
+            background-color: #e8f6f3;
+            border-left: 4px solid #2ecc71;
+            padding: 12px;
+            border-radius: 4px;
+            margin-top: 12px;
+            display: none;
+            font-size: 14px;
+        }
+
+        .modal-message.error {
+            background-color: #fdedec;
+            border-left-color: #e74c3c;
+        }
+
+        /* Responsive design */
+        @media (max-width: 480px) {
+            .auth-container {
+                padding: 25px 20px;
+                width: 95%;
+            }
+            
+            .auth-container h1 {
+                font-size: 24px;
+            }
+
+            .modal-footer {
+                flex-direction: column;
+            }
+            
+            .auth-btn {
+                padding: 9px 12px;
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Background particles -->
+    <div class="particles" id="particles"></div>
+
+    <div class="auth-container">
+        <div class="role-indicator" id="role-indicator">User</div>
+        <h1 id="auth-heading">Account Access</h1>
+
+        <form id="login-form" class="auth-form">
+            <h2>Login</h2>
+            <div class="input-group">
+                <label for="login-email">Email Address</label>
+                <input type="email" id="login-email" required placeholder="Enter your email">
+            </div>
+            <div class="input-group">
+                <label for="login-password">Password</label>
+                <input type="password" id="login-password" required placeholder="Enter your password">
+            </div>
+            <button type="submit" class="auth-btn login-btn">Login</button>
+            <button type="button" class="auth-btn forgot-btn" id="forgot-password-btn">Forgot Password?</button>
+            
+            <p class="auth-switch">Don't have an account? <span id="show-signup" class="switch-link">Sign up here</span>
+            </p>
+        </form>
+
+        <form id="signup-form" class="auth-form hidden">
+            <h2>Sign Up</h2>
+            <div class="input-group">
+                <label for="signup-name">Full Name</label>
+                <input type="text" id="signup-name" required placeholder="Enter your full name">
+            </div>
+            <div class="input-group">
+                <label for="signup-email">Email Address</label>
+                <input type="email" id="signup-email" required placeholder="Enter your email">
+            </div>
+            <div class="input-group">
+                <label for="signup-password">Password</label>
+                <input type="password" id="signup-password" required placeholder="Create a strong password">
+            </div>
+
+            <div class="input-group">
+                <label for="signup-subject">Role</label>
+                <select id="signup-subject" required>
+                    <option value="" disabled selected>-- select role --</option>
+                    <option value="admin">Admin</option>
+                    <option value="teacher">Teacher</option>
+                    <option value="student">Student</option>
+                    <option value="analyst">Analyst</option>
+                </select>
+            </div>
+            <button type="submit" class="auth-btn signup-btn">Sign Up</button>
+            
+            <p class="auth-switch">Already have an account? <span id="show-login" class="switch-link">Login here</span>
+            </p>
+        </form>
+    </div>
+
+    <!-- Forgot Password Modal -->
+    <div class="modal-overlay" id="forgot-password-modal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 class="modal-title">Reset Your Password</h3>
+                <button class="modal-close" id="forgot-modal-close">
+                    ✕
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Enter your email address and we'll send you a link to reset your password.</p>
+                <div class="input-group">
+                    <label for="reset-email">Email Address</label>
+                    <input type="email" id="reset-email" required placeholder="Enter your email">
+                </div>
+                <div class="modal-message" id="reset-message"></div>
+            </div>
+            <div class="modal-footer">
+                <button class="auth-btn cancel-btn" id="reset-cancel-btn">Cancel</button>
+                <button class="auth-btn reset-btn" id="reset-submit-btn">Send Reset Link</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Get DOM elements
+        const loginForm = document.getElementById('login-form');
+        const signupForm = document.getElementById('signup-form');
+        const showSignupLink = document.getElementById('show-signup');
+        const showLoginLink = document.getElementById('show-login');
+        const authHeading = document.getElementById('auth-heading');
+        const roleIndicator = document.getElementById('role-indicator');
+        const particlesContainer = document.getElementById('particles');
+        const forgotPasswordBtn = document.getElementById('forgot-password-btn');
+        const forgotPasswordModal = document.getElementById('forgot-password-modal');
+        const forgotModalClose = document.getElementById('forgot-modal-close');
+        const resetCancelBtn = document.getElementById('reset-cancel-btn');
+        const resetSubmitBtn = document.getElementById('reset-submit-btn');
+        const resetEmail = document.getElementById('reset-email');
+        const resetMessage = document.getElementById('reset-message');
+
+        // Create background particles
+        function createParticles() {
+            const particleCount = 30;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                
+                // Random properties
+                const size = Math.random() * 30 + 10;
+                const left = Math.random() * 100;
+                const animationDuration = Math.random() * 20 + 10;
+                const animationDelay = Math.random() * 5;
+                
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                particle.style.left = `${left}%`;
+                particle.style.animationDuration = `${animationDuration}s`;
+                particle.style.animationDelay = `${animationDelay}s`;
+                
+                particlesContainer.appendChild(particle);
+            }
+        }
+
+        // 1. Get Role from URL and set Heading/Title
+        function setAuthPageDetails() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const role = urlParams.get('role') || 'user';
+
+            // Capitalize the role for display
+            const capitalizedRole = role.charAt(0).toUpperCase() + role.slice(1);
+
+            // Update Heading and Title
+            authHeading.innerText = `${capitalizedRole} Account Access`;
+            document.title = `${capitalizedRole} Login/Signup`;
+            roleIndicator.innerText = capitalizedRole;
+        }
+
+        // 2. Form Submission Handling
+        loginForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const data = {
+                email: document.getElementById("login-email").value,
+                password: document.getElementById("login-password").value
+            };
+
+            const res = await fetch("http://localhost/quiz_php-main/backend/login.php", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(data)
+            });
+
+            const result = await res.json();
+
+            if (result.status === "success") {
+                // Store user data in localStorage
+                localStorage.setItem('user_name', result.name);
+                localStorage.setItem('user_role', result.role);
+                localStorage.setItem('user_id', result.user_id);
+                
+                // Redirect based on role
+                window.location.href = `${result.role}.html`;
+            } else {
+                alert(result.message);
+            }
+        });
+
+        // Signup Submission
+        signupForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const data = {
+                name: document.getElementById("signup-name").value,
+                email: document.getElementById("signup-email").value,
+                password: document.getElementById("signup-password").value,
+                role: document.getElementById("signup-subject").value
+            };
+
+            const res = await fetch("http://localhost/quiz_php-main/backend/signup.php", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(data)
+            });
+
+            const result = await res.json();
+
+            if (result.status === "success") {
+                alert("Signup successful!");
+                showForm("login");
+            } else {
+                alert(result.message);
+            }
+        });
+
+        // 3. Form Switching Logic (Login <-> Signup)
+        function showForm(formType) {
+            if (formType === 'login') {
+                loginForm.classList.remove('hidden');
+                signupForm.classList.add('hidden');
+            } else {
+                loginForm.classList.add('hidden');
+                signupForm.classList.remove('hidden');
+            }
+        }
+
+        // Forgot Password Modal Functions
+        function showForgotPasswordModal() {
+            forgotPasswordModal.classList.add('active');
+            resetEmail.value = '';
+            resetMessage.style.display = 'none';
+            resetMessage.className = 'modal-message';
+        }
+
+        function closeForgotPasswordModal() {
+            forgotPasswordModal.classList.remove('active');
+        }
+
+        function submitPasswordReset() {
+            const email = resetEmail.value.trim();
+            
+            if (!email) {
+                showResetMessage('Please enter your email address.', 'error');
+                return;
+            }
+            
+            if (!isValidEmail(email)) {
+                showResetMessage('Please enter a valid email address.', 'error');
+                return;
+            }
+            
+            // Simulate sending reset email
+            showResetMessage(`Password reset link has been sent to ${email}. Please check your inbox.`);
+            
+            // Clear the input
+            resetEmail.value = '';
+            
+            // Close modal after 3 seconds
+            setTimeout(() => {
+                closeForgotPasswordModal();
+            }, 3000);
+        }
+
+        function showResetMessage(message, type = 'success') {
+            resetMessage.textContent = message;
+            resetMessage.className = `modal-message ${type}`;
+            resetMessage.style.display = 'block';
+        }
+
+        function isValidEmail(email) {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return emailRegex.test(email);
+        }
+
+        // Event Listeners for switching
+        showSignupLink.addEventListener('click', () => showForm('signup'));
+        showLoginLink.addEventListener('click', () => showForm('login'));
+
+        // Forgot password event listeners
+        forgotPasswordBtn.addEventListener('click', showForgotPasswordModal);
+        forgotModalClose.addEventListener('click', closeForgotPasswordModal);
+        resetCancelBtn.addEventListener('click', closeForgotPasswordModal);
+        resetSubmitBtn.addEventListener('click', submitPasswordReset);
+
+        // Close modal when clicking outside
+        forgotPasswordModal.addEventListener('click', (e) => {
+            if (e.target === forgotPasswordModal) {
+                closeForgotPasswordModal();
+            }
+        });
+
+        // Submit reset form on Enter key
+        resetEmail.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                submitPasswordReset();
+            }
+        });
+
+        // Initialize the page
+        createParticles();
+        setAuthPageDetails();
+    </script>
+</body>
+
+</html>

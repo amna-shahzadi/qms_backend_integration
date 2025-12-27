@@ -1,0 +1,1086 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QuizPro - Attempt Quiz</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* CSS Variables - Matching QuizPro Theme */
+        :root {
+            --primary: #4f46e5;
+            --primary-dark: #4338ca;
+            --secondary: #7c73e6;
+            --accent: #10b981;
+            --light: #f8fafc;
+            --dark: #1e293b;
+            --gray: #64748b;
+            --white: #ffffff;
+            --error: #ef4444;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --info: #3b82f6;
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            --transition: all 0.3s ease;
+        }
+
+        [data-theme="dark"] {
+            --light: #1e293b;
+            --dark: #f1f5f9;
+            --white: #334155;
+            --gray: #94a3b8;
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: var(--dark);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            transition: var(--transition);
+        }
+
+        .auth-container {
+            background: var(--white);
+            border-radius: 16px;
+            box-shadow: var(--shadow);
+            padding: 40px;
+            width: 100%;
+            max-width: 800px;
+            transition: var(--transition);
+        }
+
+        h1 {
+            color: var(--dark);
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+
+        .greeting-message {
+            text-align: center;
+            color: var(--gray);
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+
+        .form-section-card {
+            background: var(--white);
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+            padding: 30px;
+            margin-bottom: 20px;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        /* Timer Styles */
+        #time-left {
+            font-weight: 700;
+            color: var(--primary);
+            font-size: 1.2rem;
+        }
+
+        .timer-warning {
+            color: var(--warning) !important;
+        }
+
+        .timer-critical {
+            color: var(--error) !important;
+            animation: pulse 1s infinite;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+
+        /* Quiz Question Styles */
+        .quiz-question-card {
+            display: none;
+            padding: 20px;
+            border: 1px solid #e2e8f0;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            transition: var(--transition);
+        }
+
+        .quiz-question-card.active-question {
+            display: block;
+            border-color: var(--primary);
+            box-shadow: 0 4px 12px rgba(79, 70, 229, 0.1);
+        }
+
+        .question-number {
+            color: var(--primary);
+            font-weight: 600;
+            margin-bottom: 10px;
+            font-size: 0.9rem;
+        }
+
+        .question-text {
+            color: var(--dark);
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+
+        .options-container {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .option-label {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: var(--transition);
+            background: var(--white);
+        }
+
+        .option-label:hover {
+            border-color: var(--primary);
+            background: rgba(79, 70, 229, 0.05);
+        }
+
+        .option-label input[type="radio"] {
+            margin-right: 12px;
+            transform: scale(1.2);
+        }
+
+        .option-text {
+            flex: 1;
+            color: var(--dark);
+            font-weight: 500;
+        }
+
+        /* Correct/Incorrect Answer Styles */
+        .option-label.correct {
+            border-color: var(--success);
+            background: rgba(16, 185, 129, 0.1);
+        }
+
+        .option-label.incorrect {
+            border-color: var(--error);
+            background: rgba(239, 68, 68, 0.1);
+        }
+
+        /* Navigation Styles */
+        .quiz-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 30px;
+            gap: 15px;
+        }
+
+        .action-btn {
+            padding: 12px 24px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .action-btn:hover:not(:disabled) {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+
+        .action-btn:disabled {
+            background: var(--gray);
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .auth-btn {
+            padding: 14px 20px;
+            background: linear-gradient(90deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .auth-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(79, 70, 229, 0.3);
+        }
+
+        .submit-btn {
+            background: linear-gradient(90deg, var(--success) 0%, #0d9c6b 100%);
+        }
+
+        .submit-btn:hover {
+            box-shadow: 0 6px 20px rgba(16, 185, 129, 0.3);
+        }
+
+        /* Result Area Styles */
+        #score-display {
+            text-align: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin: 20px 0;
+            padding: 20px;
+            background: rgba(79, 70, 229, 0.1);
+            border-radius: 10px;
+        }
+
+        .score-excellent {
+            color: var(--success);
+            background: rgba(16, 185, 129, 0.1);
+        }
+
+        .score-good {
+            color: var(--warning);
+            background: rgba(245, 158, 11, 0.1);
+        }
+
+        .score-poor {
+            color: var(--error);
+            background: rgba(239, 68, 68, 0.1);
+        }
+
+        /* Progress Indicator */
+        .progress-indicator {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+
+        .progress-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #e2e8f0;
+            transition: var(--transition);
+        }
+
+        .progress-dot.active {
+            background: var(--primary);
+        }
+
+        .progress-dot.answered {
+            background: var(--success);
+        }
+
+        /* Review Mode Styles */
+        .review-mode .option-label {
+            pointer-events: none;
+        }
+
+        .review-mode .quiz-nav {
+            justify-content: center;
+        }
+
+        .review-mode #submit-quiz-btn {
+            display: none;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .auth-container {
+                padding: 30px 20px;
+            }
+
+            .quiz-nav {
+                flex-direction: column;
+            }
+
+            .action-btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 10px;
+            }
+
+            .auth-container {
+                padding: 25px 15px;
+            }
+
+            h1 {
+                font-size: 1.5rem;
+            }
+
+            .form-section-card {
+                padding: 20px;
+            }
+
+            .option-label {
+                padding: 12px;
+            }
+        }
+    </style>
+</head>
+<body class="auth-body">
+
+    <div class="auth-container">
+        <h1 id="quiz-title-display"><i class="fas fa-brain"></i> Online Quiz</h1>
+        
+        <p class="greeting-message" id="timer-display">
+            <i class="fas fa-clock"></i> Time Left: <span id="time-left">--:--</span>
+        </p>
+
+        <!-- Progress Indicator -->
+        <div class="progress-indicator" id="progress-indicator">
+            <!-- Progress dots will be dynamically inserted -->
+        </div>
+
+        <div id="quiz-area" class="form-section-card">
+            
+            <div id="questions-container">
+                <!-- Questions will be dynamically inserted here -->
+            </div>
+            
+            <div class="quiz-nav">
+                <button id="prev-btn" class="action-btn" disabled>
+                    <i class="fas fa-arrow-left"></i> Previous
+                </button>
+                <button id="next-btn" class="action-btn">
+                    Next <i class="fas fa-arrow-right"></i>
+                </button>
+                <button id="submit-quiz-btn" class="auth-btn submit-btn hidden">
+                    <i class="fas fa-paper-plane"></i> Submit Quiz
+                </button>
+            </div>
+            
+        </div>
+        
+        <div id="result-area" class="form-section-card hidden">
+            <h2><i class="fas fa-trophy"></i> Quiz Complete!</h2>
+            <div id="score-display"></div>
+            <p class="greeting-message">Review your answers below:</p>
+            
+            <!-- Review questions container -->
+            <div id="review-questions-container" style="margin: 20px 0;">
+                <!-- Questions with answers will be shown here -->
+            </div>
+            
+            <div style="display: flex; gap: 15px; justify-content: center; margin-top: 20px;">
+                <button id="back-to-home-btn" class="auth-btn login-btn">
+                    <i class="fas fa-home"></i> Back to Selection
+                </button>
+                <button id="retake-quiz-btn" class="auth-btn" style="background: var(--info);">
+                    <i class="fas fa-redo"></i> Retake Quiz
+                </button>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        // Hard-coded quiz data - matches the guest.html quizzes
+        const hardcodedQuizzes = {
+            'web-dev-1': {
+                id: 'web-dev-1',
+                title: 'HTML Fundamentals',
+                duration: 30,
+                questions: [
+                    {
+                        id: 1,
+                        text: "What does HTML stand for?",
+                        options: {
+                            a: "Hyper Text Markup Language",
+                            b: "High Tech Modern Language",
+                            c: "Hyper Transfer Markup Language",
+                            d: "Home Tool Markup Language"
+                        },
+                        correctAnswer: "a",
+                        explanation: "HTML stands for Hyper Text Markup Language, which is the standard markup language for creating web pages."
+                    },
+                    {
+                        id: 2,
+                        text: "Which attribute is used to specify an alternate text for an image?",
+                        options: {
+                            a: "src",
+                            b: "alt",
+                            c: "title",
+                            d: "href"
+                        },
+                        correctAnswer: "b",
+                        explanation: "The 'alt' attribute provides alternative text for an image if it cannot be displayed."
+                    }
+                ]
+            },
+            'web-dev-2': {
+                id: 'web-dev-2',
+                title: 'CSS Selectors',
+                duration: 20,
+                questions: [
+                    {
+                        id: 1,
+                        text: "Which CSS property is used to change the text color?",
+                        options: {
+                            a: "text-color",
+                            b: "font-color",
+                            c: "color",
+                            d: "foreground"
+                        },
+                        correctAnswer: "c",
+                        explanation: "The 'color' property is used to set the color of text in CSS."
+                    },
+                    {
+                        id: 2,
+                        text: "How do you select an element with id 'header' in CSS?",
+                        options: {
+                            a: ".header",
+                            b: "#header",
+                            c: "header",
+                            d: "*header"
+                        },
+                        correctAnswer: "b",
+                        explanation: "The '#' symbol is used to select elements by their id in CSS."
+                    },
+                    {
+                        id: 3,
+                        text: "Which property is used to change the font of an element?",
+                        options: {
+                            a: "font-style",
+                            b: "text-font",
+                            c: "font-family",
+                            d: "font-type"
+                        },
+                        correctAnswer: "c",
+                        explanation: "The 'font-family' property is used to specify the font of text."
+                    },
+                    {
+                        id: 4,
+                        text: "How do you make a list not display bullet points?",
+                        options: {
+                            a: "list-style: none",
+                            b: "list-type: none",
+                            c: "bullets: none",
+                            d: "list-bullet: none"
+                        },
+                        correctAnswer: "a",
+                        explanation: "list-style: none removes bullet points from lists."
+                    }
+                ]
+            },
+            'math-1': {
+                id: 'math-1',
+                title: 'Algebra Foundations',
+                duration: 45,
+                questions: [
+                    {
+                        id: 1,
+                        text: "Solve for x: 2x + 5 = 15",
+                        options: {
+                            a: "x = 5",
+                            b: "x = 10",
+                            c: "x = 7.5",
+                            d: "x = 20"
+                        },
+                        correctAnswer: "a",
+                        explanation: "2x + 5 = 15 → 2x = 10 → x = 5"
+                    },
+                    {
+                        id: 2,
+                        text: "What is the value of 3² + 4²?",
+                        options: {
+                            a: "7",
+                            b: "12",
+                            c: "25",
+                            d: "49"
+                        },
+                        correctAnswer: "c",
+                        explanation: "3² = 9, 4² = 16, 9 + 16 = 25"
+                    },
+                    {
+                        id: 3,
+                        text: "Simplify: 3(x + 4) - 2x",
+                        options: {
+                            a: "x + 12",
+                            b: "5x + 4",
+                            c: "x + 4",
+                            d: "3x + 12"
+                        },
+                        correctAnswer: "a",
+                        explanation: "3(x + 4) - 2x = 3x + 12 - 2x = x + 12"
+                    },
+                    {
+                        id: 4,
+                        text: "If y = 2x + 3, what is y when x = 4?",
+                        options: {
+                            a: "8",
+                            b: "11",
+                            c: "14",
+                            d: "5"
+                        },
+                        correctAnswer: "b",
+                        explanation: "y = 2(4) + 3 = 8 + 3 = 11"
+                    }
+                ]
+            },
+            'history-1': {
+                id: 'history-1',
+                title: 'World History Overview',
+                duration: 30,
+                questions: [
+                    {
+                        id: 1,
+                        text: "In which year did World War II end?",
+                        options: {
+                            a: "1945",
+                            b: "1939",
+                            c: "1918",
+                            d: "1950"
+                        },
+                        correctAnswer: "a",
+                        explanation: "World War II ended in 1945 with the surrender of Germany and Japan."
+                    },
+                    {
+                        id: 2,
+                        text: "Who was the first President of the United States?",
+                        options: {
+                            a: "Thomas Jefferson",
+                            b: "Abraham Lincoln",
+                            c: "George Washington",
+                            d: "John Adams"
+                        },
+                        correctAnswer: "c",
+                        explanation: "George Washington served as the first President from 1789 to 1797."
+                    },
+                    {
+                        id: 3,
+                        text: "Which ancient civilization built the pyramids?",
+                        options: {
+                            a: "Romans",
+                            b: "Greeks",
+                            c: "Egyptians",
+                            d: "Mayans"
+                        },
+                        correctAnswer: "c",
+                        explanation: "The ancient Egyptians built the pyramids as tombs for pharaohs."
+                    },
+                    {
+                        id: 4,
+                        text: "When did the French Revolution begin?",
+                        options: {
+                            a: "1776",
+                            b: "1789",
+                            c: "1799",
+                            d: "1812"
+                        },
+                        correctAnswer: "b",
+                        explanation: "The French Revolution began in 1789 with the storming of the Bastille."
+                    }
+                ]
+            },
+            'science-1': {
+                id: 'science-1',
+                title: 'Cell Structure',
+                duration: 25,
+                questions: [
+                    {
+                        id: 1,
+                        text: "What is the powerhouse of the cell?",
+                        options: {
+                            a: "Nucleus",
+                            b: "Mitochondria",
+                            c: "Ribosome",
+                            d: "Golgi Apparatus"
+                        },
+                        correctAnswer: "b",
+                        explanation: "Mitochondria are known as the powerhouse of the cell because they produce energy (ATP)."
+                    },
+                    {
+                        id: 2,
+                        text: "Which organelle contains DNA?",
+                        options: {
+                            a: "Mitochondria",
+                            b: "Nucleus",
+                            c: "Endoplasmic Reticulum",
+                            d: "Both a and b"
+                        },
+                        correctAnswer: "d",
+                        explanation: "Both the nucleus and mitochondria contain DNA in eukaryotic cells."
+                    },
+                    {
+                        id: 3,
+                        text: "What is the function of ribosomes?",
+                        options: {
+                            a: "Energy production",
+                            b: "Protein synthesis",
+                            c: "Cellular digestion",
+                            d: "Transport"
+                        },
+                        correctAnswer: "b",
+                        explanation: "Ribosomes are responsible for protein synthesis in cells."
+                    },
+                    {
+                        id: 4,
+                        text: "Which structure is found in plant cells but not animal cells?",
+                        options: {
+                            a: "Cell membrane",
+                            b: "Nucleus",
+                            c: "Chloroplast",
+                            d: "Mitochondria"
+                        },
+                        correctAnswer: "c",
+                        explanation: "Chloroplasts are found in plant cells and are responsible for photosynthesis."
+                    }
+                ]
+            }
+        };
+
+        document.addEventListener('DOMContentLoaded', () => {
+            // DOM Elements
+            const quizTitleDisplay = document.getElementById('quiz-title-display');
+            const questionsContainer = document.getElementById('questions-container');
+            const reviewQuestionsContainer = document.getElementById('review-questions-container');
+            const quizArea = document.getElementById('quiz-area');
+            const resultArea = document.getElementById('result-area');
+            const scoreDisplay = document.getElementById('score-display');
+            const prevBtn = document.getElementById('prev-btn');
+            const nextBtn = document.getElementById('next-btn');
+            const submitBtn = document.getElementById('submit-quiz-btn');
+            const backToHomeBtn = document.getElementById('back-to-home-btn');
+            const retakeQuizBtn = document.getElementById('retake-quiz-btn');
+            const timeLeftDisplay = document.getElementById('time-left');
+            const timerDisplay = document.getElementById('timer-display');
+            const progressIndicator = document.getElementById('progress-indicator');
+
+            // State Variables
+            let currentQuestionIndex = 0;
+            let userAnswers = {};
+            let quizData = {};
+            let quizMode = 'attempt'; // 'attempt' or 'review'
+            let quizQuestions = [];
+
+            // Timer Variables
+            let timeLeft = 600; // 10 minutes in seconds
+            let timerInterval;
+
+            // Initialize Quiz
+            function initializeQuiz() {
+                // Get quiz data from localStorage or URL parameters
+                const storedQuiz = localStorage.getItem('currentQuiz');
+                const storedMode = localStorage.getItem('quizMode');
+                
+                if (storedQuiz) {
+                    // Use localStorage data
+                    quizData = JSON.parse(storedQuiz);
+                    quizMode = storedMode || 'attempt';
+                } else {
+                    // Try to get from URL parameters
+                    const urlParams = new URLSearchParams(window.location.search);
+                    const quizId = urlParams.get('quiz');
+                    
+                    if (quizId && hardcodedQuizzes[quizId]) {
+                        quizData = hardcodedQuizzes[quizId];
+                        quizMode = urlParams.get('mode') || 'attempt';
+                    } else {
+                        // Default to first quiz if none specified
+                        quizData = hardcodedQuizzes['web-dev-1'];
+                        quizMode = 'attempt';
+                    }
+                }
+
+                quizQuestions = quizData.questions || [];
+
+                // Set quiz title
+                quizTitleDisplay.innerHTML = `<i class="fas fa-brain"></i> ${quizData.title}`;
+
+                // Handle review mode
+                if (quizMode === 'review') {
+                    handleReviewMode();
+                } else {
+                    handleAttemptMode();
+                }
+            }
+
+            function handleReviewMode() {
+                // Hide timer for review mode
+                timerDisplay.style.display = 'none';
+                
+                // Add review mode class
+                quizArea.classList.add('review-mode');
+                
+                // Load questions in review mode (all answers visible)
+                loadQuestions();
+                
+                // Show all questions at once for review
+                showAllQuestionsForReview();
+            }
+
+            function handleAttemptMode() {
+                // Show timer for attempt mode
+                timerDisplay.style.display = 'block';
+                
+                // Load questions normally
+                loadQuestions();
+                showQuestion(currentQuestionIndex);
+                attachOptionListeners();
+                startTimer();
+            }
+
+            function showAllQuestionsForReview() {
+                const cards = questionsContainer.querySelectorAll('.quiz-question-card');
+                cards.forEach(card => {
+                    card.style.display = 'block';
+                    card.classList.remove('active-question');
+                    
+                    // Show correct answers and explanations
+                    const qId = parseInt(card.getAttribute('data-id'));
+                    const question = quizQuestions.find(q => q.id === qId);
+                    
+                    if (question) {
+                        const options = card.querySelectorAll('.option-label');
+                        options.forEach(option => {
+                            const input = option.querySelector('input');
+                            if (input.value === question.correctAnswer) {
+                                option.classList.add('correct');
+                                // Add check mark
+                                if (!option.querySelector('.fa-check')) {
+                                    const checkIcon = document.createElement('i');
+                                    checkIcon.className = 'fas fa-check';
+                                    checkIcon.style.color = 'var(--success)';
+                                    checkIcon.style.marginLeft = '10px';
+                                    option.appendChild(checkIcon);
+                                }
+                            }
+                            
+                            // Add explanation if available
+                            if (question.explanation && !card.querySelector('.explanation')) {
+                                const explanationDiv = document.createElement('div');
+                                explanationDiv.className = 'explanation';
+                                explanationDiv.style.marginTop = '15px';
+                                explanationDiv.style.padding = '12px';
+                                explanationDiv.style.background = 'rgba(79, 70, 229, 0.1)';
+                                explanationDiv.style.borderRadius = '6px';
+                                explanationDiv.style.fontSize = '0.9rem';
+                                explanationDiv.innerHTML = `<strong><i class="fas fa-lightbulb"></i> Explanation:</strong> ${question.explanation}`;
+                                card.appendChild(explanationDiv);
+                            }
+                        });
+                    }
+                });
+
+                // Hide navigation buttons in review mode
+                prevBtn.style.display = 'none';
+                nextBtn.style.display = 'none';
+                submitBtn.style.display = 'none';
+            }
+
+            // Timer Functions
+            function formatTime(seconds) {
+                const minutes = Math.floor(seconds / 60);
+                const remainingSeconds = seconds % 60;
+                const paddedMinutes = String(minutes).padStart(2, '0');
+                const paddedSeconds = String(remainingSeconds).padStart(2, '0');
+                return `${paddedMinutes}:${paddedSeconds}`;
+            }
+
+            function startTimer() {
+                // Set time based on quiz duration
+                timeLeft = (quizData.duration || 10) * 60; // Convert minutes to seconds
+                
+                timeLeftDisplay.textContent = formatTime(timeLeft);
+                timeLeftDisplay.classList.remove('timer-warning', 'timer-critical');
+
+                timerInterval = setInterval(() => {
+                    timeLeft--;
+                    timeLeftDisplay.textContent = formatTime(timeLeft);
+
+                    // Add warning styles
+                    if (timeLeft <= 120) { // 2 minutes
+                        timeLeftDisplay.classList.add('timer-warning');
+                    }
+                    if (timeLeft <= 30) { // 30 seconds
+                        timeLeftDisplay.classList.add('timer-critical');
+                    }
+
+                    if (timeLeft <= 0) {
+                        clearInterval(timerInterval);
+                        alert("⏰ Time is up! The quiz will be submitted automatically.");
+                        submitQuiz(true);
+                    }
+                }, 1000);
+            }
+
+            function stopTimer() {
+                if (timerInterval) {
+                    clearInterval(timerInterval);
+                }
+            }
+
+            // Core Quiz Functions
+            function loadQuestions() {
+                // Create progress indicator
+                createProgressIndicator();
+
+                // Create question cards
+                quizQuestions.forEach(question => {
+                    questionsContainer.appendChild(createQuestionCard(question));
+                });
+
+                updateNavigationButtons();
+            }
+
+            function createProgressIndicator() {
+                progressIndicator.innerHTML = '';
+                quizQuestions.forEach((_, index) => {
+                    const dot = document.createElement('div');
+                    dot.classList.add('progress-dot');
+                    dot.setAttribute('data-index', index);
+                    progressIndicator.appendChild(dot);
+                });
+                updateProgressIndicator();
+            }
+
+            function updateProgressIndicator() {
+                const dots = progressIndicator.querySelectorAll('.progress-dot');
+                dots.forEach((dot, index) => {
+                    dot.classList.remove('active', 'answered');
+                    if (index === currentQuestionIndex) {
+                        dot.classList.add('active');
+                    }
+                    if (userAnswers[quizQuestions[index].id]) {
+                        dot.classList.add('answered');
+                    }
+                });
+            }
+
+            function createQuestionCard(question) {
+                const card = document.createElement('div');
+                card.classList.add('quiz-question-card');
+                card.setAttribute('data-id', question.id);
+
+                let optionsHtml = '';
+                for (const [value, text] of Object.entries(question.options)) {
+                    optionsHtml += `
+                        <label class="option-label" data-q-id="${question.id}">
+                            <input type="radio" name="q${question.id}-answer" value="${value}"> 
+                            <span class="option-text">${text}</span>
+                        </label>
+                    `;
+                }
+
+                card.innerHTML = `
+                    <p class="question-number">Question ${question.id} of ${quizQuestions.length}</p>
+                    <h3 class="question-text">${question.text}</h3>
+                    <div class="options-container">
+                        ${optionsHtml}
+                    </div>
+                `;
+                return card;
+            }
+
+            function showQuestion(index) {
+                const cards = questionsContainer.querySelectorAll('.quiz-question-card');
+
+                if (index < 0 || index >= cards.length) return;
+
+                cards.forEach(card => card.classList.remove('active-question'));
+
+                if (cards[index]) {
+                    cards[index].classList.add('active-question');
+                    currentQuestionIndex = index;
+                    updateNavigationButtons();
+                    updateProgressIndicator();
+
+                    // Re-apply previous selection
+                    const qId = quizQuestions[index].id;
+                    const selectedOption = userAnswers[qId];
+                    if (selectedOption) {
+                        const input = document.querySelector(`input[name="q${qId}-answer"][value="${selectedOption}"]`);
+                        if (input) input.checked = true;
+                    }
+                }
+            }
+
+            function updateNavigationButtons() {
+                prevBtn.disabled = currentQuestionIndex === 0;
+
+                if (currentQuestionIndex === quizQuestions.length - 1) {
+                    nextBtn.classList.add('hidden');
+                    if (quizMode === 'attempt') {
+                        submitBtn.classList.remove('hidden');
+                    }
+                } else {
+                    nextBtn.classList.remove('hidden');
+                    submitBtn.classList.add('hidden');
+                }
+            }
+
+            function attachOptionListeners() {
+                questionsContainer.querySelectorAll('input[type="radio"]').forEach(input => {
+                    input.addEventListener('change', (e) => {
+                        const qId = parseInt(e.target.name.split('-')[0].substring(1));
+                        userAnswers[qId] = e.target.value;
+                        updateProgressIndicator();
+                    });
+                });
+            }
+
+            function submitQuiz(isAutoSubmit = false) {
+                stopTimer();
+
+                if (!isAutoSubmit && !confirm("Are you sure you want to submit the quiz?")) {
+                    startTimer();
+                    return;
+                }
+
+                let score = 0;
+                let totalQuestions = quizQuestions.length;
+
+                // Calculate score and prepare review
+                quizQuestions.forEach(question => {
+                    const qId = question.id;
+                    const userAnswer = userAnswers[qId];
+                    const correctAnswer = question.correctAnswer;
+
+                    if (userAnswer === correctAnswer) {
+                        score++;
+                    }
+                });
+
+                // Display results with styling based on performance
+                const percentage = (score / totalQuestions) * 100;
+                let scoreClass = 'score-good';
+                if (percentage >= 80) scoreClass = 'score-excellent';
+                if (percentage < 60) scoreClass = 'score-poor';
+
+                scoreDisplay.innerHTML = `
+                    <div class="${scoreClass}">
+                        <i class="fas fa-${percentage >= 80 ? 'trophy' : percentage >= 60 ? 'medal' : 'redo-alt'}"></i><br>
+                        Your Score: ${score} / ${totalQuestions}<br>
+                        <small>${percentage.toFixed(1)}% Correct</small>
+                    </div>
+                `;
+
+                // Show review questions
+                showReviewQuestions();
+
+                // Switch to result view
+                quizArea.classList.add('hidden');
+                resultArea.classList.remove('hidden');
+            }
+
+            function showReviewQuestions() {
+                reviewQuestionsContainer.innerHTML = '';
+
+                quizQuestions.forEach(question => {
+                    const qId = question.id;
+                    const userAnswer = userAnswers[qId];
+                    const correctAnswer = question.correctAnswer;
+                    const isCorrect = userAnswer === correctAnswer;
+
+                    const reviewCard = document.createElement('div');
+                    reviewCard.classList.add('quiz-question-card');
+                    reviewCard.style.marginBottom = '15px';
+
+                    let optionsHtml = '';
+                    for (const [value, text] of Object.entries(question.options)) {
+                        let optionClass = '';
+                        if (value === correctAnswer) {
+                            optionClass = 'correct';
+                        } else if (value === userAnswer && !isCorrect) {
+                            optionClass = 'incorrect';
+                        }
+
+                        optionsHtml += `
+                            <label class="option-label ${optionClass}" style="pointer-events: none;">
+                                <input type="radio" name="review-q${qId}" value="${value}" 
+                                    ${value === userAnswer ? 'checked' : ''} disabled> 
+                                <span class="option-text">${text}</span>
+                                ${value === correctAnswer ? '<i class="fas fa-check" style="color: var(--success); margin-left: 10px;"></i>' : ''}
+                                ${value === userAnswer && !isCorrect ? '<i class="fas fa-times" style="color: var(--error); margin-left: 10px;"></i>' : ''}
+                            </label>
+                        `;
+                    }
+
+                    reviewCard.innerHTML = `
+                        <p class="question-number" style="color: ${isCorrect ? 'var(--success)' : 'var(--error)'};">
+                            Question ${question.id} • ${isCorrect ? 'Correct' : 'Incorrect'}
+                        </p>
+                        <h3 class="question-text">${question.text}</h3>
+                        <div class="options-container">
+                            ${optionsHtml}
+                        </div>
+                        ${question.explanation ? `
+                            <div style="margin-top: 15px; padding: 12px; background: rgba(79, 70, 229, 0.1); border-radius: 6px; font-size: 0.9rem;">
+                                <strong><i class="fas fa-lightbulb"></i> Explanation:</strong> ${question.explanation}
+                            </div>
+                        ` : ''}
+                    `;
+
+                    reviewQuestionsContainer.appendChild(reviewCard);
+                });
+            }
+
+            // Event Handlers
+            prevBtn.addEventListener('click', () => {
+                showQuestion(currentQuestionIndex - 1);
+            });
+
+            nextBtn.addEventListener('click', () => {
+                showQuestion(currentQuestionIndex + 1);
+            });
+
+            submitBtn.addEventListener('click', () => {
+                submitQuiz(false);
+            });
+
+            backToHomeBtn.addEventListener('click', () => {
+                stopTimer();
+                window.location.href = 'guest.html';
+            });
+
+            retakeQuizBtn.addEventListener('click', () => {
+                // Reset quiz and restart in attempt mode
+                userAnswers = {};
+                currentQuestionIndex = 0;
+                localStorage.setItem('quizMode', 'attempt');
+                
+                // Reload the page
+                window.location.reload();
+            });
+
+            // Start the Quiz
+            initializeQuiz();
+        });
+    </script>
+</body>
+</html>

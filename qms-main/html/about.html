@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QuizPro Management System - About Us</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/about.css">
+</head>
+<body>
+    <!-- Header with Navigation -->
+    <header>
+        <nav class="navbar">
+            <a href="../html/index.html" class="logo">
+                <i class="fas fa-brain logo-icon"></i>
+                <span class="logo-text">QuizPro</span>
+            </a>
+            <div class="nav-links">
+                <a href="../html/index.html">Home</a>
+                <a href="../html/features.html">Features</a>
+                <a href="../html/pricing.html">Pricing</a>
+                <a href="#" class="active">About</a>
+                <a href="../html/contact.html">Contact</a>
+            </div>
+            <div class="auth-buttons">
+                <a href="#" class="btn btn-outline" id="loginBtn">Log In</a>
+                <a href="#" class="btn btn-primary" id="signupBtn">Sign Up</a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Login Modal -->
+    <div class="modal" id="loginModal">
+        <div class="modal-content">
+            <button class="close-modal" id="closeLoginModal">&times;</button>
+            <h2>Login to QuizPro</h2>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="loginEmail">Email Address</label>
+                    <input type="email" id="loginEmail" placeholder="Enter your email" required>
+                </div>
+                <div class="form-group">
+                    <label for="loginPassword">Password</label>
+                    <input type="password" id="loginPassword" placeholder="Enter your password" required>
+                </div>
+                <div class="form-group">
+                    <label for="loginRole">Your Role</label>
+                    <select id="loginRole" required>
+                        <option value="">Select your role</option>
+                        <option value="admin">Administrator</option>
+                        <option value="teacher">Teacher</option>
+                        <option value="student">Student</option>
+                        <option value="analyst">Quiz Analyst</option>
+                    </select>
+                </div>
+                <button type="submit" class="modal-btn">Log In</button>
+            </form>
+            <div class="switch-form">
+                Don't have an account? <a href="#" id="switchToSignup">Sign up here</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Signup Modal -->
+    <div class="modal" id="signupModal">
+        <div class="modal-content">
+            <button class="close-modal" id="closeSignupModal">&times;</button>
+            <h2>Create QuizPro Account</h2>
+            <form id="signupForm">
+                <div class="form-group">
+                    <label for="signupName">Full Name</label>
+                    <input type="text" id="signupName" placeholder="Enter your full name" required>
+                </div>
+                <div class="form-group">
+                    <label for="signupEmail">Email Address</label>
+                    <input type="email" id="signupEmail" placeholder="Enter your email" required>
+                </div>
+                <div class="form-group">
+                    <label for="signupPassword">Password</label>
+                    <input type="password" id="signupPassword" placeholder="Create a password" required>
+                </div>
+                <div class="form-group">
+                    <label for="signupRole">Select Your Role</label>
+                    <select id="signupRole" required>
+                        <option value="">Choose your role</option>
+                        <option value="admin">Administrator</option>
+                        <option value="teacher">Teacher</option>
+                        <option value="student">Student</option>
+                        <option value="analyst">Quiz Analyst</option>
+                    </select>
+                </div>
+                <button type="submit" class="modal-btn">Create Account</button>
+            </form>
+            <div class="switch-form">
+                Already have an account? <a href="#" id="switchToLogin">Log in here</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="about-hero">
+        <div class="hero-content">
+            <h1>Transforming Assessment Management</h1>
+            <p>QuizPro was founded with a simple mission: to make assessment creation, delivery, and analysis more efficient, secure, and insightful for educational institutions and businesses worldwide.</p>
+            <div class="hero-stats">
+                <div class="stat">
+                    <span class="stat-number" data-count="500">0</span>
+                    <span class="stat-label">Institutions</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-number" data-count="250000">0</span>
+                    <span class="stat-label">Users</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-number" data-count="98">0</span>
+                    <span class="stat-label">% Satisfaction</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-number" data-count="15">0</span>
+                    <span class="stat-label">Countries</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Our Story Section -->
+        <section class="our-story">
+            <div class="container">
+                <div class="story-content">
+                    <div class="story-text">
+                        <h2>Our Story</h2>
+                        <p>QuizPro began in 2018 when a group of educators and technologists noticed a common problem: assessment tools were either too simplistic or overly complex, failing to meet the real needs of modern educational institutions.</p>
+                        <p>After months of research and development, we launched the first version of QuizPro with a focus on intuitive design, robust security, and actionable analytics. Today, we serve hundreds of institutions across 15 countries, continuously evolving based on user feedback and technological advancements.</p>
+                        <p>Our commitment remains the same: to provide assessment solutions that empower educators, engage students, and deliver meaningful insights.</p>
+                    </div>
+                    <div class="story-image">
+                        <div class="image-placeholder">
+                            <i class="fas fa-rocket"></i>
+                            <p>Our Journey</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Mission & Vision -->
+        <section class="mission-vision">
+            <div class="container">
+                <div class="mv-grid">
+                    <div class="mv-card">
+                        <i class="fas fa-bullseye"></i>
+                        <h3>Our Mission</h3>
+                        <p>To revolutionize assessment management by providing innovative, secure, and user-friendly tools that enhance learning outcomes and streamline administrative processes for educational institutions and businesses worldwide.</p>
+                    </div>
+                    <div class="mv-card">
+                        <i class="fas fa-eye"></i>
+                        <h3>Our Vision</h3>
+                        <p>To become the global standard for assessment management, recognized for our commitment to excellence, innovation, and positive impact on education and professional development.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Values Section -->
+        <section class="values">
+            <div class="container">
+                <div class="section-title">
+                    <h2>Our Values</h2>
+                    <p>The principles that guide everything we do at QuizPro</p>
+                </div>
+                <div class="values-grid">
+                    <div class="value-card">
+                        <div class="value-icon">
+                            <i class="fas fa-graduation-cap"></i>
+                        </div>
+                        <h3>Educational Excellence</h3>
+                        <p>We're committed to enhancing learning experiences through technology that supports effective teaching and meaningful assessment.</p>
+                    </div>
+                    <div class="value-card">
+                        <div class="value-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <h3>Security & Privacy</h3>
+                        <p>We prioritize the protection of user data and assessment integrity with enterprise-grade security measures.</p>
+                    </div>
+                    <div class="value-card">
+                        <div class="value-icon">
+                            <i class="fas fa-lightbulb"></i>
+                        </div>
+                        <h3>Innovation</h3>
+                        <p>We continuously explore new technologies and methodologies to improve our platform and serve our users better.</p>
+                    </div>
+                    <div class="value-card">
+                        <div class="value-icon">
+                            <i class="fas fa-hands-helping"></i>
+                        </div>
+                        <h3>Customer Success</h3>
+                        <p>Our success is measured by our customers' success. We're dedicated to providing exceptional support and service.</p>
+                    </div>
+                    <div class="value-card">
+                        <div class="value-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <h3>Collaboration</h3>
+                        <p>We believe in the power of partnership—working closely with educators, institutions, and businesses to solve real challenges.</p>
+                    </div>
+                    <div class="value-card">
+                        <div class="value-icon">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <h3>Continuous Improvement</h3>
+                        <p>We're never satisfied with the status quo and are always looking for ways to enhance our platform and services.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Team Section -->
+        <section class="team">
+            <div class="container">
+                <div class="section-title">
+                    <h2>Meet Our Leadership Team</h2>
+                    <p>The passionate professionals driving QuizPro's vision forward</p>
+                </div>
+                <div class="team-grid">
+                    <div class="team-member">
+                        <div class="member-image">
+                            <div class="image-placeholder">
+                                <i class="fas fa-user"></i>
+                            </div>
+                        </div>
+                        <h3>Dr. Sarah Johnson</h3>
+                        <p class="member-role">CEO & Founder</p>
+                        <p class="member-bio">Former university professor with 15+ years in educational technology and assessment design.</p>
+                        <div class="member-social">
+                            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                            <a href="#"><i class="fab fa-twitter"></i></a>
+                        </div>
+                    </div>
+                    <div class="team-member">
+                        <div class="member-image">
+                            <div class="image-placeholder">
+                                <i class="fas fa-user"></i>
+                            </div>
+                        </div>
+                        <h3>Michael Chen</h3>
+                        <p class="member-role">CTO</p>
+                        <p class="member-bio">Software architect with expertise in scalable systems, security, and data analytics.</p>
+                        <div class="member-social">
+                            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                            <a href="#"><i class="fab fa-twitter"></i></a>
+                        </div>
+                    </div>
+                    <div class="team-member">
+                        <div class="member-image">
+                            <div class="image-placeholder">
+                                <i class="fas fa-user"></i>
+                            </div>
+                        </div>
+                        <h3>Dr. Emily Rodriguez</h3>
+                        <p class="member-role">Head of Education</p>
+                        <p class="member-bio">Curriculum development expert with a PhD in Educational Psychology and Assessment.</p>
+                        <div class="member-social">
+                            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                            <a href="#"><i class="fab fa-twitter"></i></a>
+                        </div>
+                    </div>
+                    <div class="team-member">
+                        <div class="member-image">
+                            <div class="image-placeholder">
+                                <i class="fas fa-user"></i>
+                            </div>
+                        </div>
+                        <h3>David Kim</h3>
+                        <p class="member-role">Product Director</p>
+                        <p class="member-bio">Product management leader focused on user experience and feature innovation.</p>
+                        <div class="member-social">
+                            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                            <a href="#"><i class="fab fa-twitter"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Timeline Section -->
+        <section class="timeline-section">
+            <div class="container">
+                <div class="section-title">
+                    <h2>Our Journey</h2>
+                    <p>Key milestones in QuizPro's development and growth</p>
+                </div>
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-date">2018</div>
+                        <div class="timeline-content">
+                            <h3>Company Founded</h3>
+                            <p>QuizPro was established with a vision to transform assessment management in education.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-date">2019</div>
+                        <div class="timeline-content">
+                            <h3>First Product Launch</h3>
+                            <p>Released the initial version of QuizPro with core assessment creation and management features.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-date">2020</div>
+                        <div class="timeline-content">
+                            <h3>Series A Funding</h3>
+                            <p>Secured $5M in funding to expand development and grow our customer success team.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-date">2021</div>
+                        <div class="timeline-content">
+                            <h3>Enterprise Launch</h3>
+                            <p>Introduced enterprise-grade features including advanced analytics and enhanced security.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-date">2022</div>
+                        <div class="timeline-content">
+                            <h3>International Expansion</h3>
+                            <p>Expanded services to 15 countries and added multi-language support to the platform.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-date">2023</div>
+                        <div class="timeline-content">
+                            <h3>AI Integration</h3>
+                            <p>Launched AI-powered features for automated assessment generation and performance insights.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section class="cta-section">
+            <div class="container">
+                <div class="cta-content">
+                    <h2>Join the QuizPro Community</h2>
+                    <p>Become part of our growing network of educational institutions and businesses transforming their assessment processes.</p>
+                    <div class="cta-buttons">
+                        <a href="#" class="btn btn-primary" id="ctaSignup">Start Free Trial</a>
+                        <a href="../html/contact.html" class="btn btn-outline">Contact Our Team</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-column">
+                <h3>QuizPro</h3>
+                <p>Professional assessment management platform for educational institutions and corporate training.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Quick Links</h3>
+                <ul class="footer-links">
+                    <li><a href="../html/index.html">Home</a></li>
+                    <li><a href="../html/features.html">Features</a></li>
+                    <li><a href="../html/pricing.html">Pricing</a></li>
+                    <li><a href="../html/about.html">About Us</a></li>
+                    <li><a href="../html/contact.html">Contact</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Resources</h3>
+                <ul class="footer-links">
+                    <li><a href="../html/docs.html">Documentation</a></li>
+                    <li><a href="../html/support.html">Support Center</a></li>
+                    <li><a href="../html/community.html">Community</a></li>
+                    <li><a href="../html/blog.html">Blog</a></li>
+                    <li><a href="../html/webinars.html">Webinars</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Contact Us</h3>
+                <ul class="footer-links">
+                    <li><i class="fas fa-map-marker-alt"></i> 123 Business Ave, Suite 100</li>
+                    <li><i class="fas fa-phone"></i> +1 (555) 123-4567</li>
+                    <li><i class="fas fa-envelope"></i> info@quizpro.com</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; 2023 QuizPro Management System. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="../js/about.js"></script>
+</body>
+</html>

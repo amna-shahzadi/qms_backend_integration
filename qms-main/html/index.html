@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QuizPro Management System - Role Selection</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/index.css">
+</head>
+<body>
+    <!-- Header with Navigation -->
+    <header>
+        <nav class="navbar">
+            <a href="../html/index.html" class="logo">
+                <i class="fas fa-brain logo-icon"></i>
+                <span class="logo-text">QuizPro</span>
+            </a>
+            <div class="nav-links">
+                <a href="#" class="active">Home</a>
+                <a href="../html/features.html">Features</a>
+                <a href="../html/pricing.html">Pricing</a>
+                <a href="../html/about.html">About</a>
+                <a href="../html/contact.html">Contact</a>
+            </div>
+            <div class="auth-buttons">
+                <a href="#" class="btn btn-outline" id="loginBtn">Log In</a>
+                <a href="#" class="btn btn-primary" id="signupBtn">Sign Up</a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Login Modal -->
+    <div class="modal" id="loginModal">
+        <div class="modal-content">
+            <button class="close-modal" id="closeLoginModal">&times;</button>
+            <h2>Login to QuizPro</h2>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="loginEmail">Email Address</label>
+                    <input type="email" id="loginEmail" placeholder="Enter your email" required>
+                </div>
+                <div class="form-group">
+                    <label for="loginPassword">Password</label>
+                    <input type="password" id="loginPassword" placeholder="Enter your password" required>
+                </div>
+                <div class="form-group">
+                    <label for="loginRole">Your Role</label>
+                    <select id="loginRole" required>
+                        <option value="">Select your role</option>
+                        <option value="admin">Administrator</option>
+                        <option value="teacher">Teacher</option>
+                        <option value="student">Student</option>
+                        <option value="analyst">Quiz Analyst</option>
+                    </select>
+                </div>
+                <button type="submit" class="modal-btn">Log In</button>
+            </form>
+            <div class="switch-form">
+                Don't have an account? <a href="#" id="switchToSignup">Sign up here</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Signup Modal -->
+    <div class="modal" id="signupModal">
+        <div class="modal-content">
+            <button class="close-modal" id="closeSignupModal">&times;</button>
+            <h2>Create QuizPro Account</h2>
+            <form id="signupForm">
+                <div class="form-group">
+                    <label for="signupName">Full Name</label>
+                    <input type="text" id="signupName" placeholder="Enter your full name" required>
+                </div>
+                <div class="form-group">
+                    <label for="signupEmail">Email Address</label>
+                    <input type="email" id="signupEmail" placeholder="Enter your email" required>
+                </div>
+                <div class="form-group">
+                    <label for="signupPassword">Password</label>
+                    <input type="password" id="signupPassword" placeholder="Create a password" required>
+                </div>
+                <div class="form-group">
+                    <label for="signupRole">Select Your Role</label>
+                    <select id="signupRole" required>
+                        <option value="">Choose your role</option>
+                        <option value="admin">Administrator</option>
+                        <option value="teacher">Teacher</option>
+                        <option value="student">Student</option>
+                        <option value="analyst">Quiz Analyst</option>
+                    </select>
+                </div>
+                <button type="submit" class="modal-btn">Create Account</button>
+            </form>
+            <div class="switch-form">
+                Already have an account? <a href="#" id="switchToLogin">Log in here</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Professional Quiz & Assessment Management</h1>
+            <p>QuizPro is the ultimate platform for educational institutions and businesses to create, manage, and analyze assessments with precision and efficiency.</p>
+            <a href="#roles" class="btn btn-primary">Get Started</a>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Role Selection Section -->
+        <section id="roles">
+            <div class="section-title">
+                <h2>Select Your Access Role</h2>
+                <p>Choose the role that defines your access permissions within the QuizPro Management System</p>
+            </div>
+            
+            <div class="role-container">
+                <div class="role-grid">
+                    <a href="../html/auth.html?role=admin" class="role-card admin">
+                        <span class="role-icon">👑</span>
+                        <h3>Administrator</h3>
+                        <p>Manage users, security, and all system settings.</p>
+                        <div class="role-btn">Launch Admin Dashboard</div>
+                    </a>
+
+                    <a href="../html/auth.html?role=teacher" class="role-card teacher">
+                        <span class="role-icon">👨‍🏫</span>
+                        <h3>Teacher</h3>
+                        <p>Create quizzes, assign courses, and track progress.</p>
+                        <div class="role-btn">Enter Teacher Portal</div>
+                    </a>
+
+                    <a href="auth.html?role=student" class="role-card student">
+                        <span class="role-icon">🧑‍🎓</span>
+                        <h3>Student</h3>
+                        <p>Access quizzes, view scores, and monitor growth.</p>
+                        <div class="role-btn">Begin Student Quiz</div>
+                    </a>
+
+                    <a href="../html/auth.html?role=analyst" class="role-card analyst">
+                        <span class="role-icon">📈</span>
+                        <h3>Quiz Analyst</h3>
+                        <p>View performance stats, charts, and insights.</p>
+                        <div class="role-btn">View Analytics</div>
+                    </a>
+
+                    <div class="role-card guest">
+                        <span class="role-icon">👤</span>
+                        <h3>Guest Explorer</h3>
+                        <p>Try sample quizzes—no login or data saved.</p>
+                        <a href="../html/guest.html" class="role-btn guest-btn">Proceed as Guest</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section class="features">
+            <div class="section-title">
+                <h2>Powerful Features</h2>
+                <p>Discover what makes QuizPro the leading assessment management platform</p>
+            </div>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <i class="fas fa-chart-line feature-icon"></i>
+                    <h3>Advanced Analytics</h3>
+                    <p>Gain deep insights with comprehensive performance analytics and detailed reporting tools.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <i class="fas fa-shield-alt feature-icon"></i>
+                    <h3>Enterprise Security</h3>
+                    <p>Bank-level security protocols to protect your data and ensure assessment integrity.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <i class="fas fa-mobile-alt feature-icon"></i>
+                    <h3>Mobile Responsive</h3>
+                    <p>Fully responsive design that works seamlessly across all devices and screen sizes.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-column">
+                <h3>QuizPro</h3>
+                <p>Professional assessment management platform for educational institutions and corporate training.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Quick Links</h3>
+                <ul class="footer-links">
+                    <li><a href="../html/index.html">Home</a></li>
+                    <li><a href="../html/features.html">Features</a></li>
+                    <li><a href="../html/pricing.html">Pricing</a></li>
+                    <li><a href="../html/about.html">About Us</a></li>
+                    <li><a href="../html/contact.html">Contact</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Resources</h3>
+                <ul class="footer-links">
+                    <li><a href="../html/docs.html">Documentation</a></li>
+                    <li><a href="../html/support.html">Support Center</a></li>
+                    <li><a href="../html/community.html">Community</a></li>
+                    <li><a href="../html/blog.html">Blog</a></li>
+                    <li><a href="../html/webinars.html">Webinars</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Contact Us</h3>
+                <ul class="footer-links">
+                    <li><i class="fas fa-map-marker-alt"></i> 123 Business Ave, Suite 100</li>
+                    <li><i class="fas fa-phone"></i> +1 (555) 123-4567</li>
+                    <li><i class="fas fa-envelope"></i> info@quizpro.com</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; 2023 QuizPro Management System. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="../js/index.js"></script>
+</body>
+</html>

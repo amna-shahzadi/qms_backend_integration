@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QuizPro Management System - Features</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/features.css">
+</head>
+<body>
+    <!-- Header with Navigation -->
+    <header>
+        <nav class="navbar">
+            <a href="../html/index.html" class="logo">
+                <i class="fas fa-brain logo-icon"></i>
+                <span class="logo-text">QuizPro</span>
+            </a>
+            <div class="nav-links">
+                <a href="../html/index.html">Home</a>
+                <a href="#" class="active">Features</a>
+                <a href="../html/pricing.html">Pricing</a>
+                <a href="../html/about.html">About</a>
+                <a href="../html/contact.html">Contact</a>
+            </div>
+            <div class="auth-buttons">
+                <a href="#" class="btn btn-outline" id="loginBtn">Log In</a>
+                <a href="#" class="btn btn-primary" id="signupBtn">Sign Up</a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Login Modal -->
+    <div class="modal" id="loginModal">
+        <div class="modal-content">
+            <button class="close-modal" id="closeLoginModal">&times;</button>
+            <h2>Login to QuizPro</h2>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="loginEmail">Email Address</label>
+                    <input type="email" id="loginEmail" placeholder="Enter your email" required>
+                </div>
+                <div class="form-group">
+                    <label for="loginPassword">Password</label>
+                    <input type="password" id="loginPassword" placeholder="Enter your password" required>
+                </div>
+                <div class="form-group">
+                    <label for="loginRole">Your Role</label>
+                    <select id="loginRole" required>
+                        <option value="">Select your role</option>
+                        <option value="admin">Administrator</option>
+                        <option value="teacher">Teacher</option>
+                        <option value="student">Student</option>
+                        <option value="analyst">Quiz Analyst</option>
+                    </select>
+                </div>
+                <button type="submit" class="modal-btn">Log In</button>
+            </form>
+            <div class="switch-form">
+                Don't have an account? <a href="#" id="switchToSignup">Sign up here</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Signup Modal -->
+    <div class="modal" id="signupModal">
+        <div class="modal-content">
+            <button class="close-modal" id="closeSignupModal">&times;</button>
+            <h2>Create QuizPro Account</h2>
+            <form id="signupForm">
+                <div class="form-group">
+                    <label for="signupName">Full Name</label>
+                    <input type="text" id="signupName" placeholder="Enter your full name" required>
+                </div>
+                <div class="form-group">
+                    <label for="signupEmail">Email Address</label>
+                    <input type="email" id="signupEmail" placeholder="Enter your email" required>
+                </div>
+                <div class="form-group">
+                    <label for="signupPassword">Password</label>
+                    <input type="password" id="signupPassword" placeholder="Create a password" required>
+                </div>
+                <div class="form-group">
+                    <label for="signupRole">Select Your Role</label>
+                    <select id="signupRole" required>
+                        <option value="">Choose your role</option>
+                        <option value="admin">Administrator</option>
+                        <option value="teacher">Teacher</option>
+                        <option value="student">Student</option>
+                        <option value="analyst">Quiz Analyst</option>
+                    </select>
+                </div>
+                <button type="submit" class="modal-btn">Create Account</button>
+            </form>
+            <div class="switch-form">
+                Already have an account? <a href="#" id="switchToLogin">Log in here</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="features-hero">
+        <div class="hero-content">
+            <h1>Powerful Features for Every Role</h1>
+            <p>Discover how QuizPro transforms assessment management with cutting-edge tools designed for administrators, teachers, students, and analysts.</p>
+            <div class="hero-buttons">
+                <a href="#all-features" class="btn btn-primary">Explore All Features</a>
+                <a href="../html/pricing.html" class="btn btn-outline">View Pricing</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Role-based Features -->
+        <section class="role-features">
+            <div class="section-title">
+                <h2>Tailored Experience for Every User</h2>
+                <p>QuizPro provides specialized tools and interfaces optimized for each role in the assessment ecosystem</p>
+            </div>
+            
+            <div class="role-tabs">
+                <div class="tab-buttons">
+                    <button class="tab-btn active" data-tab="admin">Administrator</button>
+                    <button class="tab-btn" data-tab="teacher">Teacher</button>
+                    <button class="tab-btn" data-tab="student">Student</button>
+                    <button class="tab-btn" data-tab="analyst">Analyst</button>
+                </div>
+                
+                <div class="tab-content">
+                    <div class="tab-panel active" id="admin-tab">
+                        <div class="feature-grid">
+                            <div class="feature-item">
+                                <i class="fas fa-users-cog"></i>
+                                <h3>User Management</h3>
+                                <p>Complete control over user accounts, permissions, and role assignments across the platform.</p>
+                            </div>
+                            <div class="feature-item">
+                                <i class="fas fa-shield-alt"></i>
+                                <h3>Security Controls</h3>
+                                <p>Advanced security settings, access logs, and compliance management for institutional requirements.</p>
+                            </div>
+                            <div class="feature-item">
+                                <i class="fas fa-cogs"></i>
+                                <h3>System Configuration</h3>
+                                <p>Customize platform settings, branding, and integration options to match your institution's needs.</p>
+                            </div>
+                            <div class="feature-item">
+                                <i class="fas fa-chart-pie"></i>
+                                <h3>Institutional Analytics</h3>
+                                <p>Comprehensive overview of platform usage, performance metrics, and institutional insights.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="tab-panel" id="teacher-tab">
+                        <div class="feature-grid">
+                            <div class="feature-item">
+                                <i class="fas fa-edit"></i>
+                                <h3>Quiz Creation</h3>
+                                <p>Intuitive tools to create engaging quizzes with multiple question types and multimedia support.</p>
+                            </div>
+                            <div class="feature-item">
+                                <i class="fas fa-tasks"></i>
+                                <h3>Assignment Management</h3>
+                                <p>Easily assign quizzes to classes or individual students with flexible scheduling options.</p>
+                            </div>
+                            <div class="feature-item">
+                                <i class="fas fa-user-check"></i>
+                                <h3>Progress Tracking</h3>
+                                <p>Monitor student performance, identify knowledge gaps, and track improvement over time.</p>
+                            </div>
+                            <div class="feature-item">
+                                <i class="fas fa-comments"></i>
+                                <h3>Feedback System</h3>
+                                <p>Provide personalized feedback to students and facilitate meaningful learning conversations.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="tab-panel" id="student-tab">
+                        <div class="feature-grid">
+                            <div class="feature-item">
+                                <i class="fas fa-play-circle"></i>
+                                <h3>Interactive Quizzes</h3>
+                                <p>Engaging quiz interface with progress indicators and intuitive navigation for optimal experience.</p>
+                            </div>
+                            <div class="feature-item">
+                                <i class="fas fa-chart-line"></i>
+                                <h3>Performance Dashboard</h3>
+                                <p>Visualize your progress, strengths, and areas for improvement with personalized insights.</p>
+                            </div>
+                            <div class="feature-item">
+                                <i class="fas fa-history"></i>
+                                <h3>Review Attempts</h3>
+                                <p>Access previous quiz attempts with detailed feedback to understand mistakes and learn from them.</p>
+                            </div>
+                            <div class="feature-item">
+                                <i class="fas fa-trophy"></i>
+                                <h3>Achievement System</h3>
+                                <p>Earn badges and certificates as you progress, keeping you motivated and engaged.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="tab-panel" id="analyst-tab">
+                        <div class="feature-grid">
+                            <div class="feature-item">
+                                <i class="fas fa-chart-bar"></i>
+                                <h3>Advanced Analytics</h3>
+                                <p>Deep dive into performance data with customizable reports and visualizations.</p>
+                            </div>
+                            <div class="feature-item">
+                                <i class="fas fa-search"></i>
+                                <h3>Item Analysis</h3>
+                                <p>Evaluate question effectiveness, difficulty levels, and discrimination indices.</p>
+                            </div>
+                            <div class="feature-item">
+                                <i class="fas fa-project-diagram"></i>
+                                <h3>Trend Identification</h3>
+                                <p>Identify patterns and trends across classes, subjects, and time periods.</p>
+                            </div>
+                            <div class="feature-item">
+                                <i class="fas fa-download"></i>
+                                <h3>Export Capabilities</h3>
+                                <p>Export data in multiple formats for further analysis in external tools.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- All Features Section -->
+        <section id="all-features" class="all-features">
+            <div class="section-title">
+                <h2>Comprehensive Feature Set</h2>
+                <p>Explore the complete range of tools and capabilities that make QuizPro the ultimate assessment platform</p>
+            </div>
+            
+            <div class="features-categories">
+                <div class="category">
+                    <h3><i class="fas fa-pencil-alt"></i> Creation & Authoring</h3>
+                    <ul>
+                        <li>Multiple question types (MCQ, True/False, Essay, Matching)</li>
+                        <li>Rich text editor with math equation support</li>
+                        <li>Image, audio, and video embedding</li>
+                        <li>Question bank with tagging and categorization</li>
+                        <li>Template system for quick quiz creation</li>
+                        <li>Collaborative authoring tools</li>
+                    </ul>
+                </div>
+                
+                <div class="category">
+                    <h3><i class="fas fa-rocket"></i> Delivery & Security</h3>
+                    <ul>
+                        <li>Timed assessments with auto-submission</li>
+                        <li>Randomized question order and answer choices</li>
+                        <li>Proctoring integration and browser lockdown</li>
+                        <li>IP restriction and location-based access control</li>
+                        <li>Plagiarism detection for essay questions</li>
+                        <li>Backup and recovery systems</li>
+                    </ul>
+                </div>
+                
+                <div class="category">
+                    <h3><i class="fas fa-chart-line"></i> Analytics & Reporting</h3>
+                    <ul>
+                        <li>Real-time performance dashboards</li>
+                        <li>Comparative analytics across groups</li>
+                        <li>Longitudinal progress tracking</li>
+                        <li>Custom report builder</li>
+                        <li>Automated insights and recommendations</li>
+                        <li>Data export in multiple formats (CSV, PDF, Excel)</li>
+                    </ul>
+                </div>
+                
+                <div class="category">
+                    <h3><i class="fas fa-cogs"></i> Integration & Customization</h3>
+                    <ul>
+                        <li>LMS integration (Moodle, Canvas, Blackboard)</li>
+                        <li>Single Sign-On (SSO) support</li>
+                        <li>API for custom integrations</li>
+                        <li>White-labeling and branding options</li>
+                        <li>Custom role and permission configurations</li>
+                        <li>Multi-language support</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Comparison Section -->
+        <section class="comparison">
+            <div class="section-title">
+                <h2>Compare Plans</h2>
+                <p>Find the perfect plan for your needs with our feature comparison</p>
+            </div>
+            
+            <div class="comparison-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Feature</th>
+                            <th>Basic</th>
+                            <th>Professional</th>
+                            <th>Enterprise</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Quiz Creation</td>
+                            <td><i class="fas fa-check"></i></td>
+                            <td><i class="fas fa-check"></i></td>
+                            <td><i class="fas fa-check"></i></td>
+                        </tr>
+                        <tr>
+                            <td>Question Bank</td>
+                            <td>Up to 100 questions</td>
+                            <td>Unlimited</td>
+                            <td>Unlimited</td>
+                        </tr>
+                        <tr>
+                            <td>Advanced Analytics</td>
+                            <td><i class="fas fa-times"></i></td>
+                            <td><i class="fas fa-check"></i></td>
+                            <td><i class="fas fa-check"></i></td>
+                        </tr>
+                        <tr>
+                            <td>Custom Branding</td>
+                            <td><i class="fas fa-times"></i></td>
+                            <td>Limited</td>
+                            <td><i class="fas fa-check"></i></td>
+                        </tr>
+                        <tr>
+                            <td>API Access</td>
+                            <td><i class="fas fa-times"></i></td>
+                            <td><i class="fas fa-check"></i></td>
+                            <td><i class="fas fa-check"></i></td>
+                        </tr>
+                        <tr>
+                            <td>Priority Support</td>
+                            <td><i class="fas fa-times"></i></td>
+                            <td><i class="fas fa-check"></i></td>
+                            <td>24/7 Dedicated</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <div class="comparison-cta">
+                <a href="../html/pricing.html" class="btn btn-primary">View Detailed Pricing</a>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section class="cta-section">
+            <div class="cta-content">
+                <h2>Ready to Transform Your Assessment Process?</h2>
+                <p>Join thousands of educational institutions and businesses using QuizPro to streamline their assessment workflows.</p>
+                <div class="cta-buttons">
+                    <a href="#" class="btn btn-primary" id="ctaSignup">Start Free Trial</a>
+                    <a href="../html/contact.html" class="btn btn-outline">Contact Sales</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-column">
+                <h3>QuizPro</h3>
+                <p>Professional assessment management platform for educational institutions and corporate training.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Quick Links</h3>
+                <ul class="footer-links">
+                    <li><a href="../html/index.html">Home</a></li>
+                    <li><a href="../html/features.html">Features</a></li>
+                    <li><a href="../html/pricing.html">Pricing</a></li>
+                    <li><a href="../html/about.html">About Us</a></li>
+                    <li><a href="../html/contact.html">Contact</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Resources</h3>
+                <ul class="footer-links">
+                    <li><a href="../html/docs.html">Documentation</a></li>
+                    <li><a href="../html/support.html">Support Center</a></li>
+                    <li><a href="../html/community.html">Community</a></li>
+                    <li><a href="../html/blog.html">Blog</a></li>
+                    <li><a href="../html/webinars.html">Webinars</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Contact Us</h3>
+                <ul class="footer-links">
+                    <li><i class="fas fa-map-marker-alt"></i> 123 Business Ave, Suite 100</li>
+                    <li><i class="fas fa-phone"></i> +1 (555) 123-4567</li>
+                    <li><i class="fas fa-envelope"></i> info@quizpro.com</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; 2023 QuizPro Management System. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="../js/features.js"></script>
+</body>
+</html>

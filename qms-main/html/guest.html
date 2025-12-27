@@ -1,0 +1,737 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QuizPro - Guest Access</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* CSS Variables - Matching QuizPro Theme */
+        :root {
+            --primary: #4f46e5;
+            --primary-dark: #4338ca;
+            --secondary: #7c73e6;
+            --accent: #10b981;
+            --light: #f8fafc;
+            --dark: #1e293b;
+            --gray: #64748b;
+            --white: #ffffff;
+            --error: #ef4444;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --info: #3b82f6;
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            --transition: all 0.3s ease;
+        }
+
+        [data-theme="dark"] {
+            --light: #1e293b;
+            --dark: #f1f5f9;
+            --white: #334155;
+            --gray: #94a3b8;
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: var(--dark);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            transition: var(--transition);
+        }
+
+        .auth-container {
+            background: var(--white);
+            border-radius: 16px;
+            box-shadow: var(--shadow);
+            padding: 40px;
+            width: 100%;
+            max-width: 500px;
+            transition: var(--transition);
+        }
+
+        h1 {
+            color: var(--dark);
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+
+        .greeting-message {
+            text-align: center;
+            color: var(--gray);
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+
+        .switch-link {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+
+        .switch-link:hover {
+            color: var(--primary-dark);
+            text-decoration: underline;
+        }
+
+        .auth-form {
+            margin-bottom: 30px;
+        }
+
+        h2 {
+            color: var(--dark);
+            margin-bottom: 20px;
+            font-size: 1.3rem;
+            font-weight: 600;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--dark);
+        }
+
+        .input-group select {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: var(--transition);
+            background-color: var(--white);
+            color: var(--dark);
+        }
+
+        .input-group select:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+        }
+
+        .auth-btn {
+            width: 100%;
+            padding: 14px 20px;
+            background: linear-gradient(90deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .auth-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(79, 70, 229, 0.3);
+        }
+
+        .auth-switch {
+            text-align: center;
+            margin-top: 20px;
+            color: var(--gray);
+        }
+
+        .content-section {
+            transition: var(--transition);
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        /* Quiz List Styles */
+        .subject-quiz-list {
+            margin-top: 20px;
+        }
+
+        .quiz-item {
+            background: var(--white);
+            border: 1px solid #e2e8f0;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: var(--transition);
+        }
+
+        .quiz-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            border-color: var(--primary);
+        }
+
+        .quiz-title {
+            font-weight: 600;
+            color: var(--dark);
+            font-size: 1.1rem;
+        }
+
+        .quiz-meta {
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+
+        .action-btn {
+            padding: 8px 16px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .action-btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-1px);
+        }
+
+        .add-btn {
+            padding: 12px 20px;
+            background: var(--success);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 20px;
+        }
+
+        .add-btn:hover {
+            background: #0d9c6b;
+            transform: translateY(-2px);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .auth-container {
+                padding: 30px 20px;
+            }
+
+            .quiz-item {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+
+            .action-btn {
+                align-self: stretch;
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 10px;
+            }
+
+            .auth-container {
+                padding: 25px 15px;
+            }
+
+            h1 {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+
+<body class="auth-body">
+
+    <div class="auth-container">
+        <h1 id="auth-heading"><i class="fas fa-user-clock"></i> QuizPro Guest Access</h1>
+        <p class="greeting-message">Please select a subject to view available quizzes. To save your results, please <a
+                href="index.html" class="switch-link">Log In</a>.</p>
+
+        <form id="guest-subject-form" class="auth-form">
+            <h2><i class="fas fa-book-open"></i> Select Subject</h2>
+
+            <div class="input-group">
+                <label for="guest-subject"><i class="fas fa-graduation-cap"></i> Choose Your Subject</label>
+                <select id="guest-subject" required>
+                    <option value="" disabled selected>-- Select Subject --</option>
+                    <option value="math">Mathematics</option>
+                    <option value="science">Science</option>
+                    <option value="web-dev">Web Development</option>
+                    <option value="history">History</option>
+                </select>
+            </div>
+
+            <button type="submit" class="auth-btn">
+                <i class="fas fa-eye"></i> View Available Quizzes
+            </button>
+
+            <p class="auth-switch">Are you a registered user? <a href="auth.html" class="switch-link">Go to Login</a></p>
+            <button type="button" class="add-btn" id="back-home-btn">
+  <i class="fas fa-home"></i> Back to Home
+</button>
+
+        </form>
+
+        <div id="quiz-list-container" class="content-section hidden">
+            <h2 id="quiz-list-heading"><i class="fas fa-list-alt"></i> Available Quizzes</h2>
+            <div id="guest-quizzes-list" class="subject-quiz-list">
+                <!-- Quiz items will be dynamically inserted here -->
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const subjectForm = document.getElementById('guest-subject-form');
+            const quizListContainer = document.getElementById('quiz-list-container');
+            const quizListHeading = document.getElementById('quiz-list-heading');
+            const guestQuizzesList = document.getElementById('guest-quizzes-list');
+
+            // Enhanced Quiz Data with complete question sets
+            const quizData = {
+                'web-dev': [
+                    { 
+                        id: 'web-dev-1',
+                        title: 'HTML Fundamentals', 
+                        qs: 2, 
+                        duration: 30,
+                        difficulty: 'Beginner',
+                        description: 'Test your knowledge of basic HTML tags and structure',
+                        questions: [
+                            {
+                                id: 1,
+                                text: "What does HTML stand for?",
+                                options: {
+                                    a: "Hyper Text Markup Language",
+                                    b: "High Tech Modern Language",
+                                    c: "Hyper Transfer Markup Language",
+                                    d: "Home Tool Markup Language"
+                                },
+                                correctAnswer: "a",
+                                explanation: "HTML stands for Hyper Text Markup Language, which is the standard markup language for creating web pages."
+                            },
+                      
+                            {
+                                id: 2,
+                                text: "Which attribute is used to specify an alternate text for an image?",
+                                options: {
+                                    a: "src",
+                                    b: "alt",
+                                    c: "title",
+                                    d: "href"
+                                },
+                                correctAnswer: "b",
+                                explanation: "The 'alt' attribute provides alternative text for an image if it cannot be displayed."
+                            }
+                        ]
+                    },
+
+
+                    
+                    { 
+                        id: 'web-dev-2',
+                        title: 'CSS Selectors', 
+                        qs: 4, 
+                        duration: 20,
+                        difficulty: 'Intermediate',
+                        description: 'Master CSS selectors and styling techniques',
+                        questions: [
+                            {
+                                id: 1,
+                                text: "Which CSS property is used to change the text color?",
+                                options: {
+                                    a: "text-color",
+                                    b: "font-color",
+                                    c: "color",
+                                    d: "foreground"
+                                },
+                                correctAnswer: "c",
+                                explanation: "The 'color' property is used to set the color of text in CSS."
+                            },
+                            {
+                                id: 2,
+                                text: "How do you select an element with id 'header' in CSS?",
+                                options: {
+                                    a: ".header",
+                                    b: "#header",
+                                    c: "header",
+                                    d: "*header"
+                                },
+                                correctAnswer: "b",
+                                explanation: "The '#' symbol is used to select elements by their id in CSS."
+                            },
+                            {
+                                id: 3,
+                                text: "Which property is used to change the font of an element?",
+                                options: {
+                                    a: "font-style",
+                                    b: "text-font",
+                                    c: "font-family",
+                                    d: "font-type"
+                                },
+                                correctAnswer: "c",
+                                explanation: "The 'font-family' property is used to specify the font of text."
+                            },
+                            {
+                                id: 4,
+                                text: "How do you make a list not display bullet points?",
+                                options: {
+                                    a: "list-style: none",
+                                    b: "list-type: none",
+                                    c: "bullets: none",
+                                    d: "list-bullet: none"
+                                },
+                                correctAnswer: "a",
+                                explanation: "list-style: none removes bullet points from lists."
+                            }
+                        ]
+                    }
+                ],
+                'math': [
+                    { 
+                        id: 'math-1',
+                        title: 'Algebra Foundations', 
+                        qs: 4, 
+                        duration: 45,
+                        difficulty: 'Intermediate',
+                        description: 'Algebraic expressions, equations, and functions',
+                        questions: [
+                            {
+                                id: 1,
+                                text: "Solve for x: 2x + 5 = 15",
+                                options: {
+                                    a: "x = 5",
+                                    b: "x = 10",
+                                    c: "x = 7.5",
+                                    d: "x = 20"
+                                },
+                                correctAnswer: "a",
+                                explanation: "2x + 5 = 15 → 2x = 10 → x = 5"
+                            },
+                            {
+                                id: 2,
+                                text: "What is the value of 3² + 4²?",
+                                options: {
+                                    a: "7",
+                                    b: "12",
+                                    c: "25",
+                                    d: "49"
+                                },
+                                correctAnswer: "c",
+                                explanation: "3² = 9, 4² = 16, 9 + 16 = 25"
+                            },
+                            {
+                                id: 3,
+                                text: "Simplify: 3(x + 4) - 2x",
+                                options: {
+                                    a: "x + 12",
+                                    b: "5x + 4",
+                                    c: "x + 4",
+                                    d: "3x + 12"
+                                },
+                                correctAnswer: "a",
+                                explanation: "3(x + 4) - 2x = 3x + 12 - 2x = x + 12"
+                            },
+                            {
+                                id: 4,
+                                text: "If y = 2x + 3, what is y when x = 4?",
+                                options: {
+                                    a: "8",
+                                    b: "11",
+                                    c: "14",
+                                    d: "5"
+                                },
+                                correctAnswer: "b",
+                                explanation: "y = 2(4) + 3 = 8 + 3 = 11"
+                            }
+                        ]
+                    }
+                ],
+                'history': [
+                    { 
+                        id: 'history-1',
+                        title: 'World History Overview', 
+                        qs: 4, 
+                        duration: 30,
+                        difficulty: 'Intermediate',
+                        description: 'Major events and figures in world history',
+                        questions: [
+                            {
+                                id: 1,
+                                text: "In which year did World War II end?",
+                                options: {
+                                    a: "1945",
+                                    b: "1939",
+                                    c: "1918",
+                                    d: "1950"
+                                },
+                                correctAnswer: "a",
+                                explanation: "World War II ended in 1945 with the surrender of Germany and Japan."
+                            },
+                            {
+                                id: 2,
+                                text: "Who was the first President of the United States?",
+                                options: {
+                                    a: "Thomas Jefferson",
+                                    b: "Abraham Lincoln",
+                                    c: "George Washington",
+                                    d: "John Adams"
+                                },
+                                correctAnswer: "c",
+                                explanation: "George Washington served as the first President from 1789 to 1797."
+                            },
+                            {
+                                id: 3,
+                                text: "Which ancient civilization built the pyramids?",
+                                options: {
+                                    a: "Romans",
+                                    b: "Greeks",
+                                    c: "Egyptians",
+                                    d: "Mayans"
+                                },
+                                correctAnswer: "c",
+                                explanation: "The ancient Egyptians built the pyramids as tombs for pharaohs."
+                            },
+                            {
+                                id: 4,
+                                text: "When did the French Revolution begin?",
+                                options: {
+                                    a: "1776",
+                                    b: "1789",
+                                    c: "1799",
+                                    d: "1812"
+                                },
+                                correctAnswer: "b",
+                                explanation: "The French Revolution began in 1789 with the storming of the Bastille."
+                            }
+                        ]
+                    }
+                ],
+                'science': [
+                    { 
+                        id: 'science-1',
+                        title: 'Cell Structure', 
+                        qs: 4, 
+                        duration: 25,
+                        difficulty: 'Intermediate',
+                        description: 'Cellular biology and organelle functions',
+                        questions: [
+                            {
+                                id: 1,
+                                text: "What is the powerhouse of the cell?",
+                                options: {
+                                    a: "Nucleus",
+                                    b: "Mitochondria",
+                                    c: "Ribosome",
+                                    d: "Golgi Apparatus"
+                                },
+                                correctAnswer: "b",
+                                explanation: "Mitochondria are known as the powerhouse of the cell because they produce energy (ATP)."
+                            },
+                            {
+                                id: 2,
+                                text: "Which organelle contains DNA?",
+                                options: {
+                                    a: "Mitochondria",
+                                    b: "Nucleus",
+                                    c: "Endoplasmic Reticulum",
+                                    d: "Both a and b"
+                                },
+                                correctAnswer: "d",
+                                explanation: "Both the nucleus and mitochondria contain DNA in eukaryotic cells."
+                            },
+                            {
+                                id: 3,
+                                text: "What is the function of ribosomes?",
+                                options: {
+                                    a: "Energy production",
+                                    b: "Protein synthesis",
+                                    c: "Cellular digestion",
+                                    d: "Transport"
+                                },
+                                correctAnswer: "b",
+                                explanation: "Ribosomes are responsible for protein synthesis in cells."
+                            },
+                            {
+                                id: 4,
+                                text: "Which structure is found in plant cells but not animal cells?",
+                                options: {
+                                    a: "Cell membrane",
+                                    b: "Nucleus",
+                                    c: "Chloroplast",
+                                    d: "Mitochondria"
+                                },
+                                correctAnswer: "c",
+                                explanation: "Chloroplasts are found in plant cells and are responsible for photosynthesis."
+                            }
+                        ]
+                    }
+                ]
+            };
+
+            // Event Listeners
+            subjectForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+
+                const subjectSelect = document.getElementById('guest-subject');
+                const selectedValue = subjectSelect.value;
+                const selectedText = subjectSelect.options[subjectSelect.selectedIndex].text;
+
+                displayQuizzes(selectedValue, selectedText);
+
+                subjectForm.classList.add('hidden');
+                quizListContainer.classList.remove('hidden');
+            });
+document.getElementById('back-home-btn').addEventListener('click', () => {
+  window.location.href = '../html/index.html';
+});
+
+            function displayQuizzes(subjectKey, subjectName) {
+                guestQuizzesList.innerHTML = '';
+                quizListHeading.innerHTML = `<i class="fas fa-book"></i> Quizzes for ${subjectName}`;
+
+                const quizzes = quizData[subjectKey] || [];
+
+                if (quizzes.length === 0) {
+                    guestQuizzesList.innerHTML = '<p class="greeting-message" style="text-align: center;">No quizzes found for this subject yet.</p>';
+                    return;
+                }
+
+                quizzes.forEach(quiz => {
+                    const quizItem = document.createElement('div');
+                    quizItem.classList.add('quiz-item');
+
+                    quizItem.innerHTML = `
+                        <div style="flex: 1;">
+                            <div class="quiz-title">${quiz.title}</div>
+                            <div class="quiz-meta">
+                                <i class="fas fa-question-circle"></i> ${quiz.qs} Questions • 
+                                <i class="fas fa-clock"></i> ${quiz.duration} Minutes •
+                                <span style="color: ${getDifficultyColor(quiz.difficulty)};">
+                                    <i class="fas fa-signal"></i> ${quiz.difficulty}
+                                </span>
+                            </div>
+                            <div style="font-size: 0.85rem; color: var(--gray); margin-top: 5px;">
+                                ${quiz.description}
+                            </div>
+                        </div>
+                        <div style="display: flex; gap: 10px;">
+                            <button class="action-btn attempt-btn" 
+                                    data-quiz-id="${quiz.id}"
+                                    data-quiz-title="${quiz.title}">
+                                <i class="fas fa-play"></i> Start
+                            </button>
+                            <button class="action-btn review-btn" 
+                                    style="background: var(--info);"
+                                    data-quiz-id="${quiz.id}"
+                                    data-quiz-title="${quiz.title}">
+                                <i class="fas fa-eye"></i> Review
+                            </button>
+                        </div>
+                    `;
+
+                    guestQuizzesList.appendChild(quizItem);
+                });
+
+                // Attach event listeners to attempt buttons
+                guestQuizzesList.querySelectorAll('.attempt-btn').forEach(button => {
+                    button.addEventListener('click', (e) => {
+                        const quizId = e.target.getAttribute('data-quiz-id');
+                        const quizTitle = e.target.getAttribute('data-quiz-title');
+                        
+                        // Find the complete quiz data
+                        const quiz = findQuizById(quizId);
+                        
+                        if (quiz) {
+                            // Store complete quiz data for the quiz page
+                            localStorage.setItem('currentQuiz', JSON.stringify(quiz));
+                            localStorage.setItem('quizMode', 'attempt');
+                            
+                            // Redirect to quiz attempt page
+                            window.location.href = 'quiz.html';
+                        }
+                    });
+                });
+
+                // Attach event listeners to review buttons
+                guestQuizzesList.querySelectorAll('.review-btn').forEach(button => {
+                    button.addEventListener('click', (e) => {
+                        const quizId = e.target.getAttribute('data-quiz-id');
+                        const quizTitle = e.target.getAttribute('data-quiz-title');
+                        
+                        // Find the complete quiz data
+                        const quiz = findQuizById(quizId);
+                        
+                        if (quiz) {
+                            // Store complete quiz data for the quiz page
+                            localStorage.setItem('currentQuiz', JSON.stringify(quiz));
+                            localStorage.setItem('quizMode', 'review');
+                            
+                            // Redirect to quiz attempt page
+                            window.location.href = 'quiz.html';
+                        }
+                    });
+                });
+
+                // Add back button
+                const backButton = document.createElement('button');
+                backButton.classList.add('add-btn');
+                backButton.innerHTML = '<i class="fas fa-arrow-left"></i> Change Subject';
+                backButton.addEventListener('click', () => {
+                    quizListContainer.classList.add('hidden');
+                    subjectForm.classList.remove('hidden');
+                });
+                guestQuizzesList.appendChild(backButton);
+                
+            }
+
+            function findQuizById(quizId) {
+                for (const subject in quizData) {
+                    const quiz = quizData[subject].find(q => q.id === quizId);
+                    if (quiz) return quiz;
+                }
+                return null;
+            }
+
+            function getDifficultyColor(difficulty) {
+                switch(difficulty.toLowerCase()) {
+                    case 'beginner': return '#10b981';
+                    case 'intermediate': return '#f59e0b';
+                    case 'advanced': return '#ef4444';
+                    default: return '#64748b';
+                }
+            }
+        });
+    </script>
+</body>
+</html>

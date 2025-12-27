@@ -1,0 +1,2464 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QuizPro - Student Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* CSS Variables */
+        :root {
+            --primary: #4f46e5;
+            --primary-dark: #4338ca;
+            --secondary: #7c73e6;
+            --accent: #10b981;
+            --light: #f8fafc;
+            --dark: #1e293b;
+            --gray: #64748b;
+            --white: #ffffff;
+            --error: #ef4444;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --info: #3b82f6;
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            --sidebar-width: 260px;
+            --sidebar-collapsed-width: 70px;
+            --transition: all 0.3s ease;
+        }
+
+        [data-theme="dark"] {
+            --light: #1e293b;
+            --dark: #f1f5f9;
+            --white: #334155;
+            --gray: #94a3b8;
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--light);
+            color: var(--dark);
+            display: flex;
+            min-height: 100vh;
+            transition: var(--transition);
+            line-height: 1.6;
+        }
+
+        /* Header Styles */
+        .dashboard-header {
+            position: fixed;
+            top: 0;
+            left: var(--sidebar-width);
+            right: 0;
+            background: linear-gradient(90deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: var(--shadow);
+            z-index: 100;
+            transition: var(--transition);
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .header-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+        }
+
+        .header-breadcrumb {
+            font-size: 0.9rem;
+            opacity: 0.8;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .header-notification {
+            position: relative;
+            cursor: pointer;
+        }
+
+        .notification-badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background-color: var(--accent);
+            color: white;
+            border-radius: 50%;
+            width: 18px;
+            height: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+            font-weight: 600;
+        }
+
+        .header-user {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+        }
+
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Sidebar Styles */
+        .dashboard-sidebar {
+            width: var(--sidebar-width);
+            background: linear-gradient(180deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            box-shadow: var(--shadow);
+            z-index: 10;
+            position: fixed;
+            height: 100vh;
+            overflow: hidden;
+            transition: var(--transition);
+        }
+
+        .sidebar-header {
+            padding: 25px 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .sidebar-header h2 {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            font-size: 1.4rem;
+            font-weight: 700;
+        }
+
+        .close-sidebar {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        .profile-card {
+            padding: 25px 20px;
+            text-align: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .profile-icon {
+            font-size: 3.5rem;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 15px;
+        }
+
+        .profile-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+
+        .profile-card p {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        .sidebar-nav {
+            flex: 1;
+            padding: 20px 0;
+            overflow-y: auto;
+        }
+
+        .sidebar-link {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 15px 25px;
+            text-decoration: none;
+            color: rgba(255, 255, 255, 0.8);
+            transition: var(--transition);
+            border-left: 4px solid transparent;
+            font-weight: 500;
+        }
+
+        .sidebar-link:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: white;
+        }
+
+        .sidebar-link.active {
+            background-color: rgba(255, 255, 255, 0.15);
+            color: white;
+            border-left-color: var(--accent);
+        }
+
+        .sidebar-link i {
+            width: 20px;
+            text-align: center;
+        }
+
+        .sidebar-link-text {
+            transition: var(--transition);
+        }
+
+        .logout-link {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 15px 25px;
+            background-color: rgba(239, 68, 68, 0.2);
+            color: white;
+            text-decoration: none;
+            transition: var(--transition);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-weight: 500;
+        }
+
+        .logout-link:hover {
+            background-color: rgba(239, 68, 68, 0.3);
+        }
+
+        /* Main Content Styles */
+        .dashboard-content {
+            flex: 1;
+            padding: 100px 30px 30px;
+            margin-left: var(--sidebar-width);
+            overflow-y: auto;
+            transition: var(--transition);
+        }
+
+        .greeting-message {
+            color: var(--dark);
+            margin-bottom: 30px;
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+
+        .content-section {
+            display: none;
+        }
+
+        .content-section.active-content {
+            display: block;
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Dashboard Cards */
+        .dashboard-card {
+            background-color: var(--white);
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+            padding: 30px;
+            margin-bottom: 30px;
+            transition: var(--transition);
+        }
+
+        .dashboard-card h2 {
+            color: var(--dark);
+            margin-bottom: 25px;
+            font-size: 1.5rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: var(--white);
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: var(--shadow);
+            border-left: 4px solid var(--primary);
+            transition: var(--transition);
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .stat-card h3 {
+            font-size: 0.9rem;
+            color: var(--gray);
+            margin-bottom: 10px;
+            font-weight: 500;
+        }
+
+        .stat-value {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: var(--dark);
+            margin-bottom: 5px;
+        }
+
+        .stat-trend {
+            font-size: 0.85rem;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .trend-up {
+            color: var(--success);
+        }
+
+        .trend-down {
+            color: var(--error);
+        }
+
+        /* Activity Log */
+        .activity-log {
+            border: 1px solid #e2e8f0;
+            border-radius: 10px;
+            padding: 20px;
+            background-color: #f8fafc;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .activity-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px 0;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .activity-item:last-child {
+            border-bottom: none;
+        }
+
+        .activity-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1rem;
+        }
+
+        .activity-details {
+            flex: 1;
+        }
+
+        .activity-text {
+            font-weight: 500;
+            margin-bottom: 5px;
+        }
+
+        .activity-time {
+            font-size: 0.85rem;
+            color: var(--gray);
+        }
+
+        /* Action Bar */
+        .action-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            gap: 15px;
+        }
+
+        .input-filter {
+            flex: 1;
+            max-width: 400px;
+            padding: 12px 16px;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: var(--transition);
+            background-color: var(--white);
+            color: var(--dark);
+        }
+
+        .input-filter:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+        }
+
+        /* Buttons */
+        .start-btn,
+        .view-btn,
+        .retake-btn,
+        .save-btn,
+        .cancel-btn {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .start-btn {
+            background-color: var(--success);
+            color: white;
+        }
+
+        .start-btn:hover {
+            background-color: #0d9c6b;
+            transform: translateY(-2px);
+        }
+
+        .view-btn {
+            background-color: var(--info);
+            color: white;
+            padding: 8px 15px;
+            font-size: 0.9rem;
+        }
+
+        .retake-btn {
+            background-color: var(--warning);
+            color: white;
+            padding: 8px 15px;
+            font-size: 0.9rem;
+        }
+
+        .save-btn {
+            background-color: var(--success);
+            color: white;
+        }
+
+        .cancel-btn {
+            background-color: var(--gray);
+            color: white;
+        }
+
+        /* Tables */
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        .data-table th {
+            background-color: #f8fafc;
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+            color: var(--dark);
+            border-bottom: 2px solid #e2e8f0;
+        }
+
+        .data-table td {
+            padding: 15px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .data-table tr:hover {
+            background-color: #f8fafc;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        .status-completed {
+            background-color: #d1fae5;
+            color: #065f46;
+        }
+
+        .status-pending {
+            background-color: #fef3c7;
+            color: #92400e;
+        }
+
+        .status-in-progress {
+            background-color: #dbeafe;
+            color: #1e40af;
+        }
+
+        .status-not-started {
+            background-color: #f1f5f9;
+            color: #475569;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        /* Quiz Cards */
+        .quiz-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .quiz-card {
+            background-color: var(--white);
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            padding: 20px;
+            transition: var(--transition);
+            border-left: 4px solid var(--primary);
+        }
+
+        .quiz-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .quiz-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 15px;
+        }
+
+        .quiz-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--dark);
+            margin-bottom: 5px;
+        }
+
+        .quiz-meta {
+            font-size: 0.85rem;
+            color: var(--gray);
+            margin-bottom: 15px;
+        }
+
+        .quiz-stats {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .quiz-stat {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .stat-label {
+            font-size: 0.8rem;
+            color: var(--gray);
+        }
+
+        .stat-value {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--dark);
+        }
+
+        .quiz-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        /* Progress Section */
+        .progress-section {
+            margin-top: 30px;
+        }
+
+        .progress-card {
+            background-color: var(--white);
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .progress-header {
+            display: flex;
+            justify-content: between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .progress-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--dark);
+        }
+
+        .progress-bar {
+            height: 10px;
+            background-color: #e2e8f0;
+            border-radius: 5px;
+            overflow: hidden;
+            margin-bottom: 10px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background-color: var(--success);
+            border-radius: 5px;
+            transition: width 0.5s ease;
+        }
+
+        .progress-info {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.9rem;
+            color: var(--gray);
+        }
+
+        /* Badges Section */
+        .badges-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .badge-card {
+            background-color: var(--white);
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            padding: 20px;
+            text-align: center;
+            transition: var(--transition);
+        }
+
+        .badge-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .badge-icon {
+            font-size: 2.5rem;
+            color: var(--warning);
+            margin-bottom: 10px;
+        }
+
+        .badge-name {
+            font-weight: 600;
+            color: var(--dark);
+            margin-bottom: 5px;
+        }
+
+        .badge-description {
+            font-size: 0.8rem;
+            color: var(--gray);
+        }
+
+        /* Calendar Section */
+        .calendar-container {
+            background-color: var(--white);
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            padding: 20px;
+            margin-top: 20px;
+        }
+
+        .calendar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 10px;
+        }
+
+        .calendar-day {
+            text-align: center;
+            padding: 10px;
+            border-radius: 5px;
+            font-weight: 600;
+            color: var(--gray);
+        }
+
+        .calendar-date {
+            text-align: center;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .calendar-date:hover {
+            background-color: #f1f5f9;
+        }
+
+        .calendar-date.has-quiz {
+            background-color: rgba(79, 70, 229, 0.1);
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        .calendar-date.today {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        /* Upcoming Quizzes */
+        .upcoming-list {
+            margin-top: 20px;
+        }
+
+        .upcoming-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .upcoming-item:last-child {
+            border-bottom: none;
+        }
+
+        .upcoming-details h4 {
+            font-weight: 600;
+            color: var(--dark);
+            margin-bottom: 5px;
+        }
+
+        .upcoming-details p {
+            font-size: 0.9rem;
+            color: var(--gray);
+        }
+
+        /* Modal Styles */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal {
+            background-color: var(--white);
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            width: 90%;
+            max-width: 600px;
+            max-height: 90vh;
+            overflow-y: auto;
+            transform: translateY(-20px);
+            transition: transform 0.3s ease;
+        }
+
+        .modal-overlay.active .modal {
+            transform: translateY(0);
+        }
+
+        .modal-header {
+            padding: 20px 25px;
+            border-bottom: 1px solid #e2e8f0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-title {
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: var(--dark);
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--gray);
+            transition: var(--transition);
+        }
+
+        .modal-close:hover {
+            color: var(--dark);
+        }
+
+        .modal-body {
+            padding: 25px;
+        }
+
+        .modal-footer {
+            padding: 20px 25px;
+            border-top: 1px solid #e2e8f0;
+            display: flex;
+            justify-content: flex-end;
+            gap: 15px;
+        }
+
+        /* Quiz Preview Styles */
+        .quiz-preview {
+            margin-bottom: 20px;
+        }
+
+        .quiz-info {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .info-item {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .info-label {
+            font-size: 0.85rem;
+            color: var(--gray);
+            margin-bottom: 5px;
+        }
+
+        .info-value {
+            font-weight: 600;
+            color: var(--dark);
+        }
+
+        .preview-questions {
+            margin-top: 25px;
+        }
+
+        .preview-question {
+            background-color: #f8fafc;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 15px;
+        }
+
+        .question-text {
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: var(--dark);
+        }
+
+        .question-options {
+            margin-left: 15px;
+        }
+
+        .question-option {
+            margin-bottom: 8px;
+            display: flex;
+            align-items: flex-start;
+        }
+
+        .option-letter {
+            font-weight: 600;
+            margin-right: 8px;
+            color: var(--primary);
+        }
+
+        .correct-answer {
+            background-color: #d1fae5;
+            border-radius: 5px;
+            padding: 10px;
+            margin-top: 10px;
+            border-left: 3px solid var(--success);
+        }
+
+        .correct-answer-label {
+            font-weight: 600;
+            color: var(--success);
+            margin-bottom: 5px;
+        }
+
+        /* Start Quiz Modal */
+        .quiz-instructions {
+            margin-bottom: 25px;
+        }
+
+        .instruction-list {
+            margin-left: 20px;
+            margin-bottom: 20px;
+        }
+
+        .instruction-list li {
+            margin-bottom: 10px;
+        }
+
+        .quiz-timer {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            background-color: #f1f5f9;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+
+        .timer-icon {
+            font-size: 1.5rem;
+            color: var(--primary);
+        }
+
+        .timer-text {
+            font-weight: 600;
+            color: var(--dark);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1200px) {
+            .quiz-cards {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 1024px) {
+            .dashboard-sidebar {
+                width: 240px;
+            }
+
+            .dashboard-header {
+                left: 240px;
+            }
+
+            .dashboard-content {
+                margin-left: 240px;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .menu-toggle {
+                display: block;
+            }
+
+            .dashboard-sidebar {
+                transform: translateX(-100%);
+                width: 280px;
+            }
+
+            .dashboard-sidebar.mobile-open {
+                transform: translateX(0);
+            }
+
+            .dashboard-header {
+                left: 0;
+            }
+
+            .dashboard-content {
+                margin-left: 0;
+                padding: 100px 20px 20px;
+            }
+
+            .close-sidebar {
+                display: block;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .action-bar {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .input-filter {
+                max-width: 100%;
+            }
+
+            .quiz-cards {
+                grid-template-columns: 1fr;
+            }
+
+            .badges-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .quiz-info {
+                grid-template-columns: 1fr;
+            }
+
+            .modal-footer {
+                flex-direction: column;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .dashboard-content {
+                padding: 100px 15px 15px;
+            }
+
+            .dashboard-card {
+                padding: 20px;
+            }
+
+            .action-buttons {
+                flex-direction: column;
+                gap: 5px;
+            }
+
+            .quiz-actions {
+                flex-direction: column;
+                gap: 5px;
+            }
+
+            .header-right {
+                gap: 10px;
+            }
+
+            .header-title {
+                font-size: 1.2rem;
+            }
+
+            .badges-container {
+                grid-template-columns: 1fr;
+            }
+
+            .modal {
+                width: 95%;
+            }
+        }
+    </style>
+</head>
+
+<body class="dashboard-body">
+
+    <!-- Header -->
+    <div class="dashboard-header">
+        <div class="header-left">
+            <button class="menu-toggle">
+                <i class="fas fa-bars"></i>
+            </button>
+            <div class="header-title" id="header-title">Student Dashboard</div>
+            <div class="header-breadcrumb">
+                <i class="fas fa-home"></i>
+                <span>Student</span>
+                <i class="fas fa-chevron-right"></i>
+                <span id="breadcrumb-current">Overview</span>
+            </div>
+        </div>
+        <div class="header-right">
+            <div class="header-notification">
+                <i class="fas fa-bell"></i>
+                <div class="notification-badge">3</div>
+            </div>
+            <div class="header-user">
+                <div class="user-avatar">JS</div>
+                <div class="user-info">
+                    <div class="user-name">John Smith</div>
+                    <div class="user-role">Grade 10 - Algebra</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sidebar -->
+    <div class="dashboard-sidebar">
+        <div class="sidebar-header">
+            <h2><i class="fas fa-graduation-cap"></i> <span>QuizPro Student</span></h2>
+            <button class="close-sidebar"><i class="fas fa-times"></i></button>
+        </div>
+
+        <div class="profile-card">
+            <i class="fas fa-user-graduate profile-icon"></i>
+            <h3 id="student-name-display">John Smith</h3>
+            <p id="student-class-display">Grade 10 - Algebra</p>
+        </div>
+
+        <nav class="sidebar-nav">
+            <a href="#overview" class="sidebar-link active" data-content="overview">
+                <i class="fas fa-tachometer-alt"></i>
+                <span>Dashboard</span>
+            </a>
+            <a href="#my-quizzes" class="sidebar-link" data-content="my-quizzes">
+                <i class="fas fa-list-check"></i>
+                <span>My Quizzes</span>
+            </a>
+            <a href="#progress" class="sidebar-link" data-content="progress">
+                <i class="fas fa-chart-line"></i>
+                <span>Progress</span>
+            </a>
+            <a href="#achievements" class="sidebar-link" data-content="achievements">
+                <i class="fas fa-trophy"></i>
+                <span>Achievements</span>
+            </a>
+            <a href="#calendar" class="sidebar-link" data-content="calendar">
+                <i class="fas fa-calendar"></i>
+                <span>Calendar</span>
+            </a>
+            <a href="#resources" class="sidebar-link" data-content="resources">
+                <i class="fas fa-book"></i>
+                <span>Resources</span>
+            </a>
+        </nav>
+
+        <a href="#" id="logout-link" class="logout-link">
+            <i class="fas fa-sign-out-alt"></i>
+            <span>Logout</span>
+        </a>
+    </div>
+
+    <!-- Main Content -->
+    <div class="dashboard-content">
+
+        <!-- Overview Section -->
+        <div id="overview" class="content-section dashboard-card active-content">
+            <h2><i class="fas fa-tachometer-alt"></i> Student Dashboard</h2>
+            <div class="greeting-message">Welcome back, John!</div>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <h3>Overall Score</h3>
+                    <div class="stat-value">85%</div>
+                    <div class="stat-trend trend-up">
+                        <i class="fas fa-arrow-up"></i>
+                        <span>5% improvement</span>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <h3>Quizzes Completed</h3>
+                    <div class="stat-value">12/15</div>
+                    <div class="stat-trend trend-up">
+                        <i class="fas fa-arrow-up"></i>
+                        <span>2 this week</span>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <h3>Current Rank</h3>
+                    <div class="stat-value">#8</div>
+                    <div class="stat-trend trend-up">
+                        <i class="fas fa-arrow-up"></i>
+                        <span>2 positions up</span>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <h3>Study Streak</h3>
+                    <div class="stat-value">7 days</div>
+                    <div class="stat-trend trend-up">
+                        <i class="fas fa-fire"></i>
+                        <span>Keep going!</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="action-bar">
+                <h3>Upcoming Quizzes</h3>
+                <button class="view-btn">
+                    <i class="fas fa-list"></i> View All
+                </button>
+            </div>
+
+            <div class="upcoming-list">
+                <div class="upcoming-item">
+                    <div class="upcoming-details">
+                        <h4>Algebra Fundamentals</h4>
+                        <p><i class="fas fa-calendar"></i> Due: Tomorrow, 3:00 PM</p>
+                    </div>
+                    <button class="start-btn" data-quiz="Algebra Fundamentals">
+                        <i class="fas fa-play"></i> Start
+                    </button>
+                </div>
+
+                <div class="upcoming-item">
+                    <div class="upcoming-details">
+                        <h4>Geometry Quiz</h4>
+                        <p><i class="fas fa-calendar"></i> Due: Friday, 10:00 AM</p>
+                    </div>
+                    <button class="view-btn" data-quiz="Geometry Basics">
+                        <i class="fas fa-eye"></i> Review
+                    </button>
+                </div>
+
+                <div class="upcoming-item">
+                    <div class="upcoming-details">
+                        <h4>Trigonometry Test</h4>
+                        <p><i class="fas fa-calendar"></i> Due: Next Monday</p>
+                    </div>
+                    <button class="view-btn" data-quiz="Trigonometry Advanced">
+                        <i class="fas fa-eye"></i> Review
+                    </button>
+                </div>
+            </div>
+
+            <div class="action-bar" style="margin-top: 30px;">
+                <h3>Recent Activity</h3>
+            </div>
+
+            <div id="recent-activity-log" class="activity-log">
+                <div class="activity-item">
+                    <div class="activity-icon" style="background-color: var(--success);">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <div class="activity-details">
+                        <div class="activity-text">You completed "Algebra Quiz 3" with a score of 92%</div>
+                        <div class="activity-time">2 hours ago</div>
+                    </div>
+                </div>
+
+                <div class="activity-item">
+                    <div class="activity-icon" style="background-color: var(--info);">
+                        <i class="fas fa-trophy"></i>
+                    </div>
+                    <div class="activity-details">
+                        <div class="activity-text">You earned the "Algebra Master" badge</div>
+                        <div class="activity-time">Yesterday</div>
+                    </div>
+                </div>
+
+                <div class="activity-item">
+                    <div class="activity-icon" style="background-color: var(--warning);">
+                        <i class="fas fa-exclamation-triangle"></i>
+                    </div>
+                    <div class="activity-details">
+                        <div class="activity-text">"Geometry Quiz" is due in 2 days</div>
+                        <div class="activity-time">2 days ago</div>
+                    </div>
+                </div>
+
+                <div class="activity-item">
+                    <div class="activity-icon" style="background-color: var(--primary);">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <div class="activity-details">
+                        <div class="activity-text">Your overall score improved by 5% this week</div>
+                        <div class="activity-time">3 days ago</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- My Quizzes Section -->
+        <div id="my-quizzes" class="content-section dashboard-card hidden-content">
+            <h2><i class="fas fa-list-check"></i> My Quizzes</h2>
+
+            <div class="action-bar">
+                <input type="text" id="quiz-search" placeholder="Search quizzes..." class="input-filter">
+                <div>
+                    <button class="view-btn">
+                        <i class="fas fa-filter"></i> Filter
+                    </button>
+                </div>
+            </div>
+
+            <div class="quiz-cards" id="quiz-cards-container">
+                <div class="quiz-card">
+                    <div class="quiz-card-header">
+                        <div>
+                            <div class="quiz-title">Algebra Fundamentals</div>
+                            <div class="quiz-meta">Assigned: 15 May 2023 • Due: 20 May 2023</div>
+                        </div>
+                        <span class="status-badge status-completed">Completed</span>
+                    </div>
+                    <div class="quiz-stats">
+                        <div class="quiz-stat">
+                            <div class="stat-label">Your Score</div>
+                            <div class="stat-value">92%</div>
+                        </div>
+                        <div class="quiz-stat">
+                            <div class="stat-label">Time Spent</div>
+                            <div class="stat-value">18 min</div>
+                        </div>
+                        <div class="quiz-stat">
+                            <div class="stat-label">Class Avg.</div>
+                            <div class="stat-value">78%</div>
+                        </div>
+                    </div>
+                    <div class="quiz-actions">
+                        <button class="view-btn" data-quiz="Algebra Fundamentals" data-mode="review"><i class="fas fa-chart-bar"></i> Results</button>
+                        <button class="retake-btn" data-quiz="Algebra Fundamentals"><i class="fas fa-redo"></i> Retake</button>
+                    </div>
+                </div>
+
+                <div class="quiz-card">
+                    <div class="quiz-card-header">
+                        <div>
+                            <div class="quiz-title">Geometry Basics</div>
+                            <div class="quiz-meta">Assigned: 18 May 2023 • Due: 25 May 2023</div>
+                        </div>
+                        <span class="status-badge status-in-progress">In Progress</span>
+                    </div>
+                    <div class="quiz-stats">
+                        <div class="quiz-stat">
+                            <div class="stat-label">Progress</div>
+                            <div class="stat-value">5/12</div>
+                        </div>
+                        <div class="quiz-stat">
+                            <div class="stat-label">Time Left</div>
+                            <div class="stat-value">4 days</div>
+                        </div>
+                        <div class="quiz-stat">
+                            <div class="stat-label">Attempts</div>
+                            <div class="stat-value">1/3</div>
+                        </div>
+                    </div>
+                    <div class="quiz-actions">
+                        <button class="start-btn" data-quiz="Geometry Basics"><i class="fas fa-play"></i> Continue</button>
+                        <button class="view-btn" data-quiz="Geometry Basics" data-mode="review"><i class="fas fa-eye"></i> Review</button>
+                    </div>
+                </div>
+
+                <div class="quiz-card">
+                    <div class="quiz-card-header">
+                        <div>
+                            <div class="quiz-title">Trigonometry Advanced</div>
+                            <div class="quiz-meta">Assigned: 20 May 2023 • Due: 27 May 2023</div>
+                        </div>
+                        <span class="status-badge status-not-started">Not Started</span>
+                    </div>
+                    <div class="quiz-stats">
+                        <div class="quiz-stat">
+                            <div class="stat-label">Questions</div>
+                            <div class="stat-value">15</div>
+                        </div>
+                        <div class="quiz-stat">
+                            <div class="stat-label">Time Limit</div>
+                            <div class="stat-value">30 min</div>
+                        </div>
+                        <div class="quiz-stat">
+                            <div class="stat-label">Attempts</div>
+                            <div class="stat-value">0/2</div>
+                        </div>
+                    </div>
+                    <div class="quiz-actions">
+                        <button class="start-btn" data-quiz="Trigonometry Advanced"><i class="fas fa-play"></i> Start</button>
+                        <button class="view-btn" data-quiz="Trigonometry Advanced" data-mode="preview"><i class="fas fa-info"></i> Details</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Progress Section -->
+        <div id="progress" class="content-section dashboard-card hidden-content">
+            <h2><i class="fas fa-chart-line"></i> My Progress</h2>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <h3>Overall Performance</h3>
+                    <div class="stat-value">85%</div>
+                    <div class="stat-trend trend-up">
+                        <i class="fas fa-arrow-up"></i>
+                        <span>5% improvement</span>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <h3>Quizzes Completed</h3>
+                    <div class="stat-value">12</div>
+                    <div class="stat-trend trend-up">
+                        <i class="fas fa-arrow-up"></i>
+                        <span>80% completion</span>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <h3>Study Hours</h3>
+                    <div class="stat-value">24.5</div>
+                    <div class="stat-trend trend-up">
+                        <i class="fas fa-arrow-up"></i>
+                        <span>This month</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="progress-section">
+                <div class="progress-card">
+                    <div class="progress-header">
+                        <div class="progress-title">Algebra</div>
+                        <div class="progress-percent">88%</div>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 88%"></div>
+                    </div>
+                    <div class="progress-info">
+                        <span>Completed: 7/8 quizzes</span>
+                        <span>Avg. Score: 88%</span>
+                    </div>
+                </div>
+
+                <div class="progress-card">
+                    <div class="progress-header">
+                        <div class="progress-title">Geometry</div>
+                        <div class="progress-percent">75%</div>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 75%"></div>
+                    </div>
+                    <div class="progress-info">
+                        <span>Completed: 3/4 quizzes</span>
+                        <span>Avg. Score: 75%</span>
+                    </div>
+                </div>
+
+                <div class="progress-card">
+                    <div class="progress-header">
+                        <div class="progress-title">Trigonometry</div>
+                        <div class="progress-percent">82%</div>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 82%"></div>
+                    </div>
+                    <div class="progress-info">
+                        <span>Completed: 2/3 quizzes</span>
+                        <span>Avg. Score: 82%</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="action-bar" style="margin-top: 30px;">
+                <h3>Performance Over Time</h3>
+                <button class="view-btn">
+                    <i class="fas fa-download"></i> Export Report
+                </button>
+            </div>
+
+            <div class="chart-placeholder" style="height: 300px; margin-top: 20px;">
+                <i class="fas fa-chart-line"></i> Performance Chart Would Appear Here
+            </div>
+        </div>
+
+        <!-- Achievements Section -->
+        <div id="achievements" class="content-section dashboard-card hidden-content">
+            <h2><i class="fas fa-trophy"></i> My Achievements</h2>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <h3>Badges Earned</h3>
+                    <div class="stat-value">8</div>
+                </div>
+
+                <div class="stat-card">
+                    <h3>Points</h3>
+                    <div class="stat-value">1,250</div>
+                </div>
+
+                <div class="stat-card">
+                    <h3>Current Level</h3>
+                    <div class="stat-value">Expert</div>
+                </div>
+            </div>
+
+            <div class="action-bar">
+                <h3>My Badges</h3>
+                <button class="view-btn">
+                    <i class="fas fa-share"></i> Share
+                </button>
+            </div>
+
+            <div class="badges-container">
+                <div class="badge-card">
+                    <div class="badge-icon">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <div class="badge-name">Quick Learner</div>
+                    <div class="badge-description">Complete 5 quizzes in one week</div>
+                </div>
+
+                <div class="badge-card">
+                    <div class="badge-icon">
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <div class="badge-name">Perfect Score</div>
+                    <div class="badge-description">Score 100% on any quiz</div>
+                </div>
+
+                <div class="badge-card">
+                    <div class="badge-icon">
+                        <i class="fas fa-fire"></i>
+                    </div>
+                    <div class="badge-name">Streak Master</div>
+                    <div class="badge-description">7-day study streak</div>
+                </div>
+
+                <div class="badge-card">
+                    <div class="badge-icon">
+                        <i class="fas fa-rocket"></i>
+                    </div>
+                    <div class="badge-name">Speed Demon</div>
+                    <div class="badge-description">Complete a quiz in half the time</div>
+                </div>
+
+                <div class="badge-card">
+                    <div class="badge-icon">
+                        <i class="fas fa-medal"></i>
+                    </div>
+                    <div class="badge-name">Algebra Master</div>
+                    <div class="badge-description">Master all algebra topics</div>
+                </div>
+
+                <div class="badge-card">
+                    <div class="badge-icon">
+                        <i class="fas fa-gem"></i>
+                    </div>
+                    <div class="badge-name">Consistent Performer</div>
+                    <div class="badge-description">Maintain 90%+ average for a month</div>
+                </div>
+            </div>
+
+            <div class="action-bar" style="margin-top: 30px;">
+                <h3>Next Badges</h3>
+            </div>
+
+            <div class="badges-container">
+                <div class="badge-card" style="opacity: 0.6;">
+                    <div class="badge-icon">
+                        <i class="fas fa-crown"></i>
+                    </div>
+                    <div class="badge-name">Geometry Guru</div>
+                    <div class="badge-description">Complete 3 more geometry quizzes</div>
+                </div>
+
+                <div class="badge-card" style="opacity: 0.6;">
+                    <div class="badge-icon">
+                        <i class="fas fa-infinity"></i>
+                    </div>
+                    <div class="badge-name">Marathon Runner</div>
+                    <div class="badge-description">30-day study streak</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Calendar Section -->
+        <div id="calendar" class="content-section dashboard-card hidden-content">
+            <h2><i class="fas fa-calendar"></i> My Calendar</h2>
+
+            <div class="calendar-container">
+                <div class="calendar-header">
+                    <h3>May 2023</h3>
+                    <div class="action-buttons">
+                        <button class="view-btn"><i class="fas fa-chevron-left"></i></button>
+                        <button class="view-btn">Today</button>
+                        <button class="view-btn"><i class="fas fa-chevron-right"></i></button>
+                    </div>
+                </div>
+
+                <div class="calendar-grid">
+                    <div class="calendar-day">Sun</div>
+                    <div class="calendar-day">Mon</div>
+                    <div class="calendar-day">Tue</div>
+                    <div class="calendar-day">Wed</div>
+                    <div class="calendar-day">Thu</div>
+                    <div class="calendar-day">Fri</div>
+                    <div class="calendar-day">Sat</div>
+
+                    <!-- Calendar dates would be generated dynamically in a real app -->
+                    <div class="calendar-date">30</div>
+                    <div class="calendar-date">1</div>
+                    <div class="calendar-date">2</div>
+                    <div class="calendar-date">3</div>
+                    <div class="calendar-date">4</div>
+                    <div class="calendar-date">5</div>
+                    <div class="calendar-date">6</div>
+
+                    <div class="calendar-date">7</div>
+                    <div class="calendar-date">8</div>
+                    <div class="calendar-date">9</div>
+                    <div class="calendar-date">10</div>
+                    <div class="calendar-date">11</div>
+                    <div class="calendar-date">12</div>
+                    <div class="calendar-date">13</div>
+
+                    <div class="calendar-date">14</div>
+                    <div class="calendar-date">15</div>
+                    <div class="calendar-date has-quiz">16</div>
+                    <div class="calendar-date">17</div>
+                    <div class="calendar-date">18</div>
+                    <div class="calendar-date has-quiz">19</div>
+                    <div class="calendar-date">20</div>
+
+                    <div class="calendar-date">21</div>
+                    <div class="calendar-date today">22</div>
+                    <div class="calendar-date">23</div>
+                    <div class="calendar-date has-quiz">24</div>
+                    <div class="calendar-date">25</div>
+                    <div class="calendar-date">26</div>
+                    <div class="calendar-date">27</div>
+
+                    <div class="calendar-date">28</div>
+                    <div class="calendar-date">29</div>
+                    <div class="calendar-date">30</div>
+                    <div class="calendar-date">31</div>
+                    <div class="calendar-date">1</div>
+                    <div class="calendar-date">2</div>
+                    <div class="calendar-date">3</div>
+                </div>
+            </div>
+
+            <div class="action-bar" style="margin-top: 30px;">
+                <h3>Upcoming Events</h3>
+            </div>
+
+            <div class="upcoming-list">
+                <div class="upcoming-item">
+                    <div class="upcoming-details">
+                        <h4>Algebra Fundamentals Quiz</h4>
+                        <p><i class="fas fa-calendar"></i> May 16, 2023 • 3:00 PM</p>
+                    </div>
+                    <button class="view-btn" data-quiz="Algebra Fundamentals" data-mode="preview">
+                        <i class="fas fa-eye"></i> Details
+                    </button>
+                </div>
+
+                <div class="upcoming-item">
+                    <div class="upcoming-details">
+                        <h4>Geometry Quiz</h4>
+                        <p><i class="fas fa-calendar"></i> May 19, 2023 • 10:00 AM</p>
+                    </div>
+                    <button class="view-btn" data-quiz="Geometry Basics" data-mode="preview">
+                        <i class="fas fa-eye"></i> Details
+                    </button>
+                </div>
+
+                <div class="upcoming-item">
+                    <div class="upcoming-details">
+                        <h4>Trigonometry Test</h4>
+                        <p><i class="fas fa-calendar"></i> May 24, 2023 • 1:30 PM</p>
+                    </div>
+                    <button class="view-btn" data-quiz="Trigonometry Advanced" data-mode="preview">
+                        <i class="fas fa-eye"></i> Details
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Resources Section -->
+        <div id="resources" class="content-section dashboard-card hidden-content">
+            <h2><i class="fas fa-book"></i> Learning Resources</h2>
+
+            <div class="action-bar">
+                <input type="text" id="resource-search" placeholder="Search resources..." class="input-filter">
+                <div>
+                    <button class="view-btn">
+                        <i class="fas fa-filter"></i> Filter
+                    </button>
+                </div>
+            </div>
+
+            <div class="quiz-cards">
+                <div class="quiz-card">
+                    <div class="quiz-card-header">
+                        <div>
+                            <div class="quiz-title">Algebra Study Guide</div>
+                            <div class="quiz-meta">Posted: 10 May 2023 • By: Mr. Johnson</div>
+                        </div>
+                    </div>
+                    <div class="quiz-stats">
+                        <div class="quiz-stat">
+                            <div class="stat-label">Pages</div>
+                            <div class="stat-value">24</div>
+                        </div>
+                        <div class="quiz-stat">
+                            <div class="stat-label">Downloads</div>
+                            <div class="stat-value">142</div>
+                        </div>
+                    </div>
+                    <div class="quiz-actions">
+                        <button class="view-btn"><i class="fas fa-eye"></i> View</button>
+                        <button class="start-btn"><i class="fas fa-download"></i> Download</button>
+                    </div>
+                </div>
+
+                <div class="quiz-card">
+                    <div class="quiz-card-header">
+                        <div>
+                            <div class="quiz-title">Geometry Video Tutorials</div>
+                            <div class="quiz-meta">Posted: 8 May 2023 • By: Ms. Davis</div>
+                        </div>
+                    </div>
+                    <div class="quiz-stats">
+                        <div class="quiz-stat">
+                            <div class="stat-label">Videos</div>
+                            <div class="stat-value">12</div>
+                        </div>
+                        <div class="quiz-stat">
+                            <div class="stat-label">Duration</div>
+                            <div class="stat-value">2.5h</div>
+                        </div>
+                    </div>
+                    <div class="quiz-actions">
+                        <button class="view-btn"><i class="fas fa-eye"></i> Watch</button>
+                        <button class="start-btn"><i class="fas fa-play"></i> Start</button>
+                    </div>
+                </div>
+
+                <div class="quiz-card">
+                    <div class="quiz-card-header">
+                        <div>
+                            <div class="quiz-title">Practice Problems - Trigonometry</div>
+                            <div class="quiz-meta">Posted: 5 May 2023 • By: Mr. Johnson</div>
+                        </div>
+                    </div>
+                    <div class="quiz-stats">
+                        <div class="quiz-stat">
+                            <div class="stat-label">Problems</div>
+                            <div class="stat-value">50</div>
+                        </div>
+                        <div class="quiz-stat">
+                            <div class="stat-label">Difficulty</div>
+                            <div class="stat-value">Medium</div>
+                        </div>
+                    </div>
+                    <div class="quiz-actions">
+                        <button class="view-btn"><i class="fas fa-eye"></i> View</button>
+                        <button class="start-btn"><i class="fas fa-play"></i> Practice</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Quiz Preview Modal -->
+    <div class="modal-overlay" id="quiz-preview-modal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 class="modal-title" id="preview-modal-title">Quiz Preview</h3>
+                <button class="modal-close" id="preview-modal-close">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="quiz-preview">
+                    <div class="quiz-info">
+                        <div class="info-item">
+                            <div class="info-label">Duration</div>
+                            <div class="info-value" id="preview-duration">45 minutes</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">Questions</div>
+                            <div class="info-value" id="preview-questions">12</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">Attempts</div>
+                            <div class="info-value" id="preview-attempts">3</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">Due Date</div>
+                            <div class="info-value" id="preview-due-date">May 20, 2023</div>
+                        </div>
+                    </div>
+                    
+                    <div class="preview-questions" id="preview-questions-container">
+                        <!-- Questions will be dynamically inserted here -->
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="cancel-btn" id="preview-cancel-btn">Close</button>
+                <button class="start-btn" id="preview-start-btn">Start Quiz</button>
+            </div>
+        </div>
+    </div>
+<div class="modal-overlay" id="quiz-preview-modal">
+    <div class="modal">
+        <div class="modal-header">
+            <h3 class="modal-title" id="preview-modal-title">Quiz Preview</h3>
+            <button class="modal-close" id="preview-modal-close">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="modal-body">
+            <div class="quiz-preview">
+                <div class="quiz-info">
+                    <div class="info-item">
+                        <div class="info-label">Duration</div>
+                        <div class="info-value" id="preview-duration">45 minutes</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">Questions</div>
+                        <div class="info-value" id="preview-questions">12</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">Attempts</div>
+                        <div class="info-value" id="preview-attempts">3</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">Due Date</div>
+                        <div class="info-value" id="preview-due-date">May 20, 2023</div>
+                    </div>
+                </div>
+                
+                <div class="preview-questions" id="preview-questions-container">
+                    <!-- Questions will be dynamically inserted here -->
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="cancel-btn" id="preview-cancel-btn">Close</button>
+            <button class="start-btn" id="preview-start-btn">Start Quiz</button>
+        </div>
+    </div>
+</div>
+
+<!-- Start Quiz Modal -->
+<div class="modal-overlay" id="start-quiz-modal">
+    <div class="modal">
+        <div class="modal-header">
+            <h3 class="modal-title" id="start-modal-title">Start Quiz</h3>
+            <button class="modal-close" id="start-modal-close">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="modal-body">
+            <div class="quiz-instructions">
+                <h4>Instructions</h4>
+                <ul class="instruction-list">
+                    <li>This quiz has a time limit of <span id="start-time-limit">30 minutes</span>.</li>
+                    <li>You have <span id="start-attempts">3 attempts</span> to complete this quiz.</li>
+                    <li>Once you start the quiz, the timer will begin and cannot be paused.</li>
+                    <li>Your highest score will be recorded.</li>
+                    <li>Make sure you have a stable internet connection before starting.</li>
+                </ul>
+                
+                <div class="quiz-timer">
+                    <i class="fas fa-clock timer-icon"></i>
+                    <div class="timer-text">Time Limit: <span id="timer-display">30 minutes</span></div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="cancel-btn" id="start-cancel-btn">Cancel</button>
+            <button class="start-btn" id="start-confirm-btn">Start Now</button>
+        </div>
+    </div>
+</div>
+   
+     
+    <script>
+        // DOM Elements
+        const sidebarLinks = document.querySelectorAll('.sidebar-link');
+        const contentSections = document.querySelectorAll('.content-section');
+        const logoutLink = document.getElementById('logout-link');
+        const headerTitle = document.getElementById('header-title');
+        const breadcrumbCurrent = document.getElementById('breadcrumb-current');
+        const menuToggle = document.querySelector('.menu-toggle');
+        const closeSidebar = document.querySelector('.close-sidebar');
+        const dashboardSidebar = document.querySelector('.dashboard-sidebar');
+        const dashboardBody = document.querySelector('.dashboard-body');
+
+        // Modal Elements
+        const quizPreviewModal = document.getElementById('quiz-preview-modal');
+        const startQuizModal = document.getElementById('start-quiz-modal');
+        const previewModalClose = document.getElementById('preview-modal-close');
+        const startModalClose = document.getElementById('start-modal-close');
+        const previewCancelBtn = document.getElementById('preview-cancel-btn');
+        const startCancelBtn = document.getElementById('start-cancel-btn');
+        const previewStartBtn = document.getElementById('preview-start-btn');
+        const startConfirmBtn = document.getElementById('start-confirm-btn');
+
+        // Quiz Data - Hardcoded quizzes matching the ones in guest.html
+        const studentQuizzes = {
+            'Algebra Fundamentals': {
+                id: 'math-1',
+                title: 'Algebra Fundamentals',
+                duration: 45,
+                status: 'completed',
+                score: 92,
+                timeSpent: '18 min',
+                classAverage: 78,
+                attempts: 3,
+                dueDate: 'May 20, 2023',
+                questions: [
+                    {
+                        id: 1,
+                        text: "Solve for x: 2x + 5 = 15",
+                        options: {
+                            a: "x = 5",
+                            b: "x = 10",
+                            c: "x = 7.5",
+                            d: "x = 20"
+                        },
+                        correctAnswer: "a",
+                        explanation: "2x + 5 = 15 → 2x = 10 → x = 5"
+                    },
+                    {
+                        id: 2,
+                        text: "What is the value of 3² + 4²?",
+                        options: {
+                            a: "7",
+                            b: "12",
+                            c: "25",
+                            d: "49"
+                        },
+                        correctAnswer: "c",
+                        explanation: "3² = 9, 4² = 16, 9 + 16 = 25"
+                    },
+                    {
+                        id: 3,
+                        text: "Simplify: 3(x + 4) - 2x",
+                        options: {
+                            a: "x + 12",
+                            b: "5x + 4",
+                            c: "x + 4",
+                            d: "3x + 12"
+                        },
+                        correctAnswer: "a",
+                        explanation: "3(x + 4) - 2x = 3x + 12 - 2x = x + 12"
+                    },
+                    {
+                        id: 4,
+                        text: "If y = 2x + 3, what is y when x = 4?",
+                        options: {
+                            a: "8",
+                            b: "11",
+                            c: "14",
+                            d: "5"
+                        },
+                        correctAnswer: "b",
+                        explanation: "y = 2(4) + 3 = 8 + 3 = 11"
+                    }
+                ]
+            },
+            'Geometry Basics': {
+                id: 'geometry-1',
+                title: 'Geometry Basics',
+                duration: 30,
+                status: 'in-progress',
+                progress: '5/12',
+                timeLeft: '4 days',
+                attempts: 3,
+                dueDate: 'May 25, 2023',
+                questions: [
+                    {
+                        id: 1,
+                        text: "What is the sum of angles in a triangle?",
+                        options: {
+                            a: "90°",
+                            b: "180°",
+                            c: "270°",
+                            d: "360°"
+                        },
+                        correctAnswer: "b",
+                        explanation: "The sum of all three angles in any triangle is always 180°."
+                    },
+                    {
+                        id: 2,
+                        text: "What is the formula for the area of a circle?",
+                        options: {
+                            a: "πr",
+                            b: "2πr",
+                            c: "πr²",
+                            d: "2πr²"
+                        },
+                        correctAnswer: "c",
+                        explanation: "The area of a circle is calculated using the formula πr²."
+                    },
+                    {
+                        id: 3,
+                        text: "How many sides does a pentagon have?",
+                        options: {
+                            a: "4",
+                            b: "5",
+                            c: "6",
+                            d: "7"
+                        },
+                        correctAnswer: "b",
+                        explanation: "A pentagon has 5 sides."
+                    },
+                    {
+                        id: 4,
+                        text: "What type of triangle has all sides equal?",
+                        options: {
+                            a: "Scalene",
+                            b: "Isosceles",
+                            c: "Equilateral",
+                            d: "Right"
+                        },
+                        correctAnswer: "c",
+                        explanation: "An equilateral triangle has all three sides of equal length."
+                    }
+                ]
+            },
+            'Trigonometry Advanced': {
+                id: 'trig-1',
+                title: 'Trigonometry Advanced',
+                duration: 40,
+                status: 'not-started',
+                questionsCount: 15,
+                timeLimit: '30 min',
+                attempts: 2,
+                dueDate: 'May 27, 2023',
+                questions: [
+                    {
+                        id: 1,
+                        text: "What is sin(90°)?",
+                        options: {
+                            a: "0",
+                            b: "0.5",
+                            c: "1",
+                            d: "Undefined"
+                        },
+                        correctAnswer: "c",
+                        explanation: "sin(90°) = 1"
+                    },
+                    {
+                        id: 2,
+                        text: "What is the Pythagorean identity?",
+                        options: {
+                            a: "sin²θ + cos²θ = 1",
+                            b: "tanθ = sinθ/cosθ",
+                            c: "1 + tan²θ = sec²θ",
+                            d: "1 + cot²θ = csc²θ"
+                        },
+                        correctAnswer: "a",
+                        explanation: "The fundamental Pythagorean identity is sin²θ + cos²θ = 1."
+                    },
+                    {
+                        id: 3,
+                        text: "What is the period of the sine function?",
+                        options: {
+                            a: "π",
+                            b: "2π",
+                            c: "π/2",
+                            d: "4π"
+                        },
+                        correctAnswer: "b",
+                        explanation: "The sine function has a period of 2π radians."
+                    },
+                    {
+                        id: 4,
+                        text: "What is cos(0°)?",
+                        options: {
+                            a: "0",
+                            b: "0.5",
+                            c: "1",
+                            d: "Undefined"
+                        },
+                        correctAnswer: "c",
+                        explanation: "cos(0°) = 1"
+                    }
+                ]
+            }
+        };
+
+        // Current quiz being previewed or started
+        let currentQuiz = null;
+        let currentMode = 'attempt'; // 'attempt' or 'review'
+
+        // Initialize the dashboard
+        document.addEventListener('DOMContentLoaded', function () {
+            // Set active content based on URL hash or default to overview
+            const hash = window.location.hash || '#overview';
+            showContent(hash.substring(1));
+
+            // Add event listeners to sidebar links
+            sidebarLinks.forEach(link => {
+                link.addEventListener('click', function (e) {
+                    e.preventDefault();
+
+                    // Remove active class from all links
+                    sidebarLinks.forEach(l => l.classList.remove('active'));
+
+                    // Add active class to clicked link
+                    this.classList.add('active');
+
+                    // Show corresponding content
+                    const contentId = this.getAttribute('data-content');
+                    showContent(contentId);
+
+                    // Update URL hash
+                    window.location.hash = contentId;
+
+                    // Close mobile sidebar if open
+                    if (window.innerWidth <= 768) {
+                        dashboardSidebar.classList.remove('mobile-open');
+                    }
+                });
+            });
+
+            // Logout functionality
+            logoutLink.addEventListener('click', function (e) {
+                e.preventDefault();
+                if (confirm('Are you sure you want to logout?')) {
+                    // Redirect to login page
+                    window.location.href = '../html/index.html';
+                }
+            });
+
+            // Sidebar toggle functionality
+            menuToggle.addEventListener('click', function () {
+                dashboardSidebar.classList.toggle('mobile-open');
+            });
+
+            closeSidebar.addEventListener('click', function () {
+                dashboardSidebar.classList.remove('mobile-open');
+            });
+
+            // Handle window resize
+            window.addEventListener('resize', function () {
+                if (window.innerWidth > 768) {
+                    dashboardSidebar.classList.remove('mobile-open');
+                }
+            });
+
+            // Initialize quiz functionality
+            initializeQuizButtons();
+
+            // Initialize modal functionality
+            initializeModals();
+        });
+
+        // Show content section
+        function showContent(contentId) {
+            // Hide all content sections
+            contentSections.forEach(section => {
+                section.classList.remove('active-content');
+            });
+
+            // Show the selected content section
+            const activeSection = document.getElementById(contentId);
+            if (activeSection) {
+                activeSection.classList.add('active-content');
+
+                // Update header title and breadcrumb
+                updateHeader(contentId);
+
+                // If showing My Quizzes section, reinitialize buttons
+                if (contentId === 'my-quizzes') {
+                    setTimeout(initializeQuizButtons, 100);
+                }
+            }
+        }
+
+        // Update header based on current section
+        function updateHeader(sectionId) {
+            const sectionTitles = {
+                'overview': 'Student Dashboard',
+                'my-quizzes': 'My Quizzes',
+                'progress': 'My Progress',
+                'achievements': 'My Achievements',
+                'calendar': 'My Calendar',
+                'resources': 'Learning Resources'
+            };
+
+            const breadcrumbTitles = {
+                'overview': 'Overview',
+                'my-quizzes': 'My Quizzes',
+                'progress': 'Progress',
+                'achievements': 'Achievements',
+                'calendar': 'Calendar',
+                'resources': 'Resources'
+            };
+
+            headerTitle.textContent = sectionTitles[sectionId] || 'Dashboard';
+            breadcrumbCurrent.textContent = breadcrumbTitles[sectionId] || 'Dashboard';
+        }
+
+        // Initialize quiz buttons functionality
+        function initializeQuizButtons() {
+            // Start buttons for new quizzes
+            document.querySelectorAll('.start-btn').forEach(button => {
+                if (!button.hasAttribute('data-quiz')) {
+                    button.addEventListener('click', function() {
+                        const quizTitle = this.getAttribute('data-quiz');
+                        const quiz = studentQuizzes[quizTitle];
+                        
+                        if (quiz) {
+                            currentQuiz = quiz;
+                            currentMode = 'attempt';
+                            showStartQuizModal();
+                        } else {
+                            alert(`Quiz "${quizTitle}" data not found.`);
+                        }
+                    });
+                }
+            });
+
+            // Continue buttons for in-progress quizzes
+            document.querySelectorAll('.start-btn[data-quiz]').forEach(button => {
+                if (button.innerHTML.includes('Continue')) {
+                    button.addEventListener('click', function() {
+                        const quizTitle = this.getAttribute('data-quiz');
+                        const quiz = studentQuizzes[quizTitle];
+                        
+                        if (quiz) {
+                            currentQuiz = quiz;
+                            currentMode = 'attempt';
+                            showStartQuizModal();
+                        }
+                    });
+                }
+            });
+
+            // Review buttons for completed quizzes
+            document.querySelectorAll('.view-btn[data-mode="review"]').forEach(button => {
+                button.addEventListener('click', function() {
+                    const quizTitle = this.getAttribute('data-quiz');
+                    const quiz = studentQuizzes[quizTitle];
+                    
+                    if (quiz) {
+                        currentQuiz = quiz;
+                        currentMode = 'review';
+                        showQuizPreviewModal();
+                    } else {
+                        alert(`Quiz "${quizTitle}" data not found.`);
+                    }
+                });
+            });
+
+            // Preview buttons
+            document.querySelectorAll('.view-btn[data-mode="preview"]').forEach(button => {
+                button.addEventListener('click', function() {
+                    const quizTitle = this.getAttribute('data-quiz');
+                    const quiz = studentQuizzes[quizTitle];
+                    
+                    if (quiz) {
+                        currentQuiz = quiz;
+                        currentMode = 'preview';
+                        showQuizPreviewModal();
+                    } else {
+                        alert(`Quiz "${quizTitle}" data not found.`);
+                    }
+                });
+            });
+
+            // Retake buttons
+            document.querySelectorAll('.retake-btn').forEach(button => {
+                button.addEventListener('click', function() {
+                    const quizTitle = this.getAttribute('data-quiz');
+                    const quiz = studentQuizzes[quizTitle];
+                    
+                    if (quiz) {
+                        if (confirm(`Are you sure you want to retake "${quizTitle}"?`)) {
+                            currentQuiz = quiz;
+                            currentMode = 'attempt';
+                            showStartQuizModal();
+                        }
+                    } else {
+                        alert(`Quiz "${quizTitle}" data not found.`);
+                    }
+                });
+            });
+        }
+
+        // Initialize modal functionality
+        function initializeModals() {
+            // Close modals when clicking close buttons
+            previewModalClose.addEventListener('click', closeQuizPreviewModal);
+            startModalClose.addEventListener('click', closeStartQuizModal);
+            previewCancelBtn.addEventListener('click', closeQuizPreviewModal);
+            startCancelBtn.addEventListener('click', closeStartQuizModal);
+
+            // Start quiz from preview modal
+            previewStartBtn.addEventListener('click', function() {
+                closeQuizPreviewModal();
+                showStartQuizModal();
+            });
+
+            // Confirm start quiz
+            startConfirmBtn.addEventListener('click', function() {
+                closeStartQuizModal();
+                startQuiz(currentQuiz, currentMode);
+            });
+
+            // Close modals when clicking outside
+            quizPreviewModal.addEventListener('click', function(e) {
+                if (e.target === quizPreviewModal) {
+                    closeQuizPreviewModal();
+                }
+            });
+
+            startQuizModal.addEventListener('click', function(e) {
+                if (e.target === startQuizModal) {
+                    closeStartQuizModal();
+                }
+            });
+        }
+
+        // Show quiz preview modal
+        function showQuizPreviewModal() {
+            if (!currentQuiz) return;
+
+            // Update modal title
+            document.getElementById('preview-modal-title').textContent = `${currentQuiz.title} - Preview`;
+
+            // Update quiz info
+            document.getElementById('preview-duration').textContent = `${currentQuiz.duration} minutes`;
+            document.getElementById('preview-questions').textContent = currentQuiz.questions.length;
+            document.getElementById('preview-attempts').textContent = currentQuiz.attempts || 'Unlimited';
+            document.getElementById('preview-due-date').textContent = currentQuiz.dueDate || 'No due date';
+
+            // Update questions preview
+            const questionsContainer = document.getElementById('preview-questions-container');
+            questionsContainer.innerHTML = '';
+
+            // Show only first 3 questions for preview
+            const previewQuestions = currentQuiz.questions.slice(0, 3);
+            
+            previewQuestions.forEach((question, index) => {
+                const questionElement = document.createElement('div');
+                questionElement.className = 'preview-question';
+                
+                let questionHTML = `
+                    <div class="question-text">${index + 1}. ${question.text}</div>
+                    <div class="question-options">
+                `;
+                
+                Object.entries(question.options).forEach(([key, value]) => {
+                    questionHTML += `
+                        <div class="question-option">
+                            <span class="option-letter">${key}.</span>
+                            <span>${value}</span>
+                        </div>
+                    `;
+                });
+                
+                questionHTML += '</div>';
+                
+                // If in review mode, show correct answer
+                if (currentMode === 'review') {
+                    questionHTML += `
+                        <div class="correct-answer">
+                            <div class="correct-answer-label">Correct Answer:</div>
+                            <div>${question.correctAnswer}. ${question.options[question.correctAnswer]}</div>
+                            <div style="margin-top: 5px; font-size: 0.9rem;">${question.explanation}</div>
+                        </div>
+                    `;
+                }
+                
+                questionElement.innerHTML = questionHTML;
+                questionsContainer.appendChild(questionElement);
+            });
+
+            // Update start button text based on mode
+            if (currentMode === 'review') {
+                previewStartBtn.textContent = 'Review Quiz';
+            } else {
+                previewStartBtn.textContent = 'Start Quiz';
+            }
+
+            // Show the modal
+            quizPreviewModal.classList.add('active');
+        }
+
+        // Close quiz preview modal
+        function closeQuizPreviewModal() {
+            quizPreviewModal.classList.remove('active');
+        }
+
+        // Show start quiz modal
+        function showStartQuizModal() {
+            if (!currentQuiz) return;
+
+            // Update modal title
+            document.getElementById('start-modal-title').textContent = `Start: ${currentQuiz.title}`;
+
+            // Update instructions
+            document.getElementById('start-time-limit').textContent = `${currentQuiz.duration} minutes`;
+            document.getElementById('start-attempts').textContent = currentQuiz.attempts || 'unlimited';
+            document.getElementById('timer-display').textContent = `${currentQuiz.duration} minutes`;
+
+            // Show the modal
+            startQuizModal.classList.add('active');
+        }
+
+        // Close start quiz modal
+        function closeStartQuizModal() {
+            startQuizModal.classList.remove('active');
+        }
+
+        // Start quiz function
+        function startQuiz(quiz, mode) {
+            // Store quiz data in localStorage for the quiz page to use
+            localStorage.setItem('currentQuiz', JSON.stringify(quiz));
+            localStorage.setItem('quizMode', mode);
+            
+            // Show loading message
+            alert(`Starting ${quiz.title}...`);
+            
+            // In a real application, this would redirect to the quiz page
+            // For now, we'll simulate the behavior
+            simulateQuizNavigation(quiz, mode);
+        }
+
+        // Simulate quiz navigation (for demo purposes)
+        function simulateQuizNavigation(quiz, mode) {
+            const message = mode === 'review' 
+                ? `Opening review mode for: ${quiz.title}\n\nThis would redirect to the quiz review page.`
+                : `Starting quiz: ${quiz.title}\n\nDuration: ${quiz.duration} minutes\nQuestions: ${quiz.questions.length}\n\nThis would redirect to the quiz taking page.`;
+            
+            alert(message);
+        }
+        <!-- Quiz Preview Modal -->
+
+   </script>
+</body>
+</html>
