@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -126,11 +127,13 @@
             width: 40px;
             height: 40px;
             border-radius: 50%;
-            background-color: rgba(255, 255, 255, 0.2);
+            background: linear-gradient(135deg, #4a6baf 0%, #6c87c7 100%);
+            color: white;
             display: flex;
             align-items: center;
             justify-content: center;
             font-weight: 600;
+            font-size: 16px;
         }
 
         .menu-toggle {
@@ -355,68 +358,6 @@
             margin-bottom: 5px;
         }
 
-        .stat-trend {
-            font-size: 0.85rem;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-        }
-
-        .trend-up {
-            color: var(--success);
-        }
-
-        .trend-down {
-            color: var(--error);
-        }
-
-        /* Activity Log */
-        .activity-log {
-            border: 1px solid #e2e8f0;
-            border-radius: 10px;
-            padding: 20px;
-            background-color: #f8fafc;
-            max-height: 400px;
-            overflow-y: auto;
-        }
-
-        .activity-item {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            padding: 15px 0;
-            border-bottom: 1px solid #e2e8f0;
-        }
-
-        .activity-item:last-child {
-            border-bottom: none;
-        }
-
-        .activity-icon {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 1rem;
-        }
-
-        .activity-details {
-            flex: 1;
-        }
-
-        .activity-text {
-            font-weight: 500;
-            margin-bottom: 5px;
-        }
-
-        .activity-time {
-            font-size: 0.85rem;
-            color: var(--gray);
-        }
-
         /* Action Bar */
         .action-bar {
             display: flex;
@@ -528,468 +469,55 @@
         }
 
         /* Tables */
+        .table-responsive {
+            width: 100%;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            margin: 20px 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+
         .data-table {
             width: 100%;
             border-collapse: collapse;
-            margin-top: 20px;
+            background-color: var(--white);
+            color: var(--dark);
+            min-width: 600px;
         }
 
         .data-table th {
             background-color: #f8fafc;
-            padding: 15px;
+            padding: 16px 20px;
             text-align: left;
             font-weight: 600;
             color: var(--dark);
             border-bottom: 2px solid #e2e8f0;
+            white-space: nowrap;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            box-shadow: 0 1px 0 #e2e8f0;
         }
 
         .data-table td {
-            padding: 15px;
+            padding: 16px 20px;
             border-bottom: 1px solid #e2e8f0;
+            white-space: nowrap;
         }
 
         .data-table tr:hover {
-            background-color: #f8fafc;
+            background-color: rgba(59, 130, 246, 0.05);
         }
 
-        .status-badge {
-            display: inline-block;
-            padding: 5px 12px;
-            border-radius: 20px;
-            font-size: 0.85rem;
-            font-weight: 500;
-        }
-
-        .status-active {
-            background-color: #d1fae5;
-            color: #065f46;
-        }
-
-        .status-inactive {
-            background-color: #fee2e2;
-            color: #991b1b;
-        }
-
-        .status-pending {
-            background-color: #fef3c7;
-            color: #92400e;
-        }
-
-        .status-published {
-            background-color: #d1fae5;
-            color: #065f46;
-        }
-
-        .status-draft {
-            background-color: #fef3c7;
-            color: #92400e;
-        }
-
-        .status-completed {
-            background-color: #dbeafe;
-            color: #1e40af;
-        }
-
+        /* Status Badges - REMOVED since we don't need status */
         .action-buttons {
             display: flex;
-            gap: 10px;
-        }
-
-        /* Quiz Cards */
-        .quiz-cards {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 20px;
-            margin-top: 20px;
-        }
-
-        .quiz-card {
-            background-color: var(--white);
-            border-radius: 10px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-            padding: 20px;
-            transition: var(--transition);
-            border-left: 4px solid var(--primary);
-        }
-
-        .quiz-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-        }
-
-        .quiz-card-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            margin-bottom: 15px;
-        }
-
-        .quiz-title {
-            font-size: 1.2rem;
-            font-weight: 600;
-            color: var(--dark);
-            margin-bottom: 5px;
-        }
-
-        .quiz-meta {
-            font-size: 0.85rem;
-            color: var(--gray);
-            margin-bottom: 15px;
-        }
-
-        .quiz-stats {
-            display: flex;
-            gap: 15px;
-            margin-bottom: 15px;
-        }
-
-        .quiz-stat {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .stat-label {
-            font-size: 0.8rem;
-            color: var(--gray);
-        }
-
-        .stat-value {
-            font-size: 1.1rem;
-            font-weight: 600;
-            color: var(--dark);
-        }
-
-        .quiz-actions {
-            display: flex;
-            gap: 10px;
-        }
-
-        /* Student Cards */
-        .student-cards {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            gap: 20px;
-            margin-top: 20px;
-        }
-
-        .student-card {
-            background-color: var(--white);
-            border-radius: 10px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-            padding: 20px;
-            transition: var(--transition);
-            border-left: 4px solid var(--accent);
-            text-align: center;
-        }
-
-        .student-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-        }
-
-        .student-avatar {
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
-            background-color: var(--primary);
-            color: white;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.8rem;
-            font-weight: 600;
-            margin: 0 auto 15px;
-        }
-
-        .student-name {
-            font-size: 1.2rem;
-            font-weight: 600;
-            color: var(--dark);
-            margin-bottom: 5px;
-        }
-
-        .student-email {
-            font-size: 0.9rem;
-            color: var(--gray);
-            margin-bottom: 15px;
-        }
-
-        .student-performance {
-            display: flex;
-            justify-content: space-around;
-            margin-bottom: 15px;
-        }
-
-        .performance-item {
-            text-align: center;
-        }
-
-        .performance-value {
-            font-size: 1.1rem;
-            font-weight: 600;
-            color: var(--dark);
-        }
-
-        .performance-label {
-            font-size: 0.8rem;
-            color: var(--gray);
-        }
-
-        /* Analytics Charts */
-        .charts-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-            gap: 20px;
-            margin-top: 20px;
-        }
-
-        .chart-card {
-            background-color: var(--white);
-            border-radius: 10px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-            padding: 20px;
-        }
-
-        .chart-placeholder {
-            height: 300px;
-            background-color: #f8fafc;
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--gray);
-            font-size: 1.1rem;
-        }
-
-        /* Settings */
-        .settings-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 20px;
-            margin-top: 20px;
-        }
-
-        .setting-card {
-            background-color: var(--white);
-            border-radius: 10px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-            padding: 20px;
-        }
-
-        .setting-title {
-            font-size: 1.1rem;
-            font-weight: 600;
-            color: var(--dark);
-            margin-bottom: 15px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .setting-description {
-            font-size: 0.9rem;
-            color: var(--gray);
-            margin-bottom: 15px;
-        }
-
-        .toggle-switch {
-            position: relative;
-            display: inline-block;
-            width: 60px;
-            height: 34px;
-        }
-
-        .toggle-switch input {
-            opacity: 0;
-            width: 0;
-            height: 0;
-        }
-
-        .toggle-slider {
-            position: absolute;
-            cursor: pointer;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-color: #ccc;
-            transition: .4s;
-            border-radius: 34px;
-        }
-
-        .toggle-slider:before {
-            position: absolute;
-            content: "";
-            height: 26px;
-            width: 26px;
-            left: 4px;
-            bottom: 4px;
-            background-color: white;
-            transition: .4s;
-            border-radius: 50%;
-        }
-
-        input:checked + .toggle-slider {
-            background-color: var(--primary);
-        }
-
-        input:checked + .toggle-slider:before {
-            transform: translateX(26px);
-        }
-
-        /* Modal Styles */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.5);
-            z-index: 1000;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .modal.active {
-            display: flex;
-        }
-
-        .modal-content {
-            background: var(--white);
-            border-radius: 12px;
-            width: 90%;
-            max-width: 500px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-            overflow: hidden;
-            animation: modalSlideIn 0.3s ease-out;
-        }
-
-        @keyframes modalSlideIn {
-            from {
-                opacity: 0;
-                transform: translateY(-20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .modal-header {
-            background: linear-gradient(90deg, var(--primary) 0%, var(--secondary) 100%);
-            color: white;
-            padding: 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .modal-header h3 {
-            font-size: 1.3rem;
-            font-weight: 600;
-        }
-
-        .close-modal {
-            background: none;
-            border: none;
-            color: white;
-            font-size: 1.5rem;
-            cursor: pointer;
-        }
-
-        .modal-body {
-            padding: 25px;
-        }
-
-        .modal-footer {
-            padding: 20px;
-            border-top: 1px solid #e2e8f0;
-            display: flex;
-            justify-content: flex-end;
-            gap: 15px;
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 500;
-            color: var(--dark);
-        }
-
-        .form-group input,
-        .form-group select,
-        .form-group textarea {
-            width: 100%;
-            padding: 12px 16px;
-            border: 1px solid #d1d5db;
-            border-radius: 8px;
-            font-size: 1rem;
-            transition: var(--transition);
-            background-color: var(--white);
-            color: var(--dark);
-        }
-
-        .form-group input:focus,
-        .form-group select:focus,
-        .form-group textarea:focus {
-            outline: none;
-            border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
-        }
-
-        /* Question Bank */
-        .question-bank {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 20px;
-            margin-top: 20px;
-        }
-
-        .question-card {
-            background-color: var(--white);
-            border-radius: 10px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-            padding: 20px;
-            transition: var(--transition);
-            border-left: 4px solid var(--info);
-        }
-
-        .question-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-        }
-
-        .question-text {
-            font-weight: 500;
-            margin-bottom: 15px;
-            color: var(--dark);
-        }
-
-        .question-meta {
-            display: flex;
-            justify-content: space-between;
-            font-size: 0.85rem;
-            color: var(--gray);
-            margin-bottom: 15px;
-        }
-
-        .question-actions {
-            display: flex;
-            gap: 10px;
+            gap: 8px;
+            white-space: nowrap;
         }
 
         /* Responsive Design */
-        @media (max-width: 1200px) {
-            .charts-container {
-                grid-template-columns: 1fr;
-            }
-        }
-
         @media (max-width: 1024px) {
             .dashboard-sidebar {
                 width: 240px;
@@ -1048,24 +576,9 @@
                 max-width: 100%;
             }
 
-            .quiz-cards {
-                grid-template-columns: 1fr;
-            }
-
-            .student-cards {
-                grid-template-columns: 1fr;
-            }
-
-            .charts-container {
-                grid-template-columns: 1fr;
-            }
-
-            .settings-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .question-bank {
-                grid-template-columns: 1fr;
+            .action-buttons {
+                flex-direction: column;
+                gap: 8px;
             }
         }
 
@@ -1078,45 +591,240 @@
                 padding: 20px;
             }
 
-            .action-buttons {
-                flex-direction: column;
-                gap: 5px;
-            }
-
-            .quiz-actions {
-                flex-direction: column;
-                gap: 5px;
-            }
-
-            .header-right {
-                gap: 10px;
-            }
-
             .header-title {
                 font-size: 1.2rem;
             }
 
-        } 
+            .modal-header {
+                padding: 15px;
+            }
+
+            .modal-header h3 {
+                font-size: 1.1rem;
+            }
+
+            .modal-body {
+                padding: 15px;
+            }
+
+            .modal-footer {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .modal-footer .cancel-btn,
+            .modal-footer .save-btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+
         /* Hide scrollbar but keep scrolling functionality */
-.dashboard-sidebar {
-    overflow-y: auto;
-    scrollbar-width: none; /* Firefox */
-    -ms-overflow-style: none; /* IE and Edge */
-}
+        .dashboard-sidebar,
+        .sidebar-nav {
+            overflow-y: auto;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
 
-.dashboard-sidebar::-webkit-scrollbar {
-    display: none; /* Chrome, Safari, Opera */
-}
+        .dashboard-sidebar::-webkit-scrollbar,
+        .sidebar-nav::-webkit-scrollbar {
+            display: none;
+        }
 
-.sidebar-nav {
-    overflow-y: auto;
-    scrollbar-width: none; /* Firefox */
-    -ms-overflow-style: none; /* IE and Edge */
-}
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
 
-.sidebar-nav::-webkit-scrollbar {
-    display: none; /* Chrome, Safari, Opera */
-}
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: var(--white);
+            border-radius: 12px;
+            width: 90%;
+            max-width: 500px;
+            max-height: 85vh;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+            animation: modalSlideIn 0.3s ease-out;
+            display: flex;
+            flex-direction: column;
+        }
+
+        @keyframes modalSlideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .modal-header {
+            background: linear-gradient(90deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-shrink: 0;
+        }
+
+        .modal-header h3 {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin: 0;
+        }
+
+        .close-modal {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 0;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: var(--transition);
+        }
+
+        .close-modal:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .modal-body {
+            padding: 25px;
+            overflow-y: auto;
+            flex: 1;
+            max-height: calc(85vh - 130px);
+        }
+
+        .modal-footer {
+            padding: 20px;
+            border-top: 1px solid #e2e8f0;
+            display: flex;
+            justify-content: flex-end;
+            gap: 15px;
+            flex-shrink: 0;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--dark);
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: var(--transition);
+            background-color: var(--white);
+            color: var(--dark);
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+        }
+
+        /* Hidden class */
+        .hidden-content {
+            display: none !important;
+        }
+
+        /* Questions Styles */
+        .questions-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            max-height: 400px;
+            overflow-y: auto;
+            padding: 10px;
+        }
+
+        .question-item {
+            background: var(--white);
+            border-radius: 8px;
+            padding: 15px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .question-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .question-header h4 {
+            margin: 0;
+            color: var(--dark);
+        }
+
+        .question-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .options-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .option {
+            padding: 10px;
+            background: #f8fafc;
+            border-radius: 6px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .option.correct {
+            background-color: #d1fae5;
+            border-color: #10b981;
+            color: #065f46;
+            font-weight: 600;
+        }
+
+        .question-item p {
+            margin: 0 0 10px 0;
+            line-height: 1.5;
+        }
     </style>
 </head>
 
@@ -1137,15 +845,11 @@
             </div>
         </div>
         <div class="header-right">
-            <div class="header-notification">
-                <i class="fas fa-bell"></i>
-                <div class="notification-badge">5</div>
-            </div>
             <div class="header-user">
-                <div class="user-avatar">JD</div>
+                <div class="user-avatar" id="user-avatar">JD</div>
                 <div class="user-info">
-                    <div class="user-name">Jane Doe</div>
-                    <div class="user-role">Mathematics Teacher</div>
+                    <div class="user-name" id="header-user-name">Loading...</div>
+                    <div class="user-role" id="header-user-role">Teacher</div>
                 </div>
             </div>
         </div>
@@ -1160,8 +864,8 @@
 
         <div class="profile-card">
             <i class="fas fa-user-tie profile-icon"></i>
-            <h3 id="teacher-name-display">Jane Doe</h3>
-            <p id="teacher-subject-display">Mathematics Department</p>
+            <h3 id="teacher-name-display">Loading...</h3>
+            <p id="teacher-subject-display">Teacher</p>
         </div>
 
         <nav class="sidebar-nav">
@@ -1171,19 +875,15 @@
             </a>
             <a href="#my-quizzes" class="sidebar-link" data-content="my-quizzes">
                 <i class="fas fa-list-check"></i>
-                <span>My Quizzes</span>
-            </a>
-            <a href="#question-bank" class="sidebar-link" data-content="question-bank">
-                <i class="fas fa-database"></i>
-                <span>Question Bank</span>
+                <span>All Quizzes</span>
             </a>
             <a href="#my-students" class="sidebar-link" data-content="my-students">
                 <i class="fas fa-users"></i>
                 <span>My Students</span>
             </a>
-            <a href="#analytics" class="sidebar-link" data-content="analytics">
-                <i class="fas fa-chart-bar"></i>
-                <span>Analytics</span>
+            <a href="#question-bank" class="sidebar-link" data-content="question-bank">
+                <i class="fas fa-database"></i>
+                <span>Question Bank</span>
             </a>
             <a href="#settings" class="sidebar-link" data-content="settings">
                 <i class="fas fa-cog"></i>
@@ -1203,91 +903,36 @@
         <!-- Overview Section -->
         <div id="overview" class="content-section dashboard-card active-content">
             <h2><i class="fas fa-tachometer-alt"></i> Teacher Dashboard</h2>
-            <div class="greeting-message">Welcome back, Jane!</div>
+            <div class="greeting-message" id="greeting-message">Welcome back!</div>
 
             <div class="stats-grid">
                 <div class="stat-card">
-                    <h3>Active Quizzes</h3>
-                    <div class="stat-value">8</div>
-                    <div class="stat-trend trend-up">
-                        <i class="fas fa-arrow-up"></i>
-                        <span>2 new this week</span>
-                    </div>
+                    <h3>Available Quizzes</h3>
+                    <div class="stat-value" id="active-quizzes-count">0</div>
                 </div>
 
                 <div class="stat-card">
-                    <h3>Students</h3>
-                    <div class="stat-value">142</div>
-                    <div class="stat-trend trend-up">
-                        <i class="fas fa-arrow-up"></i>
-                        <span>5% increase</span>
-                    </div>
+                    <h3>Total Students</h3>
+                    <div class="stat-value" id="total-students-count">0</div>
                 </div>
 
                 <div class="stat-card">
-                    <h3>Avg. Quiz Score</h3>
-                    <div class="stat-value">78%</div>
-                    <div class="stat-trend trend-up">
-                        <i class="fas fa-arrow-up"></i>
-                        <span>3% improvement</span>
-                    </div>
+                    <h3>Total Questions</h3>
+                    <div class="stat-value" id="total-questions-count">0</div>
                 </div>
 
-                <div class="stat-card">
-                    <h3>Pending Grading</h3>
-                    <div class="stat-value">12</div>
-                    <div class="stat-trend trend-down">
-                        <i class="fas fa-arrow-down"></i>
-                        <span>5 completed</span>
-                    </div>
-                </div>
+               
             </div>
 
-            <div class="action-bar">
-                <h3>Recent Activity</h3>
-                <button class="view-btn">
-                    <i class="fas fa-list"></i> View All Activity
-                </button>
-            </div>
-
+            <h3>Recent Activity</h3>
             <div id="recent-activity-log" class="activity-log">
                 <div class="activity-item">
-                    <div class="activity-icon" style="background-color: var(--success);">
-                        <i class="fas fa-check-circle"></i>
-                    </div>
-                    <div class="activity-details">
-                        <div class="activity-text">Algebra Quiz results are now available</div>
-                        <div class="activity-time">2 hours ago</div>
-                    </div>
-                </div>
-
-                <div class="activity-item">
                     <div class="activity-icon" style="background-color: var(--primary);">
-                        <i class="fas fa-edit"></i>
+                        <i class="fas fa-spinner fa-spin"></i>
                     </div>
                     <div class="activity-details">
-                        <div class="activity-text">You updated "Trigonometry Basics" quiz</div>
-                        <div class="activity-time">Yesterday</div>
-                    </div>
-                </div>
-
-                <div class="activity-item">
-                    <div class="activity-icon" style="background-color: var(--warning);">
-                        <i class="fas fa-exclamation-triangle"></i>
-                    </div>
-                    <div class="activity-details">
-                        <div class="activity-text">3 students haven't completed Geometry Quiz</div>
-                        <div class="activity-time">2 days ago</div>
-                    </div>
-                </div>
-
-                <div class="activity-item">
-                    <div class="activity-icon" style="background-color: var(--info);">
-                        <i class="fas fa-user-plus"></i>
-                    </div>
-                    <div class="activity-details">
-                        <div class="activity-text">5 new students added to your class</div>
-                        <div class="activity-time">3 days ago</div>
+                        <div class="activity-text">Loading recent activities...</div>
+                        <div class="activity-time">Just now</div>
                     </div>
                 </div>
             </div>
@@ -1295,214 +940,52 @@
 
         <!-- My Quizzes Section -->
         <div id="my-quizzes" class="content-section dashboard-card hidden-content">
-            <h2><i class="fas fa-list-check"></i> My Quizzes</h2>
+            <h2><i class="fas fa-list-check"></i> All Quizzes</h2>
 
             <div class="stats-grid">
                 <div class="stat-card">
-                    <h3>Published Quizzes</h3>
-                    <div class="stat-value">12</div>
-                </div>
-
-                <div class="stat-card">
-                    <h3>Draft Quizzes</h3>
-                    <div class="stat-value">4</div>
+                    <h3>Total Quizzes</h3>
+                    <div class="stat-value" id="published-quizzes-count">0</div>
                 </div>
 
                 <div class="stat-card">
                     <h3>Total Questions</h3>
-                    <div class="stat-value">156</div>
+                    <div class="stat-value" id="quiz-questions-count">0</div>
                 </div>
             </div>
 
             <div class="action-bar">
-                <input type="text" id="quiz-search" placeholder="Search quizzes..." class="input-filter">
+                <input type="text" id="quiz-search" placeholder="Search quizzes by title..." class="input-filter">
                 <button id="add-quiz-btn" class="add-btn">
                     <i class="fas fa-plus"></i> Create New Quiz
                 </button>
             </div>
 
-            <div class="quiz-cards" id="quiz-cards-container">
-                <div class="quiz-card">
-                    <div class="quiz-card-header">
-                        <div>
-                            <div class="quiz-title">Algebra Fundamentals</div>
-                            <div class="quiz-meta">Created: 15 Mar 2023 • Last updated: 20 May 2023</div>
-                        </div>
-                        <span class="status-badge status-published">Published</span>
-                    </div>
-                    <div class="quiz-stats">
-                        <div class="quiz-stat">
-                            <div class="stat-label">Questions</div>
-                            <div class="stat-value">15</div>
-                        </div>
-                        <div class="quiz-stat">
-                            <div class="stat-label">Attempts</div>
-                            <div class="stat-value">128</div>
-                        </div>
-                        <div class="quiz-stat">
-                            <div class="stat-label">Avg. Score</div>
-                            <div class="stat-value">82%</div>
-                        </div>
-                    </div>
-                    <div class="quiz-actions">
-                        <button class="edit-btn" data-quiz-id="QUIZ001"><i class="fas fa-edit"></i> Edit</button>
-                        <button class="view-btn"><i class="fas fa-chart-bar"></i> Results</button>
-                        <button class="assign-btn"><i class="fas fa-share"></i> Assign</button>
-                    </div>
-                </div>
-
-                <div class="quiz-card">
-                    <div class="quiz-card-header">
-                        <div>
-                            <div class="quiz-title">Geometry Basics</div>
-                            <div class="quiz-meta">Created: 10 Apr 2023 • Last updated: 18 May 2023</div>
-                        </div>
-                        <span class="status-badge status-draft">Draft</span>
-                    </div>
-                    <div class="quiz-stats">
-                        <div class="quiz-stat">
-                            <div class="stat-label">Questions</div>
-                            <div class="stat-value">12</div>
-                        </div>
-                        <div class="quiz-stat">
-                            <div class="stat-label">Attempts</div>
-                            <div class="stat-value">0</div>
-                        </div>
-                        <div class="quiz-stat">
-                            <div class="stat-label">Avg. Score</div>
-                            <div class="stat-value">N/A</div>
-                        </div>
-                    </div>
-                    <div class="quiz-actions">
-                        <button class="edit-btn" data-quiz-id="QUIZ002"><i class="fas fa-edit"></i> Edit</button>
-                        <button class="publish-btn"><i class="fas fa-paper-plane"></i> Publish</button>
-                        <button class="delete-btn" data-quiz-id="QUIZ002"><i class="fas fa-trash"></i> Delete</button>
-                    </div>
-                </div>
-
-                <div class="quiz-card">
-                    <div class="quiz-card-header">
-                        <div>
-                            <div class="quiz-title">Trigonometry Advanced</div>
-                            <div class="quiz-meta">Created: 5 May 2023 • Last updated: 12 May 2023</div>
-                        </div>
-                        <span class="status-badge status-published">Published</span>
-                    </div>
-                    <div class="quiz-stats">
-                        <div class="quiz-stat">
-                            <div class="stat-label">Questions</div>
-                            <div class="stat-value">20</div>
-                        </div>
-                        <div class="quiz-stat">
-                            <div class="stat-label">Attempts</div>
-                            <div class="stat-value">94</div>
-                        </div>
-                        <div class="quiz-stat">
-                            <div class="stat-label">Avg. Score</div>
-                            <div class="stat-value">76%</div>
-                        </div>
-                    </div>
-                    <div class="quiz-actions">
-                        <button class="edit-btn" data-quiz-id="QUIZ003"><i class="fas fa-edit"></i> Edit</button>
-                        <button class="view-btn"><i class="fas fa-chart-bar"></i> Results</button>
-                        <button class="assign-btn"><i class="fas fa-share"></i> Assign</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Question Bank Section -->
-        <div id="question-bank" class="content-section dashboard-card hidden-content">
-            <h2><i class="fas fa-database"></i> Question Bank</h2>
-
-            <div class="stats-grid">
-                <div class="stat-card">
-                    <h3>Total Questions</h3>
-                    <div class="stat-value">245</div>
-                </div>
-
-                <div class="stat-card">
-                    <h3>By Difficulty</h3>
-                    <div class="stat-value">
-                        <div>Easy: 85</div>
-                        <div>Medium: 120</div>
-                        <div>Hard: 40</div>
-                    </div>
-                </div>
-
-                <div class="stat-card">
-                    <h3>By Category</h3>
-                    <div class="stat-value">
-                        <div>Algebra: 95</div>
-                        <div>Geometry: 75</div>
-                        <div>Trigonometry: 75</div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="action-bar">
-                <input type="text" id="question-search" placeholder="Search questions..." class="input-filter">
-                <button id="add-question-btn" class="add-btn">
-                    <i class="fas fa-plus"></i> Add New Question
-                </button>
-            </div>
-
-            <div class="question-bank" id="question-bank-container">
-                <div class="question-card">
-                    <div class="question-text">
-                        Solve for x: 2x + 5 = 15
-                    </div>
-                    <div class="question-meta">
-                        <span>Algebra</span>
-                        <span>Easy</span>
-                    </div>
-                    <div class="question-actions">
-                        <button class="edit-btn"><i class="fas fa-edit"></i> Edit</button>
-                        <button class="delete-btn"><i class="fas fa-trash"></i> Delete</button>
-                    </div>
-                </div>
-
-                <div class="question-card">
-                    <div class="question-text">
-                        Calculate the area of a circle with radius 5cm.
-                    </div>
-                    <div class="question-meta">
-                        <span>Geometry</span>
-                        <span>Medium</span>
-                    </div>
-                    <div class="question-actions">
-                        <button class="edit-btn"><i class="fas fa-edit"></i> Edit</button>
-                        <button class="delete-btn"><i class="fas fa-trash"></i> Delete</button>
-                    </div>
-                </div>
-
-                <div class="question-card">
-                    <div class="question-text">
-                        Find the value of sin(45°) + cos(45°)
-                    </div>
-                    <div class="question-meta">
-                        <span>Trigonometry</span>
-                        <span>Easy</span>
-                    </div>
-                    <div class="question-actions">
-                        <button class="edit-btn"><i class="fas fa-edit"></i> Edit</button>
-                        <button class="delete-btn"><i class="fas fa-trash"></i> Delete</button>
-                    </div>
-                </div>
-
-                <div class="question-card">
-                    <div class="question-text">
-                        Solve the quadratic equation: x² - 5x + 6 = 0
-                    </div>
-                    <div class="question-meta">
-                        <span>Algebra</span>
-                        <span>Medium</span>
-                    </div>
-                    <div class="question-actions">
-                        <button class="edit-btn"><i class="fas fa-edit"></i> Edit</button>
-                        <button class="delete-btn"><i class="fas fa-trash"></i> Delete</button>
-                    </div>
-                </div>
+            <div class="table-responsive">
+                <table class="data-table quiz-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Title</th>
+                            <th>Subject</th>
+                            <th>Total Questions</th>
+                            <th>Total Marks</th>
+                            <th>Time Limit</th>
+                            <th>Created At</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="quiz-table-body">
+                        <tr>
+                            <td colspan="8" style="text-align: center; padding: 30px;">
+                                <div style="display: flex; flex-direction: column; align-items: center; gap: 10px;">
+                                    <i class="fas fa-spinner fa-spin" style="font-size: 1.5rem;"></i>
+                                    <span>Loading quizzes...</span>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
 
@@ -1513,165 +996,76 @@
             <div class="stats-grid">
                 <div class="stat-card">
                     <h3>Total Students</h3>
-                    <div class="stat-value">142</div>
+                    <div class="stat-value" id="students-count">0</div>
                 </div>
 
                 <div class="stat-card">
                     <h3>Active This Week</h3>
-                    <div class="stat-value">128</div>
+                    <div class="stat-value" id="active-students-count">0</div>
                 </div>
-
-                <div class="stat-card">
-                    <h3>Avg. Performance</h3>
-                    <div class="stat-value">78%</div>
-                </div>
+ 
             </div>
 
             <div class="action-bar">
-                <input type="text" id="student-search" placeholder="Search students..." class="input-filter">
-                <button id="add-student-btn" class="add-btn">
-                    <i class="fas fa-plus"></i> Add Student
-                </button>
+                <input type="text" id="student-search" placeholder="Search students by name or email..." class="input-filter">
             </div>
 
-            <div class="student-cards" id="student-cards-container">
-                <div class="student-card">
-                    <div class="student-avatar">JS</div>
-                    <div class="student-name">John Smith</div>
-                    <div class="student-email">john.smith@student.edu</div>
-                    <div class="student-performance">
-                        <div class="performance-item">
-                            <div class="performance-value">85%</div>
-                            <div class="performance-label">Avg. Score</div>
-                        </div>
-                        <div class="performance-item">
-                            <div class="performance-value">12</div>
-                            <div class="performance-label">Quizzes</div>
-                        </div>
-                    </div>
-                    <div class="action-buttons">
-                        <button class="view-btn"><i class="fas fa-eye"></i> Profile</button>
-                    </div>
-                </div>
-
-                <div class="student-card">
-                    <div class="student-avatar">EJ</div>
-                    <div class="student-name">Emily Johnson</div>
-                    <div class="student-email">emily.j@student.edu</div>
-                    <div class="student-performance">
-                        <div class="performance-item">
-                            <div class="performance-value">92%</div>
-                            <div class="performance-label">Avg. Score</div>
-                        </div>
-                        <div class="performance-item">
-                            <div class="performance-value">14</div>
-                            <div class="performance-label">Quizzes</div>
-                        </div>
-                    </div>
-                    <div class="action-buttons">
-                        <button class="view-btn"><i class="fas fa-eye"></i> Profile</button>
-                    </div>
-                </div>
-
-                <div class="student-card">
-                    <div class="student-avatar">MB</div>
-                    <div class="student-name">Michael Brown</div>
-                    <div class="student-email">m.brown@student.edu</div>
-                    <div class="student-performance">
-                        <div class="performance-item">
-                            <div class="performance-value">72%</div>
-                            <div class="performance-label">Avg. Score</div>
-                        </div>
-                        <div class="performance-item">
-                            <div class="performance-value">10</div>
-                            <div class="performance-label">Quizzes</div>
-                        </div>
-                    </div>
-                    <div class="action-buttons">
-                        <button class="view-btn"><i class="fas fa-eye"></i> Profile</button>
-                    </div>
-                </div>
-
-                <div class="student-card">
-                    <div class="student-avatar">SW</div>
-                    <div class="student-name">Sarah Williams</div>
-                    <div class="student-email">s.williams@student.edu</div>
-                    <div class="student-performance">
-                        <div class="performance-item">
-                            <div class="performance-value">68%</div>
-                            <div class="performance-label">Avg. Score</div>
-                        </div>
-                        <div class="performance-item">
-                            <div class="performance-value">8</div>
-                            <div class="performance-label">Quizzes</div>
-                        </div>
-                    </div>
-                    <div class="action-buttons">
-                        <button class="view-btn"><i class="fas fa-eye"></i> Profile</button>
-                    </div>
-                </div>
+            <div class="table-responsive">
+                <table class="data-table student-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Last Active</th>
+                        </tr>
+                    </thead>
+                    <tbody id="student-table-body">
+                        <tr>
+                            <td colspan="7" style="text-align: center; padding: 30px;">
+                                <div style="display: flex; flex-direction: column; align-items: center; gap: 10px;">
+                                    <i class="fas fa-spinner fa-spin" style="font-size: 1.5rem;"></i>
+                                    <span>Loading students...</span>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
 
-        <!-- Analytics Section -->
-        <div id="analytics" class="content-section dashboard-card hidden-content">
-            <h2><i class="fas fa-chart-bar"></i> Analytics & Reports</h2>
-
-            <div class="stats-grid">
-                <div class="stat-card">
-                    <h3>Student Engagement</h3>
-                    <div class="stat-value">84%</div>
-                    <div class="stat-trend trend-up">
-                        <i class="fas fa-arrow-up"></i>
-                        <span>5% increase</span>
-                    </div>
-                </div>
-
-                <div class="stat-card">
-                    <h3>Quiz Completion Rate</h3>
-                    <div class="stat-value">76%</div>
-                    <div class="stat-trend trend-up">
-                        <i class="fas fa-arrow-up"></i>
-                        <span>3% increase</span>
-                    </div>
-                </div>
-
-                <div class="stat-card">
-                    <h3>Avg. Time Spent</h3>
-                    <div class="stat-value">12.4 min</div>
-                    <div class="stat-trend trend-down">
-                        <i class="fas fa-arrow-down"></i>
-                        <span>1.2 min decrease</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="charts-container">
-                <div class="chart-card">
-                    <h3>Quiz Performance</h3>
-                    <div class="chart-placeholder">
-                        <i class="fas fa-chart-bar"></i> Performance Chart Would Appear Here
-                    </div>
-                </div>
-
-                <div class="chart-card">
-                    <h3>Student Progress</h3>
-                    <div class="chart-placeholder">
-                        <i class="fas fa-chart-line"></i> Progress Chart Would Appear Here
-                    </div>
-                </div>
-            </div>
+        <!-- Question Bank Section -->
+        <div id="question-bank" class="content-section dashboard-card hidden-content">
+            <h2><i class="fas fa-database"></i> Question Bank</h2>
 
             <div class="action-bar">
-                <h3>Export Reports</h3>
-                <div>
-                    <button class="save-btn">
-                        <i class="fas fa-file-pdf"></i> Export as PDF
-                    </button>
-                    <button class="save-btn">
-                        <i class="fas fa-file-excel"></i> Export as Excel
-                    </button>
-                </div>
+                <input type="text" id="question-search" placeholder="Search questions..." class="input-filter">
+                <button id="add-question-btn" class="add-btn">
+                    <i class="fas fa-plus"></i> Add New Question
+                </button>
+            </div>
+
+            <div class="table-responsive">
+                <table class="data-table question-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Question Text</th>
+                            <th>Created At</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="question-table-body">
+                        <tr>
+                            <td colspan="4" style="text-align: center; padding: 30px;">
+                                <div style="display: flex; flex-direction: column; align-items: center; gap: 10px;">
+                                    <i class="fas fa-spinner fa-spin" style="font-size: 1.5rem;"></i>
+                                    <span>Loading questions...</span>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
 
@@ -1679,7 +1073,7 @@
         <div id="settings" class="content-section dashboard-card hidden-content">
             <h2><i class="fas fa-cog"></i> Teacher Settings</h2>
 
-            <div class="settings-grid">
+            <div class="settings-grid" id="settings-grid">
                 <div class="setting-card">
                     <div class="setting-title">
                         <i class="fas fa-palette"></i> Theme
@@ -1703,17 +1097,17 @@
                     </div>
                     <div class="form-group">
                         <label>
-                            <input type="checkbox" checked> Quiz Submissions
+                            <input type="checkbox" id="notif-quiz-submissions" checked> Quiz Submissions
                         </label>
                     </div>
                     <div class="form-group">
                         <label>
-                            <input type="checkbox" checked> Student Questions
+                            <input type="checkbox" id="notif-student-questions" checked> Student Questions
                         </label>
                     </div>
                     <div class="form-group">
                         <label>
-                            <input type="checkbox"> System Updates
+                            <input type="checkbox" id="notif-system-updates"> System Updates
                         </label>
                     </div>
                 </div>
@@ -1732,32 +1126,13 @@
                         <option value="de">German</option>
                     </select>
                 </div>
-
-                <div class="setting-card">
-                    <div class="setting-title">
-                        <i class="fas fa-shield-alt"></i> Privacy
-                    </div>
-                    <div class="setting-description">
-                        Control your privacy settings
-                    </div>
-                    <div class="form-group">
-                        <label>
-                            <input type="checkbox" checked> Show my profile to students
-                        </label>
-                    </div>
-                    <div class="form-group">
-                        <label>
-                            <input type="checkbox"> Allow students to contact me
-                        </label>
-                    </div>
-                </div>
             </div>
 
             <div class="action-bar" style="margin-top: 30px;">
-                <button class="cancel-btn">
+                <button class="cancel-btn" id="cancel-settings-btn">
                     <i class="fas fa-times"></i> Cancel
                 </button>
-                <button class="save-btn">
+                <button class="save-btn" id="save-settings-btn">
                     <i class="fas fa-save"></i> Save Settings
                 </button>
             </div>
@@ -1765,10 +1140,453 @@
 
     </div>
 
-    <!-- Modals would go here -->
+    <!-- Create Quiz Modal -->
+    <div id="add-quiz-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Create New Quiz</h3>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="add-quiz-form">
+                    <div class="form-group">
+                        <label for="quiz-title">Quiz Title *</label>
+                        <input type="text" id="quiz-title" placeholder="Enter quiz title" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="quiz-subject">Subject *</label>
+                        <input type="text" id="quiz-subject" placeholder="e.g., Mathematics, Science, etc." required>
+                    </div>
+                    <div class="form-group">
+                        <label for="quiz-total-questions">Total Questions</label>
+                        <input type="number" id="quiz-total-questions" placeholder="e.g., 10" min="1" value="10">
+                    </div>
+                    <div class="form-group">
+                        <label for="quiz-total-marks">Total Marks</label>
+                        <input type="number" id="quiz-total-marks" placeholder="e.g., 100" min="1" value="100">
+                    </div>
+                    <div class="form-group">
+                        <label for="quiz-time-limit">Time Limit (minutes)</label>
+                        <input type="number" id="quiz-time-limit" placeholder="e.g., 60" min="1" value="60">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="cancel-btn">Cancel</button>
+                <button class="save-btn">Create Quiz</button>
+            </div>
+        </div>
+    </div>
 
+    <!-- Edit Quiz Modal -->
+    <div id="edit-quiz-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Edit Quiz</h3>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="edit-quiz-form">
+                    <input type="hidden" id="edit-quiz-id">
+                    <div class="form-group">
+                        <label for="edit-quiz-title">Quiz Title *</label>
+                        <input type="text" id="edit-quiz-title" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="edit-quiz-subject">Subject *</label>
+                        <input type="text" id="edit-quiz-subject" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="edit-quiz-total-questions">Total Questions</label>
+                        <input type="number" id="edit-quiz-total-questions" min="1" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="edit-quiz-total-marks">Total Marks</label>
+                        <input type="number" id="edit-quiz-total-marks" min="1" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="edit-quiz-time-limit">Time Limit (minutes)</label>
+                        <input type="number" id="edit-quiz-time-limit" min="1" required>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="cancel-btn">Cancel</button>
+                <button class="save-btn">Update Quiz</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Delete Quiz Modal -->
+    <div id="delete-quiz-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Delete Quiz</h3>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to delete <strong id="delete-quiz-title">this quiz</strong>?
+                    All questions associated with this quiz will also be deleted.</p>
+                <input type="hidden" id="delete-quiz-id">
+            </div>
+            <div class="modal-footer">
+                <button class="cancel-btn">Cancel</button>
+                <button class="delete-btn">Delete Quiz</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add/Edit Question Modal -->
+    <div id="question-modal" class="modal">
+        <div class="modal-content" style="max-width: 700px;">
+            <div class="modal-header">
+                <h3 id="question-modal-title">Add Question</h3>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="question-form">
+                    <input type="hidden" id="question-id">
+                    <input type="hidden" id="question-quiz-id">
+
+                    <div class="form-group">
+                        <label for="question-text">Question Text *</label>
+                        <textarea id="question-text" rows="3" placeholder="Enter the question..." required></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="option-a">Option A *</label>
+                        <input type="text" id="option-a" placeholder="Enter option A" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="option-b">Option B *</label>
+                        <input type="text" id="option-b" placeholder="Enter option B" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="option-c">Option C</label>
+                        <input type="text" id="option-c" placeholder="Enter option C (optional)">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="option-d">Option D</label>
+                        <input type="text" id="option-d" placeholder="Enter option D (optional)">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="correct-option">Correct Option *</label>
+                        <select id="correct-option" required>
+                            <option value="">Select correct option</option>
+                            <option value="a">Option A</option>
+                            <option value="b">Option B</option>
+                            <option value="c">Option C</option>
+                            <option value="d">Option D</option>
+                        </select>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="cancel-btn">Cancel</button>
+                <button class="save-btn" id="save-question-btn">Save Question</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Manage Questions Modal -->
+    <div id="manage-questions-modal" class="modal">
+        <div class="modal-content" style="max-width: 800px;">
+            <div class="modal-header">
+                <h3>Manage Questions: <span id="quiz-title-display"></span></h3>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="action-bar">
+                    <button id="add-quiz-question-btn" class="add-btn">
+                        <i class="fas fa-plus"></i> Add Question
+                    </button>
+                </div>
+
+                <div id="questions-container">
+                    <div style="text-align: center; padding: 20px;">
+                        <i class="fas fa-spinner fa-spin" style="font-size: 1.5rem; margin-bottom: 10px;"></i>
+                        <p>Loading questions...</p>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="cancel-btn">Close</button>
+            </div>
+        </div>
+    </div>
+<!-- Add Student Modal -->
+<div id="add-student-modal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3>Add New Student</h3>
+            <button class="close-modal">&times;</button>
+        </div>
+        <div class="modal-body">
+            <form id="add-student-form">
+                <div class="form-group">
+                    <label for="student-name">Full Name *</label>
+                    <input type="text" id="student-name" placeholder="Enter student's full name" required>
+                </div>
+                <div class="form-group">
+                    <label for="student-email">Email Address *</label>
+                    <input type="email" id="student-email" placeholder="Enter student's email" required>
+                </div>
+                <div class="form-group">
+                    <label for="student-password">Password *</label>
+                    <input type="password" id="student-password" placeholder="Enter password (min. 6 characters)" required>
+                </div>
+                <div class="form-group">
+                    <label for="student-phone">Phone Number</label>
+                    <input type="tel" id="student-phone" placeholder="Enter phone number">
+                </div>
+                <div class="form-group">
+                    <label for="student-class">Class/Group</label>
+                    <select id="student-class" class="input-filter">
+                        <option value="">Select Class</option>
+                        <option value="Grade 9-A">Grade 9-A</option>
+                        <option value="Grade 9-B">Grade 9-B</option>
+                        <option value="Grade 10-A">Grade 10-A</option>
+                        <option value="Grade 10-B">Grade 10-B</option>
+                        <option value="Grade 11-A">Grade 11-A</option>
+                        <option value="Grade 11-B">Grade 11-B</option>
+                        <option value="Grade 12-A">Grade 12-A</option>
+                        <option value="Grade 12-B">Grade 12-B</option>
+                    </select>
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button class="cancel-btn">Cancel</button>
+            <button class="save-btn" id="save-student-btn">Add Student</button>
+        </div>
+    </div>
+</div>
+
+<!-- Edit Student Modal -->
+<div id="edit-student-modal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3>Edit Student</h3>
+            <button class="close-modal">&times;</button>
+        </div>
+        <div class="modal-body">
+            <form id="edit-student-form">
+                <input type="hidden" id="edit-student-id">
+                <div class="form-group">
+                    <label for="edit-student-name">Full Name *</label>
+                    <input type="text" id="edit-student-name" required>
+                </div>
+                <div class="form-group">
+                    <label for="edit-student-email">Email Address *</label>
+                    <input type="email" id="edit-student-email" required>
+                </div>
+                <div class="form-group">
+                    <label for="edit-student-password">Password (leave blank to keep current)</label>
+                    <input type="password" id="edit-student-password" placeholder="Enter new password">
+                </div>
+                <div class="form-group">
+                    <label for="edit-student-phone">Phone Number</label>
+                    <input type="tel" id="edit-student-phone">
+                </div>
+                <div class="form-group">
+                    <label for="edit-student-class">Class/Group</label>
+                    <select id="edit-student-class" class="input-filter">
+                        <option value="">Select Class</option>
+                        <option value="Grade 9-A">Grade 9-A</option>
+                        <option value="Grade 9-B">Grade 9-B</option>
+                        <option value="Grade 10-A">Grade 10-A</option>
+                        <option value="Grade 10-B">Grade 10-B</option>
+                        <option value="Grade 11-A">Grade 11-A</option>
+                        <option value="Grade 11-B">Grade 11-B</option>
+                        <option value="Grade 12-A">Grade 12-A</option>
+                        <option value="Grade 12-B">Grade 12-B</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="edit-student-status">Status</label>
+                    <select id="edit-student-status" class="input-filter">
+                        <option value="active">Active</option>
+                        <option value="inactive">Inactive</option>
+                    </select>
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button class="cancel-btn">Cancel</button>
+            <button class="save-btn" id="update-student-btn">Update Student</button>
+        </div>
+    </div>
+</div>
+
+<!-- Delete Student Modal -->
+<div id="delete-student-modal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3>Delete Student</h3>
+            <button class="close-modal">&times;</button>
+        </div>
+        <div class="modal-body">
+            <p>Are you sure you want to delete <strong id="delete-student-name">this student</strong>?</p>
+            <p style="color: var(--error); font-size: 0.9rem; margin-top: 10px;">
+                <i class="fas fa-exclamation-triangle"></i> This action cannot be undone.
+            </p>
+            <input type="hidden" id="delete-student-id">
+        </div>
+        <div class="modal-footer">
+            <button class="cancel-btn">Cancel</button>
+            <button class="delete-btn" id="confirm-delete-student-btn">Delete Student</button>
+        </div>
+    </div>
+</div>
     <script>
+        // ===============================
+        // Authentication & User Display Functions
+        // ===============================
+
+        // Check authentication
+        function checkAuth() {
+            const userRole = localStorage.getItem('user_role');
+            const userName = localStorage.getItem('user_name');
+
+            if (!userName || !userRole) {
+                alert('Please login to access the teacher dashboard.');
+                window.location.href = 'auth.html?role=teacher';
+                return false;
+            }
+
+            if (userRole !== 'teacher') {
+                alert(`Access denied. You are logged in as ${userRole}.`);
+                window.location.href = 'auth.html?role=teacher';
+                return false;
+            }
+
+            return true;
+        }
+
+        // Display user information
+        function displayUserInfo() {
+            const userName = localStorage.getItem('user_name');
+            const userRole = localStorage.getItem('user_role');
+
+            if (userName) {
+                document.getElementById('teacher-name-display').textContent = userName;
+                document.getElementById('header-user-name').textContent = userName;
+                document.getElementById('header-user-role').textContent = userRole || 'Teacher';
+                document.getElementById('greeting-message').textContent = `Welcome back, ${userName}!`;
+
+                const avatar = document.getElementById('user-avatar');
+                if (avatar) {
+                    const initials = userName
+                        .split(' ')
+                        .map(word => word.charAt(0).toUpperCase())
+                        .join('')
+                        .substring(0, 2);
+                    avatar.textContent = initials;
+                }
+            }
+        }
+
+        // Activity logging functions
+        function logActivity(description, type = 'quiz') {
+            const activities = JSON.parse(localStorage.getItem('teacher_activities') || '[]');
+
+            const newActivity = {
+                id: Date.now(),
+                description: description,
+                type: type,
+                time: new Date().toLocaleTimeString(),
+                date: new Date().toLocaleDateString(),
+                timestamp: Date.now()
+            };
+
+            activities.unshift(newActivity);
+
+            if (activities.length > 10) {
+                activities.pop();
+            }
+
+            localStorage.setItem('teacher_activities', JSON.stringify(activities));
+            loadRecentActivity();
+        }
+
+        // Load recent activity
+        async function loadRecentActivity() {
+            try {
+                const activities = JSON.parse(localStorage.getItem('teacher_activities') || '[]');
+
+                const activityLog = document.getElementById('recent-activity-log');
+                if (activities.length > 0) {
+                    let html = '';
+                    activities.forEach(activity => {
+                        let icon = 'fa-list-check';
+                        let bgColor = 'var(--primary)';
+
+                        if (activity.type === 'student') {
+                            icon = 'fa-user';
+                            bgColor = 'var(--info)';
+                        } else if (activity.type === 'quiz') {
+                            icon = 'fa-list-check';
+                            if (activity.description.includes('deleted') || activity.description.includes('Deleted')) {
+                                icon = 'fa-trash';
+                                bgColor = 'var(--error)';
+                            } else if (activity.description.includes('added') || activity.description.includes('Added')) {
+                                icon = 'fa-plus';
+                                bgColor = 'var(--success)';
+                            } else if (activity.description.includes('updated') || activity.description.includes('Updated')) {
+                                icon = 'fa-edit';
+                                bgColor = 'var(--warning)';
+                            }
+                        }
+
+                        html += `
+                    <div class="activity-item">
+                        <div class="activity-icon" style="background-color: ${bgColor};">
+                            <i class="fas ${icon}"></i>
+                        </div>
+                        <div class="activity-details">
+                            <div class="activity-text">${activity.description}</div>
+                            <div class="activity-time">${activity.time} • ${activity.date}</div>
+                        </div>
+                    </div>
+                `;
+                    });
+                    activityLog.innerHTML = html;
+                } else {
+                    const userName = localStorage.getItem('user_name') || 'Teacher';
+                    html = `
+                <div class="activity-item">
+                    <div class="activity-icon" style="background-color: var(--primary);">
+                        <i class="fas fa-chalkboard-teacher"></i>
+                    </div>
+                    <div class="activity-details">
+                        <div class="activity-text">${userName} logged into teacher dashboard</div>
+                        <div class="activity-time">Just now</div>
+                    </div>
+                </div>
+                <div class="activity-item">
+                    <div class="activity-icon" style="background-color: var(--success);">
+                        <i class="fas fa-list-check"></i>
+                    </div>
+                    <div class="activity-details">
+                        <div class="activity-text">Welcome to QuizPro Teacher Dashboard</div>
+                        <div class="activity-time">Today</div>
+                    </div>
+                </div>
+            `;
+                    activityLog.innerHTML = html;
+                }
+            } catch (error) {
+                console.error('Error loading recent activity:', error);
+            }
+        }
+
+        // ===============================
         // DOM Elements
+        // ===============================
         const sidebarLinks = document.querySelectorAll('.sidebar-link');
         const contentSections = document.querySelectorAll('.content-section');
         const logoutLink = document.getElementById('logout-link');
@@ -1777,72 +1595,100 @@
         const menuToggle = document.querySelector('.menu-toggle');
         const closeSidebar = document.querySelector('.close-sidebar');
         const dashboardSidebar = document.querySelector('.dashboard-sidebar');
-        const dashboardBody = document.querySelector('.dashboard-body');
         const themeSelect = document.getElementById('theme-select');
+        const addQuizBtn = document.getElementById('add-quiz-btn');
+        const addQuestionBtn = document.getElementById('add-question-btn');
+        const quizSearch = document.getElementById('quiz-search');
+        const studentSearch = document.getElementById('student-search');
+        const questionSearch = document.getElementById('question-search');
 
+        // ===============================
         // Initialize the dashboard
+        // ===============================
         document.addEventListener('DOMContentLoaded', function () {
-            // Set active content based on URL hash or default to overview
+            if (!checkAuth()) {
+                return;
+            }
+
+            displayUserInfo();
+            const userName = localStorage.getItem('user_name') || 'Teacher';
+            logActivity(`${userName} logged into teacher dashboard`, 'quiz');
+
             const hash = window.location.hash || '#overview';
             showContent(hash.substring(1));
 
-            // Add event listeners to sidebar links
+            loadTeacherStats();
+            loadRecentActivity();
+            loadTeacherQuizzes();
+            loadStudents();
+            loadQuestions();
+
             sidebarLinks.forEach(link => {
                 link.addEventListener('click', function (e) {
                     e.preventDefault();
 
-                    // Remove active class from all links
                     sidebarLinks.forEach(l => l.classList.remove('active'));
-
-                    // Add active class to clicked link
                     this.classList.add('active');
 
-                    // Show corresponding content
                     const contentId = this.getAttribute('data-content');
                     showContent(contentId);
-
-                    // Update URL hash
                     window.location.hash = contentId;
 
-                    // Close mobile sidebar if open
                     if (window.innerWidth <= 768) {
                         dashboardSidebar.classList.remove('mobile-open');
+                    }
+
+                    switch (contentId) {
+                        case 'overview':
+                            loadTeacherStats();
+                            loadRecentActivity();
+                            break;
+                        case 'my-quizzes':
+                            loadTeacherQuizzes();
+                            break;
+                        case 'my-students':
+                            loadStudents();
+                            break;
+                        case 'question-bank':
+                            loadQuestions();
+                            break;
+                        case 'settings':
+                            loadSettings();
+                            break;
                     }
                 });
             });
 
-            // Logout functionality
             logoutLink.addEventListener('click', function (e) {
                 e.preventDefault();
                 if (confirm('Are you sure you want to logout?')) {
-                    // Redirect to login page
-                    window.location.href = '../html/index.html';
+                    localStorage.removeItem('user_name');
+                    localStorage.removeItem('user_role');
+                    localStorage.removeItem('user_id');
+                    window.location.href = 'auth.html?role=teacher';
                 }
             });
 
-            // Add search functionality
-            const quizSearch = document.getElementById('quiz-search');
             if (quizSearch) {
                 quizSearch.addEventListener('input', function () {
                     filterQuizzes(this.value);
                 });
             }
 
-            const questionSearch = document.getElementById('question-search');
-            if (questionSearch) {
-                questionSearch.addEventListener('input', function () {
-                    filterQuestions(this.value);
-                });
-            }
-
-            const studentSearch = document.getElementById('student-search');
             if (studentSearch) {
                 studentSearch.addEventListener('input', function () {
                     filterStudents(this.value);
                 });
             }
 
-            // Sidebar toggle functionality
+            if (questionSearch) {
+                questionSearch.addEventListener('input', function () {
+                    filterQuestions(this.value);
+                });
+            }
+
+            setupModalFunctionality();
+
             menuToggle.addEventListener('click', function () {
                 dashboardSidebar.classList.toggle('mobile-open');
             });
@@ -1851,9 +1697,7 @@
                 dashboardSidebar.classList.remove('mobile-open');
             });
 
-            // Theme selector functionality
             if (themeSelect) {
-                // Check for saved theme preference or default to 'light'
                 const savedTheme = localStorage.getItem('quizpro-theme') || 'light';
                 themeSelect.value = savedTheme;
                 setTheme(savedTheme);
@@ -1864,7 +1708,6 @@
                 });
             }
 
-            // Handle window resize
             window.addEventListener('resize', function () {
                 if (window.innerWidth > 768) {
                     dashboardSidebar.classList.remove('mobile-open');
@@ -1872,19 +1715,21 @@
             });
         });
 
+        // ===============================
+        // Core Functions
+        // ===============================
+
         // Show content section
         function showContent(contentId) {
-            // Hide all content sections
             contentSections.forEach(section => {
                 section.classList.remove('active-content');
+                section.classList.add('hidden-content');
             });
 
-            // Show the selected content section
             const activeSection = document.getElementById(contentId);
             if (activeSection) {
                 activeSection.classList.add('active-content');
-
-                // Update header title and breadcrumb
+                activeSection.classList.remove('hidden-content');
                 updateHeader(contentId);
             }
         }
@@ -1893,19 +1738,17 @@
         function updateHeader(sectionId) {
             const sectionTitles = {
                 'overview': 'Teacher Dashboard',
-                'my-quizzes': 'My Quizzes',
-                'question-bank': 'Question Bank',
+                'my-quizzes': 'All Quizzes',
                 'my-students': 'My Students',
-                'analytics': 'Analytics & Reports',
+                'question-bank': 'Question Bank',
                 'settings': 'Teacher Settings'
             };
 
             const breadcrumbTitles = {
                 'overview': 'Overview',
-                'my-quizzes': 'My Quizzes',
-                'question-bank': 'Question Bank',
+                'my-quizzes': 'All Quizzes',
                 'my-students': 'My Students',
-                'analytics': 'Analytics',
+                'question-bank': 'Question Bank',
                 'settings': 'Settings'
             };
 
@@ -1913,56 +1756,840 @@
             breadcrumbCurrent.textContent = breadcrumbTitles[sectionId] || 'Dashboard';
         }
 
-        // Filter quizzes in the quiz control section
-        function filterQuizzes(searchTerm) {
-            const quizCards = document.querySelectorAll('.quiz-card');
+        // Load teacher statistics
+        async function loadTeacherStats() {
+            try {
+                // Use the existing admin stats API (simplified)
+                const response = await fetch("http://localhost/quiz_php-main/api/dashboard_stats.php");
+                const data = await response.json();
 
-            quizCards.forEach(card => {
-                const title = card.querySelector('.quiz-title').textContent;
-                if (title.toLowerCase().includes(searchTerm.toLowerCase())) {
-                    card.style.display = '';
-                } else {
-                    card.style.display = 'none';
+                if (data.success) {
+                    document.getElementById('active-quizzes-count').textContent = data.total_quizzes || 0;
+                    document.getElementById('total-students-count').textContent = data.total_users || 0;
+                    document.getElementById('total-questions-count').textContent = data.total_questions || 0;
+                    document.getElementById('pending-grading-count').textContent = 0; // Simplified
                 }
-            });
+            } catch (error) {
+                console.error('Error loading teacher stats:', error);
+            }
         }
 
-        // Filter questions in the question bank
-        function filterQuestions(searchTerm) {
-            const questionCards = document.querySelectorAll('.question-card');
+        // Load teacher quizzes (ALL quizzes)
+        async function loadTeacherQuizzes() {
+            try {
+                // Use the existing get_quizzes.php API (shows all quizzes)
+                const response = await fetch("http://localhost/quiz_php-main/api/get_quizzes.php");
+                const data = await response.json();
 
-            questionCards.forEach(card => {
-                const text = card.querySelector('.question-text').textContent;
-                if (text.toLowerCase().includes(searchTerm.toLowerCase())) {
-                    card.style.display = '';
+                console.log('Teacher Quizzes API response:', data);
+
+                const quizTableBody = document.getElementById('quiz-table-body');
+                if (data.success && data.quizzes.length > 0) {
+                    let html = '';
+                    data.quizzes.forEach(quiz => {
+                        const title = quiz.title || 'Untitled Quiz';
+                        const subject = quiz.subject || 'General';
+                        const totalQuestions = quiz.total_questions || 0;
+                        const totalMarks = quiz.total_marks || 100;
+                        const timeLimit = quiz.time_limit || 60;
+                        const createdAt = quiz.created_at ? new Date(quiz.created_at).toLocaleDateString() : 'N/A';
+
+                        html += `
+                            <tr>
+                                <td>${quiz.id}</td>
+                                <td>${title}</td>
+                                <td>${subject}</td>
+                                <td>${totalQuestions}</td>
+                                <td>${totalMarks}</td>
+                                <td>${timeLimit} min</td>
+                                <td>${createdAt}</td>
+                                <td class="action-buttons">
+                                    <button class="edit-btn" onclick="openEditQuizModal(${quiz.id})">
+                                        <i class="fas fa-edit"></i> Edit
+                                    </button>
+                                    <button class="edit-btn" onclick="openManageQuestionsModal(${quiz.id}, '${title.replace(/'/g, "\\'")}')" style="background-color: var(--info);">
+                                        <i class="fas fa-question-circle"></i> Questions
+                                    </button>
+                                    <button class="delete-btn" onclick="openDeleteQuizModal(${quiz.id}, '${title.replace(/'/g, "\\'")}')">
+                                        <i class="fas fa-trash"></i> Delete
+                                    </button>
+                                </td>
+                            </tr>
+                        `;
+                    });
+                    quizTableBody.innerHTML = html;
+
+                    // Update stats
+                    document.getElementById('published-quizzes-count').textContent = data.quizzes.length;
+                    document.getElementById('quiz-questions-count').textContent = data.quizzes.reduce((sum, quiz) => sum + (parseInt(quiz.total_questions) || 0), 0);
+
                 } else {
-                    card.style.display = 'none';
+                    quizTableBody.innerHTML = '<tr><td colspan="8" style="text-align: center;">No quizzes found. Create your first quiz!</td></tr>';
+                    document.getElementById('published-quizzes-count').textContent = '0';
+                    document.getElementById('quiz-questions-count').textContent = '0';
                 }
-            });
+            } catch (error) {
+                console.error('Error loading teacher quizzes:', error);
+                const quizTableBody = document.getElementById('quiz-table-body');
+                quizTableBody.innerHTML = '<tr><td colspan="8" style="text-align: center; color: var(--error);">Error loading quizzes. Please try again.</td></tr>';
+            }
         }
 
-        // Filter students in the student management section
-        function filterStudents(searchTerm) {
-            const studentCards = document.querySelectorAll('.student-card');
+        // Load students
+        async function loadStudents() {
+            try {
+                // Use the existing get_users.php API
+                const response = await fetch("http://localhost/quiz_php-main/api/get_users.php");
+                const data = await response.json();
 
-            studentCards.forEach(card => {
-                const name = card.querySelector('.student-name').textContent;
-                if (name.toLowerCase().includes(searchTerm.toLowerCase())) {
-                    card.style.display = '';
+                const studentTableBody = document.getElementById('student-table-body');
+                if (data.success && data.users.length > 0) {
+                    let html = '';
+                    // Filter only students
+                    const students = data.users.filter(user => user.role === 'student');
+                    
+                    students.forEach(student => {
+                        html += `
+                            <tr>
+                                <td>${student.id}</td>
+                                <td>${student.name}</td>
+                                <td>${student.email}</td>
+                                <td>${student.created_at || 'Never'}</td>
+                                
+                            </tr>
+                        `;
+                    });
+                    studentTableBody.innerHTML = html;
+
+                    // Update stats
+                    document.getElementById('students-count').textContent = students.length;
+                    document.getElementById('active-students-count').textContent = students.length;
+                    document.getElementById('avg-performance').textContent = '0%';
+
                 } else {
-                    card.style.display = 'none';
+                    studentTableBody.innerHTML = '<tr><td colspan="7" style="text-align: center;">No students found.</td></tr>';
+                    document.getElementById('students-count').textContent = '0';
+                    document.getElementById('active-students-count').textContent = '0';
+                    document.getElementById('avg-performance').textContent = '0%';
                 }
-            });
+            } catch (error) {
+                console.error('Error loading students:', error);
+            }
+        }
+
+        // Load questions
+        async function loadQuestions() {
+            try {
+                // Use existing API or create a simple one
+                const response = await fetch("http://localhost/quiz_php-main/api/get_questions.php");
+                const data = await response.json();
+
+                const questionTableBody = document.getElementById('question-table-body');
+                if (data.success && data.questions.length > 0) {
+                    let html = '';
+                    data.questions.forEach(question => {
+                        html += `
+                            <tr>
+                                <td>${question.id}</td>
+                                <td>${question.question_text.substring(0, 100)}${question.question_text.length > 100 ? '...' : ''}</td>
+                                <td>${question.created_at ? new Date(question.created_at).toLocaleDateString() : 'N/A'}</td>
+                                <td class="action-buttons">
+                                    <button class="edit-btn" onclick="openEditQuestionModal(${question.id})">
+                                        <i class="fas fa-edit"></i> Edit
+                                    </button>
+                                    <button class="delete-btn" onclick="deleteQuestion(${question.id})">
+                                        <i class="fas fa-trash"></i> Delete
+                                    </button>
+                                </td>
+                            </tr>
+                        `;
+                    });
+                    questionTableBody.innerHTML = html;
+
+                } else {
+                    questionTableBody.innerHTML = '<tr><td colspan="4" style="text-align: center;">No questions found. Add your first question!</td></tr>';
+                }
+            } catch (error) {
+                console.error('Error loading questions:', error);
+            }
+        }
+
+        // Load settings
+        function loadSettings() {
+            const settings = JSON.parse(localStorage.getItem('teacher_settings') || '{}');
+            
+            if (settings.notifications) {
+                document.getElementById('notif-quiz-submissions').checked = settings.notifications.quiz_submissions !== false;
+                document.getElementById('notif-student-questions').checked = settings.notifications.student_questions !== false;
+                document.getElementById('notif-system-updates').checked = settings.notifications.system_updates || false;
+            }
+            
+            if (settings.language) {
+                document.getElementById('language-select').value = settings.language;
+            }
         }
 
         // Set theme
         function setTheme(theme) {
-            if (theme === 'dark' || (theme === 'auto' && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            if (theme === 'dark') {
+                document.documentElement.setAttribute('data-theme', 'dark');
+            } else if (theme === 'auto' && window.matchMedia('(prefers-color-scheme: dark)').matches) {
                 document.documentElement.setAttribute('data-theme', 'dark');
             } else {
                 document.documentElement.removeAttribute('data-theme');
             }
         }
+
+        // Setup modal functionality
+        function setupModalFunctionality() {
+            // Add Quiz Modal
+            if (addQuizBtn) {
+                addQuizBtn.addEventListener('click', function () {
+                    document.getElementById('add-quiz-form').reset();
+                    openModal('add-quiz-modal');
+                });
+            }
+
+            // Add Question Modal (from question bank)
+            if (addQuestionBtn) {
+                addQuestionBtn.addEventListener('click', function () {
+                    document.getElementById('question-form').reset();
+                    document.getElementById('question-modal-title').textContent = 'Add Question';
+                    document.getElementById('question-quiz-id').value = ''; // No quiz ID for general questions
+                    openModal('question-modal');
+                });
+            }
+
+            // Add Question to Quiz button
+            const addQuizQuestionBtn = document.getElementById('add-quiz-question-btn');
+            if (addQuizQuestionBtn) {
+                addQuizQuestionBtn.addEventListener('click', function () {
+                    const quizId = document.getElementById('manage-questions-modal').dataset.quizId;
+                    document.getElementById('question-form').reset();
+                    document.getElementById('question-quiz-id').value = quizId;
+                    document.getElementById('question-modal-title').textContent = 'Add Question to Quiz';
+                    closeModal(document.getElementById('manage-questions-modal'));
+                    openModal('question-modal');
+                });
+            }
+
+            // Setup all close buttons
+            document.querySelectorAll('.close-modal').forEach(btn => {
+                btn.addEventListener('click', function () {
+                    closeModal(this.closest('.modal'));
+                });
+            });
+
+            document.querySelectorAll('.cancel-btn').forEach(btn => {
+                btn.addEventListener('click', function () {
+                    closeModal(this.closest('.modal'));
+                });
+            });
+
+            // Close modal when clicking outside
+            document.querySelectorAll('.modal').forEach(modal => {
+                modal.addEventListener('click', function (e) {
+                    if (e.target === this) {
+                        closeModal(this);
+                    }
+                });
+            });
+
+            // Quiz Save Button
+            const saveQuizBtn = document.querySelector('#add-quiz-modal .save-btn');
+            if (saveQuizBtn) {
+                saveQuizBtn.addEventListener('click', async function (e) {
+                    e.preventDefault();
+                    await createQuiz();
+                });
+            }
+
+            // Quiz Form Submission
+            const addQuizForm = document.getElementById('add-quiz-form');
+            if (addQuizForm) {
+                addQuizForm.addEventListener('submit', async function (e) {
+                    e.preventDefault();
+                    await createQuiz();
+                });
+            }
+
+            // Save Question Button
+            const saveQuestionBtn = document.getElementById('save-question-btn');
+            if (saveQuestionBtn) {
+                saveQuestionBtn.addEventListener('click', async function (e) {
+                    e.preventDefault();
+                    await saveQuestion();
+                });
+            }
+
+            // Question Form Submission
+            const questionForm = document.getElementById('question-form');
+            if (questionForm) {
+                questionForm.addEventListener('submit', async function (e) {
+                    e.preventDefault();
+                    await saveQuestion();
+                });
+            }
+
+            // Save Settings Button
+            const saveSettingsBtn = document.getElementById('save-settings-btn');
+            if (saveSettingsBtn) {
+                saveSettingsBtn.addEventListener('click', saveSettings);
+            }
+
+            // Cancel Settings Button
+            const cancelSettingsBtn = document.getElementById('cancel-settings-btn');
+            if (cancelSettingsBtn) {
+                cancelSettingsBtn.addEventListener('click', function () {
+                    loadSettings(); // Reset to saved settings
+                });
+            }
+
+            // Escape key to close modals
+            document.addEventListener('keydown', function (e) {
+                if (e.key === 'Escape') {
+                    document.querySelectorAll('.modal.active').forEach(modal => {
+                        closeModal(modal);
+                    });
+                }
+            });
+        }
+
+        // Open modal function
+        function openModal(modalId) {
+            const modal = document.getElementById(modalId);
+            if (modal) {
+                modal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
+        }
+
+        // Close modal function
+        function closeModal(modal) {
+            if (modal) {
+                modal.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            }
+        }
+
+        // Filter quizzes
+        function filterQuizzes(searchTerm) {
+            const tableBody = document.getElementById('quiz-table-body');
+            const rows = tableBody.getElementsByTagName('tr');
+
+            for (let i = 0; i < rows.length; i++) {
+                const cells = rows[i].getElementsByTagName('td');
+                let found = false;
+
+                for (let j = 0; j < cells.length; j++) {
+                    const cellText = cells[j].textContent || cells[j].innerText;
+                    if (cellText.toLowerCase().includes(searchTerm.toLowerCase())) {
+                        found = true;
+                        break;
+                    }
+                }
+
+                rows[i].style.display = found ? '' : 'none';
+            }
+        }
+
+        // Filter students
+        function filterStudents(searchTerm) {
+            const tableBody = document.getElementById('student-table-body');
+            const rows = tableBody.getElementsByTagName('tr');
+
+            for (let i = 0; i < rows.length; i++) {
+                const cells = rows[i].getElementsByTagName('td');
+                let found = false;
+
+                for (let j = 0; j < cells.length; j++) {
+                    const cellText = cells[j].textContent || cells[j].innerText;
+                    if (cellText.toLowerCase().includes(searchTerm.toLowerCase())) {
+                        found = true;
+                        break;
+                    }
+                }
+
+                rows[i].style.display = found ? '' : 'none';
+            }
+        }
+
+        // Filter questions
+        function filterQuestions(searchTerm) {
+            const tableBody = document.getElementById('question-table-body');
+            const rows = tableBody.getElementsByTagName('tr');
+
+            for (let i = 0; i < rows.length; i++) {
+                const cells = rows[i].getElementsByTagName('td');
+                let found = false;
+
+                for (let j = 0; j < cells.length; j++) {
+                    const cellText = cells[j].textContent || cells[j].innerText;
+                    if (cellText.toLowerCase().includes(searchTerm.toLowerCase())) {
+                        found = true;
+                        break;
+                    }
+                }
+
+                rows[i].style.display = found ? '' : 'none';
+            }
+        }
+
+        // ===============================
+        // Quiz Functions
+        // ===============================
+
+        // Create new quiz
+        async function createQuiz() {
+            const title = document.getElementById('quiz-title').value;
+            const subject = document.getElementById('quiz-subject').value;
+            const totalQuestions = document.getElementById('quiz-total-questions').value || 10;
+            const totalMarks = document.getElementById('quiz-total-marks').value || 100;
+            const timeLimit = document.getElementById('quiz-time-limit').value || 60;
+
+            // Validation
+            if (!title || !subject) {
+                alert('Please fill all required fields');
+                return;
+            }
+
+            try {
+                const saveBtn = document.querySelector('#add-quiz-modal .save-btn');
+                const originalText = saveBtn.innerHTML;
+                saveBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Creating...';
+                saveBtn.disabled = true;
+
+                const quizData = {
+                    title: title,
+                    subject: subject,
+                    total_questions: parseInt(totalQuestions),
+                    total_marks: parseInt(totalMarks),
+                    time_limit: parseInt(timeLimit)
+                };
+
+                console.log('Creating quiz with data:', quizData);
+
+                const response = await fetch("http://localhost/quiz_php-main/api/create_quiz.php", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(quizData)
+                });
+
+                const data = await response.json();
+                console.log('Create quiz response:', data);
+
+                saveBtn.innerHTML = originalText;
+                saveBtn.disabled = false;
+
+                if (data.success) {
+                    logActivity(`Created new quiz: ${title}`, 'quiz');
+                    alert('Quiz created successfully!');
+                    closeModal(document.getElementById('add-quiz-modal'));
+                    document.getElementById('add-quiz-form').reset();
+                    loadTeacherQuizzes();
+                    loadTeacherStats();
+                } else {
+                    alert('Error creating quiz: ' + (data.message || 'Unknown error'));
+                }
+            } catch (error) {
+                console.error('Error creating quiz:', error);
+                const saveBtn = document.querySelector('#add-quiz-modal .save-btn');
+                saveBtn.innerHTML = 'Create Quiz';
+                saveBtn.disabled = false;
+                alert('Network error: Could not connect to server. Please try again.');
+            }
+        }
+
+        // Open Edit Quiz Modal
+        async function openEditQuizModal(quizId) {
+            try {
+                const response = await fetch(`http://localhost/quiz_php-main/api/get_quiz.php?id=${quizId}`);
+                const data = await response.json();
+
+                console.log('Edit quiz data:', data);
+
+                if (data.success) {
+                    const quiz = data.quiz;
+                    document.getElementById('edit-quiz-id').value = quiz.id;
+                    document.getElementById('edit-quiz-title').value = quiz.title || '';
+                    document.getElementById('edit-quiz-subject').value = quiz.subject || '';
+                    document.getElementById('edit-quiz-total-questions').value = quiz.total_questions || 0;
+                    document.getElementById('edit-quiz-total-marks').value = quiz.total_marks || 100;
+                    document.getElementById('edit-quiz-time-limit').value = quiz.time_limit || 60;
+                    openModal('edit-quiz-modal');
+                    setupQuizUpdateButton(quizId);
+                } else {
+                    alert('Error loading quiz data: ' + (data.message || 'Unknown error'));
+                }
+            } catch (error) {
+                console.error('Error loading quiz:', error);
+                alert('Error loading quiz data: ' + error.message);
+            }
+        }
+
+        // Setup quiz update button
+        function setupQuizUpdateButton(quizId) {
+            const updateBtn = document.querySelector('#edit-quiz-modal .save-btn');
+            const newUpdateBtn = updateBtn.cloneNode(true);
+            updateBtn.parentNode.replaceChild(newUpdateBtn, updateBtn);
+
+            newUpdateBtn.addEventListener('click', async function (e) {
+                e.preventDefault();
+                await updateQuiz(quizId);
+            });
+
+            const editForm = document.getElementById('edit-quiz-form');
+            editForm.onsubmit = async function (e) {
+                e.preventDefault();
+                await updateQuiz(quizId);
+            };
+        }
+
+        // Update quiz
+        async function updateQuiz(quizId) {
+            const title = document.getElementById('edit-quiz-title').value;
+            const subject = document.getElementById('edit-quiz-subject').value;
+            const totalQuestions = document.getElementById('edit-quiz-total-questions').value;
+            const totalMarks = document.getElementById('edit-quiz-total-marks').value;
+            const timeLimit = document.getElementById('edit-quiz-time-limit').value;
+
+            // Validation
+            if (!title || !subject || !totalQuestions || !totalMarks || !timeLimit) {
+                alert('Please fill all required fields');
+                return;
+            }
+
+            try {
+                const updateBtn = document.querySelector('#edit-quiz-modal .save-btn');
+                const originalText = updateBtn.innerHTML;
+                updateBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Updating...';
+                updateBtn.disabled = true;
+
+                const quizData = {
+                    id: parseInt(quizId),
+                    title: title,
+                    subject: subject,
+                    total_questions: parseInt(totalQuestions),
+                    total_marks: parseInt(totalMarks),
+                    time_limit: parseInt(timeLimit)
+                };
+
+                console.log('Updating quiz with data:', quizData);
+
+                const response = await fetch("http://localhost/quiz_php-main/api/update_quiz.php", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(quizData)
+                });
+
+                const data = await response.json();
+                console.log('Update quiz response:', data);
+
+                updateBtn.innerHTML = originalText;
+                updateBtn.disabled = false;
+
+                if (data.success) {
+                    logActivity(`Updated quiz: ${title}`, 'quiz');
+                    alert('Quiz updated successfully!');
+                    closeModal(document.getElementById('edit-quiz-modal'));
+                    loadTeacherQuizzes();
+                } else {
+                    alert('Error updating quiz: ' + (data.message || 'Unknown error'));
+                }
+            } catch (error) {
+                console.error('Error updating quiz:', error);
+                const updateBtn = document.querySelector('#edit-quiz-modal .save-btn');
+                updateBtn.innerHTML = 'Update Quiz';
+                updateBtn.disabled = false;
+                alert('Network error: Could not connect to server. Please try again.');
+            }
+        }
+
+        // Open Delete Quiz Modal
+        function openDeleteQuizModal(quizId, quizTitle) {
+            document.getElementById('delete-quiz-id').value = quizId;
+            document.getElementById('delete-quiz-title').textContent = quizTitle;
+            openModal('delete-quiz-modal');
+            setupQuizDeleteButton();
+        }
+
+        // Setup quiz delete button
+        function setupQuizDeleteButton() {
+            const deleteBtn = document.querySelector('#delete-quiz-modal .delete-btn');
+            const newDeleteBtn = deleteBtn.cloneNode(true);
+            deleteBtn.parentNode.replaceChild(newDeleteBtn, deleteBtn);
+
+            newDeleteBtn.addEventListener('click', async function (e) {
+                e.preventDefault();
+                await deleteQuiz();
+            });
+        }
+
+        // Delete quiz
+        async function deleteQuiz() {
+            const quizId = document.getElementById('delete-quiz-id').value;
+            const quizTitle = document.getElementById('delete-quiz-title').textContent;
+
+            if (!quizId) {
+                alert('No quiz selected');
+                return;
+            }
+
+            try {
+                const deleteBtn = document.querySelector('#delete-quiz-modal .delete-btn');
+                const originalText = deleteBtn.innerHTML;
+                deleteBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Deleting...';
+                deleteBtn.disabled = true;
+
+                const response = await fetch("http://localhost/quiz_php-main/api/delete_quiz.php", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                        id: parseInt(quizId)
+                    })
+                });
+
+                const data = await response.json();
+
+                deleteBtn.innerHTML = originalText;
+                deleteBtn.disabled = false;
+
+                if (data.success) {
+                    logActivity(`Deleted quiz: ${quizTitle}`, 'quiz');
+                    alert('Quiz deleted successfully!');
+                    closeModal(document.getElementById('delete-quiz-modal'));
+                    loadTeacherQuizzes();
+                    loadTeacherStats();
+                } else {
+                    alert('Error deleting quiz: ' + (data.message || 'Unknown error'));
+                }
+            } catch (error) {
+                console.error('Error deleting quiz:', error);
+                const deleteBtn = document.querySelector('#delete-quiz-modal .delete-btn');
+                deleteBtn.innerHTML = 'Delete Quiz';
+                deleteBtn.disabled = false;
+                alert('Network error: Could not connect to server. Please try again.');
+            }
+        }
+
+        // Open Manage Questions Modal
+        async function openManageQuestionsModal(quizId, quizTitle) {
+            document.getElementById('quiz-title-display').textContent = quizTitle;
+            document.getElementById('manage-questions-modal').dataset.quizId = quizId;
+            openModal('manage-questions-modal');
+            await loadQuizQuestions(quizId);
+        }
+
+        // Load questions for a quiz
+        async function loadQuizQuestions(quizId) {
+            try {
+                const response = await fetch(`http://localhost/quiz_php-main/api/get_questions.php?quiz_id=${quizId}`);
+                const data = await response.json();
+
+                const questionsContainer = document.getElementById('questions-container');
+                if (data.success && data.questions.length > 0) {
+                    let html = '<div class="questions-list">';
+                    data.questions.forEach((question, index) => {
+                        html += `
+                            <div class="question-item">
+                                <div class="question-header">
+                                    <h4>Question ${index + 1}</h4>
+                                    <div class="question-actions">
+                                        <button class="edit-btn" onclick="openEditQuestionModal(${question.id})">
+                                            <i class="fas fa-edit"></i> Edit
+                                        </button>
+                                        <button class="delete-btn" onclick="deleteQuestion(${question.id})">
+                                            <i class="fas fa-trash"></i> Delete
+                                        </button>
+                                    </div>
+                                </div>
+                                <p><strong>Question:</strong> ${question.question_text}</p>
+                                <div class="options-grid">
+                                    <div class="option ${question.correct_option === 'a' ? 'correct' : ''}">
+                                        <strong>A:</strong> ${question.option_a}
+                                    </div>
+                                    <div class="option ${question.correct_option === 'b' ? 'correct' : ''}">
+                                        <strong>B:</strong> ${question.option_b}
+                                    </div>
+                                    <div class="option ${question.correct_option === 'c' ? 'correct' : ''}">
+                                        <strong>C:</strong> ${question.option_c || ''}
+                                    </div>
+                                    <div class="option ${question.correct_option === 'd' ? 'correct' : ''}">
+                                        <strong>D:</strong> ${question.option_d || ''}
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+                    });
+                    html += '</div>';
+                    questionsContainer.innerHTML = html;
+                } else {
+                    questionsContainer.innerHTML = '<div style="text-align: center; padding: 20px;">No questions found. Add your first question!</div>';
+                }
+            } catch (error) {
+                console.error('Error loading questions:', error);
+                questionsContainer.innerHTML = '<div style="text-align: center; padding: 20px; color: var(--error);">Error loading questions.</div>';
+            }
+        }
+
+        // Open Edit Question Modal
+        async function openEditQuestionModal(questionId) {
+            try {
+                const response = await fetch(`http://localhost/quiz_php-main/api/get_question.php?id=${questionId}`);
+                const data = await response.json();
+
+                if (data.success) {
+                    const question = data.question;
+                    document.getElementById('question-modal-title').textContent = 'Edit Question';
+                    document.getElementById('question-id').value = question.id;
+                    document.getElementById('question-quiz-id').value = question.quiz_id || '';
+                    document.getElementById('question-text').value = question.question_text;
+                    document.getElementById('option-a').value = question.option_a;
+                    document.getElementById('option-b').value = question.option_b;
+                    document.getElementById('option-c').value = question.option_c || '';
+                    document.getElementById('option-d').value = question.option_d || '';
+                    document.getElementById('correct-option').value = question.correct_option;
+                    openModal('question-modal');
+                }
+            } catch (error) {
+                console.error('Error loading question:', error);
+                alert('Error loading question data');
+            }
+        }
+
+        // Save Question
+        async function saveQuestion() {
+            const questionId = document.getElementById('question-id').value;
+            const quizId = document.getElementById('question-quiz-id').value;
+            const questionText = document.getElementById('question-text').value;
+            const optionA = document.getElementById('option-a').value;
+            const optionB = document.getElementById('option-b').value;
+            const optionC = document.getElementById('option-c').value;
+            const optionD = document.getElementById('option-d').value;
+            const correctOption = document.getElementById('correct-option').value;
+
+            if (!questionText || !optionA || !optionB || !correctOption) {
+                alert('Please fill all required fields');
+                return;
+            }
+
+            const url = questionId ?
+                "http://localhost/quiz_php-main/api/update_question.php" :
+                "http://localhost/quiz_php-main/api/add_question.php";
+
+            const method = questionId ? "PUT" : "POST";
+
+            try {
+                const saveBtn = document.getElementById('save-question-btn');
+                const originalText = saveBtn.innerHTML;
+                saveBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Saving...';
+                saveBtn.disabled = true;
+
+                const response = await fetch(url, {
+                    method: method,
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                        id: questionId || null,
+                        quiz_id: quizId || null,
+                        question_text: questionText,
+                        option_a: optionA,
+                        option_b: optionB,
+                        option_c: optionC,
+                        option_d: optionD,
+                        correct_option: correctOption
+                    })
+                });
+
+                const data = await response.json();
+
+                saveBtn.innerHTML = originalText;
+                saveBtn.disabled = false;
+
+                if (data.success) {
+                    alert(questionId ? 'Question updated successfully!' : 'Question added successfully!');
+                    closeModal(document.getElementById('question-modal'));
+
+                    if (quizId) {
+                        const currentQuizId = document.getElementById('manage-questions-modal').dataset.quizId;
+                        await loadQuizQuestions(currentQuizId);
+                    }
+                    loadQuestions();
+                    loadTeacherStats();
+                } else {
+                    alert('Error: ' + (data.message || 'Unknown error'));
+                }
+            } catch (error) {
+                console.error('Error saving question:', error);
+                alert('Network error: Could not connect to server.');
+            }
+        }
+
+        // Delete Question
+        async function deleteQuestion(questionId) {
+            if (!confirm('Are you sure you want to delete this question?')) {
+                return;
+            }
+
+            try {
+                const response = await fetch("http://localhost/quiz_php-main/api/delete_question.php", {
+                    method: "DELETE",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({ id: questionId })
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    alert('Question deleted successfully!');
+                    loadQuestions();
+                    loadTeacherStats();
+                } else {
+                    alert('Error: ' + (data.message || 'Unknown error'));
+                }
+            } catch (error) {
+                console.error('Error deleting question:', error);
+                alert('Network error: Could not connect to server.');
+            }
+        }
+
+        // View Student Profile
+        function viewStudentProfile(studentId) {
+            alert(`Student profile view functionality would be implemented here for student ID: ${studentId}`);
+            // In a real application, this would open a modal or new page with student details
+        }
+
+        // Save Settings
+        function saveSettings() {
+            const settings = {
+                notifications: {
+                    quiz_submissions: document.getElementById('notif-quiz-submissions').checked,
+                    student_questions: document.getElementById('notif-student-questions').checked,
+                    system_updates: document.getElementById('notif-system-updates').checked
+                },
+                language: document.getElementById('language-select').value
+            };
+
+            localStorage.setItem('teacher_settings', JSON.stringify(settings));
+            alert('Settings saved successfully!');
+        }
+
+        // Make functions available globally
+        window.openEditQuizModal = openEditQuizModal;
+        window.openManageQuestionsModal = openManageQuestionsModal;
+        window.openDeleteQuizModal = openDeleteQuizModal;
+        window.openEditQuestionModal = openEditQuestionModal;
+        window.deleteQuestion = deleteQuestion;
+        window.viewStudentProfile = viewStudentProfile;
     </script>
 </body>
 </html>
